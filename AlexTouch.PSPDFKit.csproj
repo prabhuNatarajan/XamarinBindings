@@ -48,13 +48,9 @@
     <Compile Include="libarclite.linkwith.cs">
       <DependentUpon>libarclite.a</DependentUpon>
     </Compile>
-    <Compile Include="PSPDFKit.linkwith.cs">
-      <DependentUpon>PSPDFKit.a</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ObjcBindingNativeLibrary Include="libarclite.a" />
-    <ObjcBindingNativeLibrary Include="PSPDFKit.a" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
