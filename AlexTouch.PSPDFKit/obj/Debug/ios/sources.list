@@ -29,6 +29,7 @@ obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFBaseViewController.g.cs
 obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFAnnotationView.g.cs
 obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFAnnotation.g.cs
 obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFTextSelectionView.g.cs
+obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFLoupeView.g.cs
 obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFTextParser.g.cs
 obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFInkAnnotation.g.cs
 obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFHighlightAnnotation.g.cs

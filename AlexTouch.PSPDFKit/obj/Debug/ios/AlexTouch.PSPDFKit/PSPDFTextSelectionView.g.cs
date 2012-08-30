@@ -38,6 +38,8 @@ namespace AlexTouch.PSPDFKit {
 		static readonly IntPtr selSetSelectedInk_ = Selector.GetHandle ("setSelectedInk:");
 		static readonly IntPtr selSelectedAnnotation = Selector.GetHandle ("selectedAnnotation");
 		static readonly IntPtr selSetSelectedAnnotation_ = Selector.GetHandle ("setSelectedAnnotation:");
+		static readonly IntPtr selLoupeView = Selector.GetHandle ("loupeView");
+		static readonly IntPtr selSetLoupeView_ = Selector.GetHandle ("setLoupeView:");
 		static readonly IntPtr selPageView = Selector.GetHandle ("pageView");
 		static readonly IntPtr selSetPageView_ = Selector.GetHandle ("setPageView:");
 		static readonly IntPtr selHasSelection = Selector.GetHandle ("hasSelection");
@@ -314,6 +316,36 @@ namespace AlexTouch.PSPDFKit {
 			}
 		}
 		
+		object __mt_LoupeView_var;
+		[CompilerGenerated]
+		public virtual PSPDFLoupeView LoupeView {
+			[Export ("loupeView")]
+			get {
+				PSPDFLoupeView ret;
+				if (IsDirectBinding) {
+					ret = (PSPDFLoupeView) Runtime.GetNSObject (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend (this.Handle, selLoupeView));
+				} else {
+					ret = (PSPDFLoupeView) Runtime.GetNSObject (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper (this.SuperHandle, selLoupeView));
+				}
+				MarkDirty ();
+				__mt_LoupeView_var = ret;
+				return ret;
+			}
+			
+			[Export ("setLoupeView:")]
+			set {
+				if (value == null)
+					throw new ArgumentNullException ("value");
+				if (IsDirectBinding) {
+					MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr (this.Handle, selSetLoupeView_, value.Handle);
+				} else {
+					MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, selSetLoupeView_, value.Handle);
+				}
+				MarkDirty ();
+				__mt_LoupeView_var = value;
+			}
+		}
+		
 		object __mt_PageView_var;
 		[CompilerGenerated]
 		public virtual PSPDFPageView PageView {
@@ -362,6 +394,7 @@ namespace AlexTouch.PSPDFKit {
 			__mt_SelectedGlyphs_var = null;
 			__mt_SelectedInk_var = null;
 			__mt_SelectedAnnotation_var = null;
+			__mt_LoupeView_var = null;
 			__mt_PageView_var = null;
 			base.Dispose (disposing);
 		}

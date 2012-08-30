@@ -39,13 +39,6 @@ namespace AlexTouch.PSPDFKit {
 		static readonly IntPtr selSetClearHighlightsWhenClosed_ = Selector.GetHandle ("setClearHighlightsWhenClosed:");
 		static readonly IntPtr selInitWithDocumentPdfController_ = Selector.GetHandle ("initWithDocument:pdfController:");
 		static readonly IntPtr selUpdateResultCellSearchResult_ = Selector.GetHandle ("updateResultCell:searchResult:");
-		static readonly IntPtr selDidCachePageForDocumentPageImageSize_ = Selector.GetHandle ("didCachePageForDocument:page:image:size:");
-		static readonly IntPtr selDidFinishCachingDocument_ = Selector.GetHandle ("didFinishCachingDocument:");
-		static readonly IntPtr selWillStartSearchForStringIsFullSearch_ = Selector.GetHandle ("willStartSearchForString:isFullSearch:");
-		static readonly IntPtr selDidUpdateSearchForStringNewSearchResultsForPage_ = Selector.GetHandle ("didUpdateSearchForString:newSearchResults:forPage:");
-		static readonly IntPtr selDidFinishSearchForStringSearchResultsIsFullSearch_ = Selector.GetHandle ("didFinishSearchForString:searchResults:isFullSearch:");
-		static readonly IntPtr selDidCancelSearchForStringIsFullSearch_ = Selector.GetHandle ("didCancelSearchForString:isFullSearch:");
-		static readonly IntPtr selPreferredStatusBarStyle = Selector.GetHandle ("preferredStatusBarStyle");
 		static readonly IntPtr selSearchDisplayControllerWillBeginSearch_ = Selector.GetHandle ("searchDisplayControllerWillBeginSearch:");
 		static readonly IntPtr selSearchDisplayControllerDidBeginSearch_ = Selector.GetHandle ("searchDisplayControllerDidBeginSearch:");
 		static readonly IntPtr selSearchDisplayControllerWillEndSearch_ = Selector.GetHandle ("searchDisplayControllerWillEndSearch:");
@@ -69,6 +62,13 @@ namespace AlexTouch.PSPDFKit {
 		static readonly IntPtr selSearchBarCancelButtonClicked_ = Selector.GetHandle ("searchBarCancelButtonClicked:");
 		static readonly IntPtr selSearchBarResultsListButtonClicked_ = Selector.GetHandle ("searchBarResultsListButtonClicked:");
 		static readonly IntPtr selSearchBarSelectedScopeButtonIndexDidChange_ = Selector.GetHandle ("searchBar:selectedScopeButtonIndexDidChange:");
+		static readonly IntPtr selDidCachePageForDocumentPageImageSize_ = Selector.GetHandle ("didCachePageForDocument:page:image:size:");
+		static readonly IntPtr selDidFinishCachingDocument_ = Selector.GetHandle ("didFinishCachingDocument:");
+		static readonly IntPtr selWillStartSearchForStringIsFullSearch_ = Selector.GetHandle ("willStartSearchForString:isFullSearch:");
+		static readonly IntPtr selDidUpdateSearchForStringNewSearchResultsForPage_ = Selector.GetHandle ("didUpdateSearchForString:newSearchResults:forPage:");
+		static readonly IntPtr selDidFinishSearchForStringSearchResultsIsFullSearch_ = Selector.GetHandle ("didFinishSearchForString:searchResults:isFullSearch:");
+		static readonly IntPtr selDidCancelSearchForStringIsFullSearch_ = Selector.GetHandle ("didCancelSearchForString:isFullSearch:");
+		static readonly IntPtr selPreferredStatusBarStyle = Selector.GetHandle ("preferredStatusBarStyle");
 		
 		static readonly IntPtr class_ptr = Class.GetHandle ("PSPDFSearchViewController");
 		
@@ -136,121 +136,6 @@ namespace AlexTouch.PSPDFKit {
 				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr_IntPtr (this.Handle, selUpdateResultCellSearchResult_, cell.Handle, searchResult.Handle);
 			} else {
 				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr_IntPtr (this.SuperHandle, selUpdateResultCellSearchResult_, cell.Handle, searchResult.Handle);
-			}
-		}
-		
-		[Export ("didCachePageForDocument:page:image:size:")]
-		[CompilerGenerated]
-		public virtual void DidCachePageForDocument (PSPDFDocument document, System.UInt32 page, MonoTouch.UIKit.UIImage cachedImage, PSPDFSize size)
-		{
-			if (document == null)
-				throw new ArgumentNullException ("document");
-			if (cachedImage == null)
-				throw new ArgumentNullException ("cachedImage");
-			if (IsDirectBinding) {
-				ApiDefinition.Messaging.void_objc_msgSend_IntPtr_UInt32_IntPtr_int (this.Handle, selDidCachePageForDocumentPageImageSize_, document.Handle, page, cachedImage.Handle, (int)size);
-			} else {
-				ApiDefinition.Messaging.void_objc_msgSendSuper_IntPtr_UInt32_IntPtr_int (this.SuperHandle, selDidCachePageForDocumentPageImageSize_, document.Handle, page, cachedImage.Handle, (int)size);
-			}
-		}
-		
-		[Export ("didFinishCachingDocument:")]
-		[CompilerGenerated]
-		public virtual void DidFinishCachingDocument (PSPDFDocument document)
-		{
-			if (document == null)
-				throw new ArgumentNullException ("document");
-			if (IsDirectBinding) {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr (this.Handle, selDidFinishCachingDocument_, document.Handle);
-			} else {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, selDidFinishCachingDocument_, document.Handle);
-			}
-		}
-		
-		[Export ("willStartSearchForString:isFullSearch:")]
-		[CompilerGenerated]
-		public virtual void WillStartSearch (string searchString, bool isFullSearch)
-		{
-			if (searchString == null)
-				throw new ArgumentNullException ("searchString");
-			var nssearchString = NSString.CreateNative (searchString);
-			
-			if (IsDirectBinding) {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr_bool (this.Handle, selWillStartSearchForStringIsFullSearch_, nssearchString, isFullSearch);
-			} else {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr_bool (this.SuperHandle, selWillStartSearchForStringIsFullSearch_, nssearchString, isFullSearch);
-			}
-			NSString.ReleaseNative (nssearchString);
-			
-		}
-		
-		[Export ("didUpdateSearchForString:newSearchResults:forPage:")]
-		[CompilerGenerated]
-		public virtual void DidUpdateSearch (string searchString, PSPDFSearchResult[] searchResults, System.UInt32 page)
-		{
-			if (searchString == null)
-				throw new ArgumentNullException ("searchString");
-			if (searchResults == null)
-				throw new ArgumentNullException ("searchResults");
-			var nssearchString = NSString.CreateNative (searchString);
-			var nsa_searchResults = NSArray.FromNSObjects (searchResults);
-			
-			if (IsDirectBinding) {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr_IntPtr_UInt32 (this.Handle, selDidUpdateSearchForStringNewSearchResultsForPage_, nssearchString, nsa_searchResults.Handle, page);
-			} else {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr_IntPtr_UInt32 (this.SuperHandle, selDidUpdateSearchForStringNewSearchResultsForPage_, nssearchString, nsa_searchResults.Handle, page);
-			}
-			NSString.ReleaseNative (nssearchString);
-			nsa_searchResults.Dispose ();
-			
-		}
-		
-		[Export ("didFinishSearchForString:searchResults:isFullSearch:")]
-		[CompilerGenerated]
-		public virtual void DidFinishSearch (string searchString, PSPDFSearchResult[] searchResults, bool isFullSearch)
-		{
-			if (searchString == null)
-				throw new ArgumentNullException ("searchString");
-			if (searchResults == null)
-				throw new ArgumentNullException ("searchResults");
-			var nssearchString = NSString.CreateNative (searchString);
-			var nsa_searchResults = NSArray.FromNSObjects (searchResults);
-			
-			if (IsDirectBinding) {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr_IntPtr_bool (this.Handle, selDidFinishSearchForStringSearchResultsIsFullSearch_, nssearchString, nsa_searchResults.Handle, isFullSearch);
-			} else {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr_IntPtr_bool (this.SuperHandle, selDidFinishSearchForStringSearchResultsIsFullSearch_, nssearchString, nsa_searchResults.Handle, isFullSearch);
-			}
-			NSString.ReleaseNative (nssearchString);
-			nsa_searchResults.Dispose ();
-			
-		}
-		
-		[Export ("didCancelSearchForString:isFullSearch:")]
-		[CompilerGenerated]
-		public virtual void DidCancelSearch (string searchString, bool isFullSearch)
-		{
-			if (searchString == null)
-				throw new ArgumentNullException ("searchString");
-			var nssearchString = NSString.CreateNative (searchString);
-			
-			if (IsDirectBinding) {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr_bool (this.Handle, selDidCancelSearchForStringIsFullSearch_, nssearchString, isFullSearch);
-			} else {
-				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr_bool (this.SuperHandle, selDidCancelSearchForStringIsFullSearch_, nssearchString, isFullSearch);
-			}
-			NSString.ReleaseNative (nssearchString);
-			
-		}
-		
-		[Export ("preferredStatusBarStyle")]
-		[CompilerGenerated]
-		public virtual MonoTouch.UIKit.UIStatusBarStyle PreferredStatusBarStyle ()
-		{
-			if (IsDirectBinding) {
-				return (MonoTouch.UIKit.UIStatusBarStyle) MonoTouch.ObjCRuntime.Messaging.int_objc_msgSend (this.Handle, selPreferredStatusBarStyle);
-			} else {
-				return (MonoTouch.UIKit.UIStatusBarStyle) MonoTouch.ObjCRuntime.Messaging.int_objc_msgSendSuper (this.SuperHandle, selPreferredStatusBarStyle);
 			}
 		}
 		
@@ -584,6 +469,121 @@ namespace AlexTouch.PSPDFKit {
 				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr_int (this.Handle, selSearchBarSelectedScopeButtonIndexDidChange_, searchBar.Handle, selectedScope);
 			} else {
 				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr_int (this.SuperHandle, selSearchBarSelectedScopeButtonIndexDidChange_, searchBar.Handle, selectedScope);
+			}
+		}
+		
+		[Export ("didCachePageForDocument:page:image:size:")]
+		[CompilerGenerated]
+		public virtual void DidCachePageForDocument (PSPDFDocument document, System.UInt32 page, MonoTouch.UIKit.UIImage cachedImage, PSPDFSize size)
+		{
+			if (document == null)
+				throw new ArgumentNullException ("document");
+			if (cachedImage == null)
+				throw new ArgumentNullException ("cachedImage");
+			if (IsDirectBinding) {
+				ApiDefinition.Messaging.void_objc_msgSend_IntPtr_UInt32_IntPtr_int (this.Handle, selDidCachePageForDocumentPageImageSize_, document.Handle, page, cachedImage.Handle, (int)size);
+			} else {
+				ApiDefinition.Messaging.void_objc_msgSendSuper_IntPtr_UInt32_IntPtr_int (this.SuperHandle, selDidCachePageForDocumentPageImageSize_, document.Handle, page, cachedImage.Handle, (int)size);
+			}
+		}
+		
+		[Export ("didFinishCachingDocument:")]
+		[CompilerGenerated]
+		public virtual void DidFinishCachingDocument (PSPDFDocument document)
+		{
+			if (document == null)
+				throw new ArgumentNullException ("document");
+			if (IsDirectBinding) {
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr (this.Handle, selDidFinishCachingDocument_, document.Handle);
+			} else {
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, selDidFinishCachingDocument_, document.Handle);
+			}
+		}
+		
+		[Export ("willStartSearchForString:isFullSearch:")]
+		[CompilerGenerated]
+		public virtual void WillStartSearch (string searchString, bool isFullSearch)
+		{
+			if (searchString == null)
+				throw new ArgumentNullException ("searchString");
+			var nssearchString = NSString.CreateNative (searchString);
+			
+			if (IsDirectBinding) {
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr_bool (this.Handle, selWillStartSearchForStringIsFullSearch_, nssearchString, isFullSearch);
+			} else {
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr_bool (this.SuperHandle, selWillStartSearchForStringIsFullSearch_, nssearchString, isFullSearch);
+			}
+			NSString.ReleaseNative (nssearchString);
+			
+		}
+		
+		[Export ("didUpdateSearchForString:newSearchResults:forPage:")]
+		[CompilerGenerated]
+		public virtual void DidUpdateSearch (string searchString, PSPDFSearchResult[] searchResults, System.UInt32 page)
+		{
+			if (searchString == null)
+				throw new ArgumentNullException ("searchString");
+			if (searchResults == null)
+				throw new ArgumentNullException ("searchResults");
+			var nssearchString = NSString.CreateNative (searchString);
+			var nsa_searchResults = NSArray.FromNSObjects (searchResults);
+			
+			if (IsDirectBinding) {
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr_IntPtr_UInt32 (this.Handle, selDidUpdateSearchForStringNewSearchResultsForPage_, nssearchString, nsa_searchResults.Handle, page);
+			} else {
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr_IntPtr_UInt32 (this.SuperHandle, selDidUpdateSearchForStringNewSearchResultsForPage_, nssearchString, nsa_searchResults.Handle, page);
+			}
+			NSString.ReleaseNative (nssearchString);
+			nsa_searchResults.Dispose ();
+			
+		}
+		
+		[Export ("didFinishSearchForString:searchResults:isFullSearch:")]
+		[CompilerGenerated]
+		public virtual void DidFinishSearch (string searchString, PSPDFSearchResult[] searchResults, bool isFullSearch)
+		{
+			if (searchString == null)
+				throw new ArgumentNullException ("searchString");
+			if (searchResults == null)
+				throw new ArgumentNullException ("searchResults");
+			var nssearchString = NSString.CreateNative (searchString);
+			var nsa_searchResults = NSArray.FromNSObjects (searchResults);
+			
+			if (IsDirectBinding) {
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr_IntPtr_bool (this.Handle, selDidFinishSearchForStringSearchResultsIsFullSearch_, nssearchString, nsa_searchResults.Handle, isFullSearch);
+			} else {
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr_IntPtr_bool (this.SuperHandle, selDidFinishSearchForStringSearchResultsIsFullSearch_, nssearchString, nsa_searchResults.Handle, isFullSearch);
+			}
+			NSString.ReleaseNative (nssearchString);
+			nsa_searchResults.Dispose ();
+			
+		}
+		
+		[Export ("didCancelSearchForString:isFullSearch:")]
+		[CompilerGenerated]
+		public virtual void DidCancelSearch (string searchString, bool isFullSearch)
+		{
+			if (searchString == null)
+				throw new ArgumentNullException ("searchString");
+			var nssearchString = NSString.CreateNative (searchString);
+			
+			if (IsDirectBinding) {
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr_bool (this.Handle, selDidCancelSearchForStringIsFullSearch_, nssearchString, isFullSearch);
+			} else {
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr_bool (this.SuperHandle, selDidCancelSearchForStringIsFullSearch_, nssearchString, isFullSearch);
+			}
+			NSString.ReleaseNative (nssearchString);
+			
+		}
+		
+		[Export ("preferredStatusBarStyle")]
+		[CompilerGenerated]
+		public virtual MonoTouch.UIKit.UIStatusBarStyle PreferredStatusBarStyle ()
+		{
+			if (IsDirectBinding) {
+				return (MonoTouch.UIKit.UIStatusBarStyle) MonoTouch.ObjCRuntime.Messaging.int_objc_msgSend (this.Handle, selPreferredStatusBarStyle);
+			} else {
+				return (MonoTouch.UIKit.UIStatusBarStyle) MonoTouch.ObjCRuntime.Messaging.int_objc_msgSendSuper (this.SuperHandle, selPreferredStatusBarStyle);
 			}
 		}
 		

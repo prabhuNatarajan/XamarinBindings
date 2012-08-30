@@ -71,35 +71,12 @@ namespace AlexTouch.PSPDFKit
 	////	PSPDFKitGlobal.h	//
 	//////////////////////////////
 	
-	//	[BaseType (typeof (NSObject))]
-	//	interface PSPDFArrayAccess 
-	//	{
-	//		[Export ("ps_firstObject")]
-	//		void Ps_firstObject ();
-	//	}
-	
 	[BaseType (typeof (NSObject))]
 	interface PSPDFHangDetector 
 	{
 		[Static, Export ("startHangDetector")]
 		void StartHangDetector ();
 	}
-	
-	//	[BaseType (typeof (NSObject))]
-	//	interface PSPDFSubscriptingSupport
-	//	{
-	//		[Export ("objectAtIndexedSubscript:")]
-	//		NSObject ObjectAtIndexedSubscript (uint idx);
-	//
-	//		[Export ("setObject:atIndexedSubscript:")]
-	//		void SetObjectAtIndexedSubscript (NSObject obj, uint idx);
-	//
-	//		[Export ("setObject:forKeyedSubscript:")]
-	//		void SetObjectForKeyedSubscript (NSObject obj, NSObject key);
-	//
-	//		[Export ("objectForKeyedSubscript:")]
-	//		NSObject ObjectForKeyedSubscript (NSObject key);
-	//	}
 	
 	//////////////////////////////
 	////	PSPDFGlobalLock.h	//
@@ -1454,7 +1431,7 @@ namespace AlexTouch.PSPDFKit
 		[Export ("selectionView")]
 		PSPDFTextSelectionView SelectionView { get; }
 		
-		//		// TODO: Find WhereTF is this declared
+		//		// TODO: Find Where this is this declared, Maybe I will need a .h header from Peter in order to bind it 
 		//		[Export ("renderStatusView")]
 		//		PSPDFRenderStatusView RenderStatusView { get; set; }
 		
@@ -1514,7 +1491,7 @@ namespace AlexTouch.PSPDFKit
 		[Export ("setUpdateShadowBlock:")]
 		void SetUpdateShadowBlock (UpdateShadowBlock ShadowBlock);
 		
-		//TODO: Verificar Extension Methods
+		//TODO: Extension Methods
 		
 		//@property(nonatomic, strong, readonly) PSPDFAnnotation *selectedAnnotation;
 		[Export("selectedAnnotation")]
@@ -1558,8 +1535,6 @@ namespace AlexTouch.PSPDFKit
 		[Export ("pdfController")]
 		PSPDFViewController PdfController { get; }
 		
-		// From here v -----------------------------------------------
-		
 		[Export ("customView")][New]
 		UIView CustomView ();
 		
@@ -1577,9 +1552,6 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("itemStyle")]
 		UIBarButtonItemStyle ItemStyle ();
-		
-		// To here ^ -------------------------------------------------
-		//TODO: Check if MT does not complain with the above code
 		
 		[Export ("isAvailable")]
 		bool IsAvailable { get; }
@@ -1802,10 +1774,9 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("selectedAnnotation")]
 		PSPDFHighlightAnnotation SelectedAnnotation { get; set; }
-		
-		//		// TODO: Investigate WhereTF is this...
-		//		[Export ("loupeView")]
-		//		PSPDFLoupeView LoupeView { get; set; }
+
+		[Export ("loupeView")]
+		PSPDFLoupeView LoupeView { get; set; }
 		
 		[Export ("pageView")]
 		PSPDFPageView PageView { get; set; }
@@ -1837,6 +1808,24 @@ namespace AlexTouch.PSPDFKit
 		[Export ("showTextFlowData:animated:")]
 		void ShowTextFlowData (bool show, bool animated);
 	}
+
+	//////////////////////////////////////////
+	////		PSPDFLoupeView.h			//
+	//////////////////////////////////////////
+	
+	[BaseType (typeof (UIView))]
+	interface PSPDFLoupeView 
+	{
+		[Export ("initWithReferenceView:")]
+		IntPtr Constructor (UIView referenceView);
+		
+		[Export ("mode", ArgumentSemantic.Assign)]
+		PSPDFLoupeViewMode Mode { get; set; }
+		
+		[Export ("targetSize", ArgumentSemantic.Assign)]
+		SizeF TargetSize { get; set; }
+		
+	}
 	
 	//////////////////////////////////////
 	////	PSPDFBaseViewController.h	//
@@ -1844,11 +1833,7 @@ namespace AlexTouch.PSPDFKit
 	
 	[BaseType (typeof (NSObject))]
 	interface PSPDFTextParser 
-	{
-		//		// TODO: Implement this Manually ... if needed
-		//		[Field ("kPSPDFTextParserDebugLogEnabled", "__Internal")]
-		//		bool PSPDFTextParserDebugLogEnabled { get; }
-		
+	{		
 		[Export ("text")][NullAllowed]
 		string Text { get; set; }
 		
@@ -1998,10 +1983,9 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export("compoundView")]
 		UIView CompoundView { get; }
-		
-		//		// TODO: Find another loupeview
-		//		[Export("loupeView")]
-		//		PSPDFLoupeView LoupeView { get; }
+
+		[Export("loupeView")]
+		PSPDFLoupeView LoupeView { get; }
 		
 		[Export("rotationActive", ArgumentSemantic.Assign)]
 		bool RotationActive { [Bind("isRotationActive")] get; set; }
@@ -3832,25 +3816,6 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("scrollViewDidScrollToTop:")]
 		void ScrollViewDidScrollToTop (UIScrollView scrollView);
-	}
-	
-	//	[BaseType (typeof (NSObject))]
-	//	public interface NSObject2 
-	//	{
-	//		[Bind("objectAtIndexedSubscript:")]
-	//		NSObject ObjectAtIndexedSubscript (uint idx);
-	//
-	//		[Bind("setObject:atIndexedSubscript:")]
-	//		void SetObjectAtIndexedSubscript (NSObject obj, uint idx);
-	//
-	//		[Bind("setObject:forKeyedSubscript:")]
-	//		void SetObjectForKeyedSubscript (NSObject obj, NSObject key);
-	//
-	//		[Bind("objectForKeyedSubscript:")]
-	//		NSObject ObjectForKeyedSubscript (NSObject key);
-	//	}
-	
-	
-	
+	}	
 }
 

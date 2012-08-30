@@ -337,5 +337,17 @@ public enum PSPDFSearchStatus
 	Cancelled
 }
 
+//////////////////////////////////////
+////	PSPDFLoupeView.h enums 		//
+////	Start						//
+//////////////////////////////////////
+
+public enum PSPDFLoupeViewMode
+{
+	Circular,
+	DetailTop,
+	DetailBottom
+}
+
 //}
 

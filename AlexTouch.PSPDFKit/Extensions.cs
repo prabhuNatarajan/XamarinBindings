@@ -363,7 +363,6 @@ namespace AlexTouch.PSPDFKit
 			
 			return val;
 		}
-
 	}
 
 	//////////////////////////////////////////
@@ -402,6 +401,30 @@ namespace AlexTouch.PSPDFKit
 		public static PSPDFTextParser initWithPDFPage (CGPDFPage page)
 		{
 			return initWithPDFPage_(page.Handle);
+		}
+
+		private static bool kPSPDFTextParserDebugLogEnabled;
+		
+		public static bool DebugLogEnabled
+		{
+			get 
+			{
+				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFTextParserDebugLogEnabled");
+				
+				kPSPDFTextParserDebugLogEnabled = Convert.ToBoolean(Marshal.ReadByte(ptr));
+				
+				return kPSPDFTextParserDebugLogEnabled;
+			}
+			set 
+			{
+				kPSPDFTextParserDebugLogEnabled = value;
+				
+				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFTextParserDebugLogEnabled");
+				
+				Marshal.WriteByte(ptr, Convert.ToByte(kPSPDFTextParserDebugLogEnabled));
+			}
 		}
 	}
 	

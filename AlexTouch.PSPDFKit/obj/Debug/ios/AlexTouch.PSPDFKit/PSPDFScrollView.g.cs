@@ -56,6 +56,7 @@ namespace AlexTouch.PSPDFKit {
 		static readonly IntPtr selDoubleTapGesture = Selector.GetHandle ("doubleTapGesture");
 		static readonly IntPtr selLongPressGesture = Selector.GetHandle ("longPressGesture");
 		static readonly IntPtr selCompoundView = Selector.GetHandle ("compoundView");
+		static readonly IntPtr selLoupeView = Selector.GetHandle ("loupeView");
 		static readonly IntPtr selIsRotationActive = Selector.GetHandle ("isRotationActive");
 		static readonly IntPtr selSetRotationActive_ = Selector.GetHandle ("setRotationActive:");
 		static readonly IntPtr selDisplayDocumentWithPage_ = Selector.GetHandle ("displayDocument:withPage:");
@@ -525,6 +526,24 @@ namespace AlexTouch.PSPDFKit {
 			
 		}
 		
+		object __mt_LoupeView_var;
+		[CompilerGenerated]
+		public virtual PSPDFLoupeView LoupeView {
+			[Export ("loupeView")]
+			get {
+				PSPDFLoupeView ret;
+				if (IsDirectBinding) {
+					ret = (PSPDFLoupeView) Runtime.GetNSObject (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend (this.Handle, selLoupeView));
+				} else {
+					ret = (PSPDFLoupeView) Runtime.GetNSObject (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper (this.SuperHandle, selLoupeView));
+				}
+				MarkDirty ();
+				__mt_LoupeView_var = ret;
+				return ret;
+			}
+			
+		}
+		
 		[CompilerGenerated]
 		public virtual bool RotationActive {
 			[Export ("isRotationActive", ArgumentSemantic.Assign)]
@@ -556,6 +575,7 @@ namespace AlexTouch.PSPDFKit {
 			__mt_DoubleTapGesture_var = null;
 			__mt_LongPressGesture_var = null;
 			__mt_CompoundView_var = null;
+			__mt_LoupeView_var = null;
 			base.Dispose (disposing);
 		}
 	} /* class PSPDFScrollView */
