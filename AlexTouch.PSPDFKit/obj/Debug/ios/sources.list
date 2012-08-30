@@ -23,6 +23,7 @@ obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFOutlineParser.g.cs
 obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFOutlineElement.g.cs
 obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFBookmark.g.cs
 obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFPageView.g.cs
+obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFRenderStatusView.g.cs
 obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFBarButtonItem.g.cs
 obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFViewState.g.cs
 obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFBaseViewController.g.cs

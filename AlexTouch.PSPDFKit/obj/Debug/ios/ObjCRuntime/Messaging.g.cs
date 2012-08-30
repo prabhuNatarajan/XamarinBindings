@@ -237,13 +237,13 @@ namespace ApiDefinition {
 		[DllImport (LIBOBJC_DYLIB, EntryPoint="objc_msgSendSuper")]
 		public extern static System.Drawing.SizeF SizeF_objc_msgSendSuper_IntPtr_IntPtr_PointF_float_IntPtr_IntPtr_IntPtr (IntPtr receiver, IntPtr selector, System.IntPtr arg1, System.IntPtr arg2, System.Drawing.PointF arg3, float arg4, IntPtr arg5, IntPtr arg6, IntPtr arg7);
 		[DllImport (LIBOBJC_DYLIB, EntryPoint="objc_msgSend")]
-		public extern static void void_objc_msgSend_UInt32_bool (IntPtr receiver, IntPtr selector, System.UInt32 arg1, bool arg2);
-		[DllImport (LIBOBJC_DYLIB, EntryPoint="objc_msgSendSuper")]
-		public extern static void void_objc_msgSendSuper_UInt32_bool (IntPtr receiver, IntPtr selector, System.UInt32 arg1, bool arg2);
-		[DllImport (LIBOBJC_DYLIB, EntryPoint="objc_msgSend")]
 		public extern static void void_objc_msgSend_IntPtr_UInt32_bool_bool_bool (IntPtr receiver, IntPtr selector, IntPtr arg1, System.UInt32 arg2, bool arg3, bool arg4, bool arg5);
 		[DllImport (LIBOBJC_DYLIB, EntryPoint="objc_msgSendSuper")]
 		public extern static void void_objc_msgSendSuper_IntPtr_UInt32_bool_bool_bool (IntPtr receiver, IntPtr selector, IntPtr arg1, System.UInt32 arg2, bool arg3, bool arg4, bool arg5);
+		[DllImport (LIBOBJC_DYLIB, EntryPoint="objc_msgSend")]
+		public extern static void void_objc_msgSend_UInt32_bool (IntPtr receiver, IntPtr selector, System.UInt32 arg1, bool arg2);
+		[DllImport (LIBOBJC_DYLIB, EntryPoint="objc_msgSendSuper")]
+		public extern static void void_objc_msgSendSuper_UInt32_bool (IntPtr receiver, IntPtr selector, System.UInt32 arg1, bool arg2);
 		[DllImport (LIBOBJC_DYLIB, EntryPoint="objc_msgSend")]
 		public extern static System.UInt32 UInt32_objc_msgSend_UInt32_bool (IntPtr receiver, IntPtr selector, System.UInt32 arg1, bool arg2);
 		[DllImport (LIBOBJC_DYLIB, EntryPoint="objc_msgSendSuper")]

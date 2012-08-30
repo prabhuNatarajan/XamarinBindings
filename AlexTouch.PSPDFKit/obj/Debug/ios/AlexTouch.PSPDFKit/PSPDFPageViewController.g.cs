@@ -38,16 +38,16 @@ namespace AlexTouch.PSPDFKit {
 		static readonly IntPtr selScrollView = Selector.GetHandle ("scrollView");
 		static readonly IntPtr selSetScrollView_ = Selector.GetHandle ("setScrollView:");
 		static readonly IntPtr selInitWithPDFController_ = Selector.GetHandle ("initWithPDFController:");
-		static readonly IntPtr selSetPageAnimated_ = Selector.GetHandle ("setPage:animated:");
-		static readonly IntPtr selVisiblePageNumbers = Selector.GetHandle ("visiblePageNumbers");
-		static readonly IntPtr selPageViewForPage_ = Selector.GetHandle ("pageViewForPage:");
-		static readonly IntPtr selVisiblePageViews = Selector.GetHandle ("visiblePageViews");
 		static readonly IntPtr selPageViewControllerDidFinishAnimatingPreviousViewControllersTransitionCompleted_ = Selector.GetHandle ("pageViewController:didFinishAnimating:previousViewControllers:transitionCompleted:");
 		static readonly IntPtr selPageViewControllerSpineLocationForInterfaceOrientation_ = Selector.GetHandle ("pageViewController:spineLocationForInterfaceOrientation:");
 		static readonly IntPtr selPageViewControllerViewControllerBeforeViewController_ = Selector.GetHandle ("pageViewController:viewControllerBeforeViewController:");
 		static readonly IntPtr selPageViewControllerViewControllerAfterViewController_ = Selector.GetHandle ("pageViewController:viewControllerAfterViewController:");
 		static readonly IntPtr selViewControllers = Selector.GetHandle ("viewControllers");
 		static readonly IntPtr selTransitionHelperChangedToPageDoublePageModeForwardTransitionAnimated_ = Selector.GetHandle ("transitionHelper:changedToPage:doublePageMode:forwardTransition:animated:");
+		static readonly IntPtr selSetPageAnimated_ = Selector.GetHandle ("setPage:animated:");
+		static readonly IntPtr selVisiblePageNumbers = Selector.GetHandle ("visiblePageNumbers");
+		static readonly IntPtr selPageViewForPage_ = Selector.GetHandle ("pageViewForPage:");
+		static readonly IntPtr selVisiblePageViews = Selector.GetHandle ("visiblePageViews");
 		
 		static readonly IntPtr class_ptr = Class.GetHandle ("PSPDFPageViewController");
 		
@@ -98,50 +98,6 @@ namespace AlexTouch.PSPDFKit {
 				Handle = MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend_IntPtr (this.Handle, selInitWithPDFController_, pdfController.Handle);
 			} else {
 				Handle = MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper_IntPtr (this.SuperHandle, selInitWithPDFController_, pdfController.Handle);
-			}
-		}
-		
-		[Export ("setPage:animated:")]
-		[CompilerGenerated]
-		public virtual void SetPage (System.UInt32 page, bool animated)
-		{
-			if (IsDirectBinding) {
-				ApiDefinition.Messaging.void_objc_msgSend_UInt32_bool (this.Handle, selSetPageAnimated_, page, animated);
-			} else {
-				ApiDefinition.Messaging.void_objc_msgSendSuper_UInt32_bool (this.SuperHandle, selSetPageAnimated_, page, animated);
-			}
-		}
-		
-		[Export ("visiblePageNumbers")]
-		[CompilerGenerated]
-		public virtual NSNumber[] VisiblePageNumbers ()
-		{
-			if (IsDirectBinding) {
-				return NSArray.ArrayFromHandle<MonoTouch.Foundation.NSNumber>(MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend (this.Handle, selVisiblePageNumbers));
-			} else {
-				return NSArray.ArrayFromHandle<MonoTouch.Foundation.NSNumber>(MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper (this.SuperHandle, selVisiblePageNumbers));
-			}
-		}
-		
-		[Export ("pageViewForPage:")]
-		[CompilerGenerated]
-		public virtual PSPDFPageView PageViewForPage (System.UInt32 page)
-		{
-			if (IsDirectBinding) {
-				return (PSPDFPageView) Runtime.GetNSObject (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend_UInt32 (this.Handle, selPageViewForPage_, page));
-			} else {
-				return (PSPDFPageView) Runtime.GetNSObject (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper_UInt32 (this.SuperHandle, selPageViewForPage_, page));
-			}
-		}
-		
-		[Export ("visiblePageViews")]
-		[CompilerGenerated]
-		public virtual PSPDFPageView[] VisiblePageViews ()
-		{
-			if (IsDirectBinding) {
-				return NSArray.ArrayFromHandle<AlexTouch.PSPDFKit.PSPDFPageView>(MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend (this.Handle, selVisiblePageViews));
-			} else {
-				return NSArray.ArrayFromHandle<AlexTouch.PSPDFKit.PSPDFPageView>(MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper (this.SuperHandle, selVisiblePageViews));
 			}
 		}
 		
@@ -228,6 +184,50 @@ namespace AlexTouch.PSPDFKit {
 				ApiDefinition.Messaging.void_objc_msgSend_IntPtr_UInt32_bool_bool_bool (this.Handle, selTransitionHelperChangedToPageDoublePageModeForwardTransitionAnimated_, transitionHelper.Handle, page, doublePageMode, forwardTransition, animated);
 			} else {
 				ApiDefinition.Messaging.void_objc_msgSendSuper_IntPtr_UInt32_bool_bool_bool (this.SuperHandle, selTransitionHelperChangedToPageDoublePageModeForwardTransitionAnimated_, transitionHelper.Handle, page, doublePageMode, forwardTransition, animated);
+			}
+		}
+		
+		[Export ("setPage:animated:")]
+		[CompilerGenerated]
+		public virtual void SetPage (System.UInt32 page, bool animated)
+		{
+			if (IsDirectBinding) {
+				ApiDefinition.Messaging.void_objc_msgSend_UInt32_bool (this.Handle, selSetPageAnimated_, page, animated);
+			} else {
+				ApiDefinition.Messaging.void_objc_msgSendSuper_UInt32_bool (this.SuperHandle, selSetPageAnimated_, page, animated);
+			}
+		}
+		
+		[Export ("visiblePageNumbers")]
+		[CompilerGenerated]
+		public virtual NSNumber[] VisiblePageNumbers ()
+		{
+			if (IsDirectBinding) {
+				return NSArray.ArrayFromHandle<MonoTouch.Foundation.NSNumber>(MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend (this.Handle, selVisiblePageNumbers));
+			} else {
+				return NSArray.ArrayFromHandle<MonoTouch.Foundation.NSNumber>(MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper (this.SuperHandle, selVisiblePageNumbers));
+			}
+		}
+		
+		[Export ("pageViewForPage:")]
+		[CompilerGenerated]
+		public virtual PSPDFPageView PageViewForPage (System.UInt32 page)
+		{
+			if (IsDirectBinding) {
+				return (PSPDFPageView) Runtime.GetNSObject (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend_UInt32 (this.Handle, selPageViewForPage_, page));
+			} else {
+				return (PSPDFPageView) Runtime.GetNSObject (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper_UInt32 (this.SuperHandle, selPageViewForPage_, page));
+			}
+		}
+		
+		[Export ("visiblePageViews")]
+		[CompilerGenerated]
+		public virtual PSPDFPageView[] VisiblePageViews ()
+		{
+			if (IsDirectBinding) {
+				return NSArray.ArrayFromHandle<AlexTouch.PSPDFKit.PSPDFPageView>(MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend (this.Handle, selVisiblePageViews));
+			} else {
+				return NSArray.ArrayFromHandle<AlexTouch.PSPDFKit.PSPDFPageView>(MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper (this.SuperHandle, selVisiblePageViews));
 			}
 		}
 		

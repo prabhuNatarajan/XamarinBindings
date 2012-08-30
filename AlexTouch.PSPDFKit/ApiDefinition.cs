@@ -1431,9 +1431,8 @@ namespace AlexTouch.PSPDFKit
 		[Export ("selectionView")]
 		PSPDFTextSelectionView SelectionView { get; }
 		
-		//		// TODO: Find Where this is this declared, Maybe I will need a .h header from Peter in order to bind it 
-		//		[Export ("renderStatusView")]
-		//		PSPDFRenderStatusView RenderStatusView { get; set; }
+		[Export ("renderStatusView")]
+		PSPDFRenderStatusView RenderStatusView { get; set; }
 		
 		[Export ("textParser")]
 		PSPDFTextParser TextParser { get; }
@@ -1514,6 +1513,12 @@ namespace AlexTouch.PSPDFKit
 		
 		[Bind ("pspdf_scrollView:willZoomToScale:animated:")]
 		void Pspdf_scrollView (UIScrollView scrollView, float scale, bool animated);
+	}
+
+	[BaseType (typeof (UIImageView))]
+	interface PSPDFRenderStatusView 
+	{
+
 	}
 	
 	//////////////////////////////////////

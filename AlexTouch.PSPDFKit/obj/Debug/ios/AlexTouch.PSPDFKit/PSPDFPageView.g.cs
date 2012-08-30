@@ -39,6 +39,8 @@ namespace AlexTouch.PSPDFKit {
 		static readonly IntPtr selIsRendering = Selector.GetHandle ("isRendering");
 		static readonly IntPtr selVisibleRect = Selector.GetHandle ("visibleRect");
 		static readonly IntPtr selSelectionView = Selector.GetHandle ("selectionView");
+		static readonly IntPtr selRenderStatusView = Selector.GetHandle ("renderStatusView");
+		static readonly IntPtr selSetRenderStatusView_ = Selector.GetHandle ("setRenderStatusView:");
 		static readonly IntPtr selTextParser = Selector.GetHandle ("textParser");
 		static readonly IntPtr selScrollView = Selector.GetHandle ("scrollView");
 		static readonly IntPtr selVisibleAnnotationViews = Selector.GetHandle ("visibleAnnotationViews");
@@ -519,6 +521,36 @@ namespace AlexTouch.PSPDFKit {
 			
 		}
 		
+		object __mt_RenderStatusView_var;
+		[CompilerGenerated]
+		public virtual PSPDFRenderStatusView RenderStatusView {
+			[Export ("renderStatusView")]
+			get {
+				PSPDFRenderStatusView ret;
+				if (IsDirectBinding) {
+					ret = (PSPDFRenderStatusView) Runtime.GetNSObject (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSend (this.Handle, selRenderStatusView));
+				} else {
+					ret = (PSPDFRenderStatusView) Runtime.GetNSObject (MonoTouch.ObjCRuntime.Messaging.IntPtr_objc_msgSendSuper (this.SuperHandle, selRenderStatusView));
+				}
+				MarkDirty ();
+				__mt_RenderStatusView_var = ret;
+				return ret;
+			}
+			
+			[Export ("setRenderStatusView:")]
+			set {
+				if (value == null)
+					throw new ArgumentNullException ("value");
+				if (IsDirectBinding) {
+					MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr (this.Handle, selSetRenderStatusView_, value.Handle);
+				} else {
+					MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, selSetRenderStatusView_, value.Handle);
+				}
+				MarkDirty ();
+				__mt_RenderStatusView_var = value;
+			}
+		}
+		
 		object __mt_TextParser_var;
 		[CompilerGenerated]
 		public virtual PSPDFTextParser TextParser {
@@ -737,6 +769,7 @@ namespace AlexTouch.PSPDFKit {
 			__mt_ContentView_var = null;
 			__mt_RenderView_var = null;
 			__mt_SelectionView_var = null;
+			__mt_RenderStatusView_var = null;
 			__mt_TextParser_var = null;
 			__mt_ScrollView_var = null;
 			__mt_VisibleAnnotationViews_var = null;
