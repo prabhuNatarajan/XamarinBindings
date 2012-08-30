@@ -56,7 +56,4 @@
     <ObjcBindingNativeLibrary Include="libarclite.a" />
     <ObjcBindingNativeLibrary Include="PSPDFKit.a" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="README.md" />
-  </ItemGroup>
 </Project>
