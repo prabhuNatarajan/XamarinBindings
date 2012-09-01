@@ -2074,6 +2074,480 @@ namespace AlexTouch.PSPDFKit {
 			
 		}
 		
+		//
+		// Events and properties from the delegate
+		//
+		
+		_PSPDFViewControllerDelegate EnsurePSPDFViewControllerDelegate ()
+		{
+			var del = WeakDelegate;
+			if (del == null || (!(del is _PSPDFViewControllerDelegate))){
+				del = new _PSPDFViewControllerDelegate ();
+				WeakDelegate = del;
+			}
+			return (_PSPDFViewControllerDelegate) del;
+		}
+		
+		[Register]
+		class _PSPDFViewControllerDelegate : AlexTouch.PSPDFKit.PSPDFViewControllerDelegate { 
+			public _PSPDFViewControllerDelegate () {}
+			
+			internal PSPDFViewControllerShouldSetDocument shouldSetDocument;
+			[Preserve (Conditional = true)]
+			public override bool ShouldSetDocument (AlexTouch.PSPDFKit.PSPDFViewController pdfController, AlexTouch.PSPDFKit.PSPDFDocument document)
+			{
+				PSPDFViewControllerShouldSetDocument handler = shouldSetDocument;
+				if (handler != null)
+					return handler (pdfController, document);
+				return true;
+			}
+			
+			internal EventHandler<PSPDFViewControllerWillDisplayDocumentEventArgs> willDisplayDocument;
+			[Preserve (Conditional = true)]
+			public override void WillDisplayDocument (AlexTouch.PSPDFKit.PSPDFViewController pdfController, AlexTouch.PSPDFKit.PSPDFDocument document)
+			{
+				EventHandler<PSPDFViewControllerWillDisplayDocumentEventArgs> handler = willDisplayDocument;
+				if (handler != null){
+					var args = new PSPDFViewControllerWillDisplayDocumentEventArgs (document);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal EventHandler<PSPDFViewControllerDidDisplayDocumentEventArgs> didDisplayDocument;
+			[Preserve (Conditional = true)]
+			public override void DidDisplayDocument (AlexTouch.PSPDFKit.PSPDFViewController pdfController, AlexTouch.PSPDFKit.PSPDFDocument document)
+			{
+				EventHandler<PSPDFViewControllerDidDisplayDocumentEventArgs> handler = didDisplayDocument;
+				if (handler != null){
+					var args = new PSPDFViewControllerDidDisplayDocumentEventArgs (document);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal PSPDFViewControllerShouldScrollToPage shouldScrollToPage;
+			[Preserve (Conditional = true)]
+			public override bool ShouldScrollToPage (AlexTouch.PSPDFKit.PSPDFViewController pdfController, uint page)
+			{
+				PSPDFViewControllerShouldScrollToPage handler = shouldScrollToPage;
+				if (handler != null)
+					return handler (pdfController, page);
+				return true;
+			}
+			
+			internal EventHandler<PSPDFViewControllerDidShowPageViewEventArgs> didShowPageView;
+			[Preserve (Conditional = true)]
+			public override void DidShowPageView (AlexTouch.PSPDFKit.PSPDFViewController pdfController, AlexTouch.PSPDFKit.PSPDFPageView pageView)
+			{
+				EventHandler<PSPDFViewControllerDidShowPageViewEventArgs> handler = didShowPageView;
+				if (handler != null){
+					var args = new PSPDFViewControllerDidShowPageViewEventArgs (pageView);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal EventHandler<PSPDFViewControllerDidRenderPageViewEventArgs> didRenderPageView;
+			[Preserve (Conditional = true)]
+			public override void DidRenderPageView (AlexTouch.PSPDFKit.PSPDFViewController pdfController, AlexTouch.PSPDFKit.PSPDFPageView pageView)
+			{
+				EventHandler<PSPDFViewControllerDidRenderPageViewEventArgs> handler = didRenderPageView;
+				if (handler != null){
+					var args = new PSPDFViewControllerDidRenderPageViewEventArgs (pageView);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal EventHandler<PSPDFViewControllerDidChangeViewModeEventArgs> didChangeViewMode;
+			[Preserve (Conditional = true)]
+			public override void DidChangeViewMode (AlexTouch.PSPDFKit.PSPDFViewController pdfController, PSPDFViewMode viewMode)
+			{
+				EventHandler<PSPDFViewControllerDidChangeViewModeEventArgs> handler = didChangeViewMode;
+				if (handler != null){
+					var args = new PSPDFViewControllerDidChangeViewModeEventArgs (viewMode);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal EventHandler<PSPDFViewControllerDidEndPageDraggingEventArgs> didEndPageDragging;
+			[Preserve (Conditional = true)]
+			public override void DidEndPageDragging (AlexTouch.PSPDFKit.PSPDFViewController pdfController, UIScrollView scrollView, bool decelerate, PointF velocity, ref PointF targetContentOffset)
+			{
+				EventHandler<PSPDFViewControllerDidEndPageDraggingEventArgs> handler = didEndPageDragging;
+				if (handler != null){
+					var args = new PSPDFViewControllerDidEndPageDraggingEventArgs (scrollView, decelerate, velocity, targetContentOffset);
+					handler (pdfController, args);
+					targetContentOffset = args.TargetContentOffset;
+				}
+			}
+			
+			internal EventHandler<PSPDFViewControllerDidEndPageScrollingAnimationEventArgs> didEndPageScrollingAnimation;
+			[Preserve (Conditional = true)]
+			public override void DidEndPageScrollingAnimation (AlexTouch.PSPDFKit.PSPDFViewController pdfController, UIScrollView scrollView)
+			{
+				EventHandler<PSPDFViewControllerDidEndPageScrollingAnimationEventArgs> handler = didEndPageScrollingAnimation;
+				if (handler != null){
+					var args = new PSPDFViewControllerDidEndPageScrollingAnimationEventArgs (scrollView);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal EventHandler<PSPDFViewControllerDidEndPageZoomingEventArgs> didEndPageZooming;
+			[Preserve (Conditional = true)]
+			public override void DidEndPageZooming (AlexTouch.PSPDFKit.PSPDFViewController pdfController, UIScrollView scrollView, float scale)
+			{
+				EventHandler<PSPDFViewControllerDidEndPageZoomingEventArgs> handler = didEndPageZooming;
+				if (handler != null){
+					var args = new PSPDFViewControllerDidEndPageZoomingEventArgs (scrollView, scale);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal PSPDFViewControllerDocumentForRelativePath documentForRelativePath;
+			[Preserve (Conditional = true)]
+			public override AlexTouch.PSPDFKit.PSPDFDocument DocumentForRelativePath (AlexTouch.PSPDFKit.PSPDFViewController pdfController, string relativePath)
+			{
+				PSPDFViewControllerDocumentForRelativePath handler = documentForRelativePath;
+				if (handler != null)
+					return handler (pdfController, relativePath);
+				return null;
+			}
+			
+			internal PSPDFViewControllerDidTapOnPageView didTapOnPageView;
+			[Preserve (Conditional = true)]
+			public override bool DidTapOnPageView (AlexTouch.PSPDFKit.PSPDFViewController pdfController, AlexTouch.PSPDFKit.PSPDFPageView pageView, PointF viewPoint)
+			{
+				PSPDFViewControllerDidTapOnPageView handler = didTapOnPageView;
+				if (handler != null)
+					return handler (pdfController, pageView, viewPoint);
+				return false;
+			}
+			
+			internal PSPDFViewControllerDidLongPressOnPageView didLongPressOnPageView;
+			[Preserve (Conditional = true)]
+			public override bool DidLongPressOnPageView (AlexTouch.PSPDFKit.PSPDFViewController pdfController, AlexTouch.PSPDFKit.PSPDFPageView pageView, PointF viewPoint, UILongPressGestureRecognizer gestureRecognizer)
+			{
+				PSPDFViewControllerDidLongPressOnPageView handler = didLongPressOnPageView;
+				if (handler != null)
+					return handler (pdfController, pageView, viewPoint, gestureRecognizer);
+				return false;
+			}
+			
+			internal PSPDFViewControllerShouldDisplayAnnotation shouldDisplayAnnotation;
+			[Preserve (Conditional = true)]
+			public override bool ShouldDisplayAnnotation (AlexTouch.PSPDFKit.PSPDFViewController pdfController, AlexTouch.PSPDFKit.PSPDFAnnotation annotation, AlexTouch.PSPDFKit.PSPDFPageView pageView)
+			{
+				PSPDFViewControllerShouldDisplayAnnotation handler = shouldDisplayAnnotation;
+				if (handler != null)
+					return handler (pdfController, annotation, pageView);
+				return true;
+			}
+			
+			internal PSPDFViewControllerDidTapOnAnnotation didTapOnAnnotation;
+			[Preserve (Conditional = true)]
+			public override bool DidTapOnAnnotation (AlexTouch.PSPDFKit.PSPDFViewController pdfController, AlexTouch.PSPDFKit.PSPDFAnnotation annotation, PointF annotationPoint, AlexTouch.PSPDFKit.PSPDFAnnotationView annotationView, AlexTouch.PSPDFKit.PSPDFPageView pageView, PointF viewPoint)
+			{
+				PSPDFViewControllerDidTapOnAnnotation handler = didTapOnAnnotation;
+				if (handler != null)
+					return handler (pdfController, annotation, annotationPoint, annotationView, pageView, viewPoint);
+				return false;
+			}
+			
+			internal PSPDFViewControllerAnnotationViewForAnnotation annotationViewForAnnotation;
+			[Preserve (Conditional = true)]
+			public override AlexTouch.PSPDFKit.PSPDFAnnotationView AnnotationViewForAnnotation (AlexTouch.PSPDFKit.PSPDFViewController pdfController, AlexTouch.PSPDFKit.PSPDFAnnotationView annotationView, AlexTouch.PSPDFKit.PSPDFAnnotation annotation, AlexTouch.PSPDFKit.PSPDFPageView pageView)
+			{
+				PSPDFViewControllerAnnotationViewForAnnotation handler = annotationViewForAnnotation;
+				if (handler != null)
+					return handler (pdfController, annotationView, annotation, pageView);
+				return annotationView;
+			}
+			
+			internal PSPDFViewControllerResolveCustomAnnotationPathToken resolveCustomAnnotationPathToken;
+			[Preserve (Conditional = true)]
+			public override string ResolveCustomAnnotationPathToken (AlexTouch.PSPDFKit.PSPDFViewController pdfController, string pathToken)
+			{
+				PSPDFViewControllerResolveCustomAnnotationPathToken handler = resolveCustomAnnotationPathToken;
+				if (handler != null)
+					return handler (pdfController, pathToken);
+				return null;
+			}
+			
+			internal EventHandler<PSPDFViewControllerWillShowAnnotationViewEventArgs> willShowAnnotationView;
+			[Preserve (Conditional = true)]
+			public override void WillShowAnnotationView (AlexTouch.PSPDFKit.PSPDFViewController pdfController, AlexTouch.PSPDFKit.PSPDFAnnotationView annotationView, AlexTouch.PSPDFKit.PSPDFPageView pageView)
+			{
+				EventHandler<PSPDFViewControllerWillShowAnnotationViewEventArgs> handler = willShowAnnotationView;
+				if (handler != null){
+					var args = new PSPDFViewControllerWillShowAnnotationViewEventArgs (annotationView, pageView);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal EventHandler<PSPDFViewControllerDidShowAnnotationViewEventArgs> didShowAnnotationView;
+			[Preserve (Conditional = true)]
+			public override void DidShowAnnotationView (AlexTouch.PSPDFKit.PSPDFViewController pdfController, AlexTouch.PSPDFKit.PSPDFAnnotationView annotationView, AlexTouch.PSPDFKit.PSPDFPageView pageView)
+			{
+				EventHandler<PSPDFViewControllerDidShowAnnotationViewEventArgs> handler = didShowAnnotationView;
+				if (handler != null){
+					var args = new PSPDFViewControllerDidShowAnnotationViewEventArgs (annotationView, pageView);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal EventHandler<PSPDFViewControllerDidLoadPageViewEventArgs> didLoadPageView;
+			[Preserve (Conditional = true)]
+			public override void DidLoadPageView (AlexTouch.PSPDFKit.PSPDFViewController pdfController, AlexTouch.PSPDFKit.PSPDFPageView pageView)
+			{
+				EventHandler<PSPDFViewControllerDidLoadPageViewEventArgs> handler = didLoadPageView;
+				if (handler != null){
+					var args = new PSPDFViewControllerDidLoadPageViewEventArgs (pageView);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal EventHandler<PSPDFViewControllerWillUnloadPageViewEventArgs> willUnloadPageView;
+			[Preserve (Conditional = true)]
+			public override void WillUnloadPageView (AlexTouch.PSPDFKit.PSPDFViewController pdfController, AlexTouch.PSPDFKit.PSPDFPageView pageView)
+			{
+				EventHandler<PSPDFViewControllerWillUnloadPageViewEventArgs> handler = willUnloadPageView;
+				if (handler != null){
+					var args = new PSPDFViewControllerWillUnloadPageViewEventArgs (pageView);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal EventHandler<PSPDFViewControllerWillShowControllerEventArgs> willShowController;
+			[Preserve (Conditional = true)]
+			public override void WillShowController (AlexTouch.PSPDFKit.PSPDFViewController pdfController, NSObject viewController, NSObject controller, bool animated)
+			{
+				EventHandler<PSPDFViewControllerWillShowControllerEventArgs> handler = willShowController;
+				if (handler != null){
+					var args = new PSPDFViewControllerWillShowControllerEventArgs (viewController, controller, animated);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal EventHandler<PSPDFViewControllerDidShowControllerEventArgs> didShowController;
+			[Preserve (Conditional = true)]
+			public override void DidShowController (AlexTouch.PSPDFKit.PSPDFViewController pdfController, NSObject viewController, NSObject controller, bool animated)
+			{
+				EventHandler<PSPDFViewControllerDidShowControllerEventArgs> handler = didShowController;
+				if (handler != null){
+					var args = new PSPDFViewControllerDidShowControllerEventArgs (viewController, controller, animated);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal PSPDFViewControllerShouldShowHUD shouldShowHUD;
+			[Preserve (Conditional = true)]
+			public override bool ShouldShowHUD (AlexTouch.PSPDFKit.PSPDFViewController pdfController, bool animated)
+			{
+				PSPDFViewControllerShouldShowHUD handler = shouldShowHUD;
+				if (handler != null)
+					return handler (pdfController, animated);
+				return true;
+			}
+			
+			internal EventHandler<PSPDFViewControllerWillShowHUDEventArgs> willShowHUD;
+			[Preserve (Conditional = true)]
+			public override void WillShowHUD (AlexTouch.PSPDFKit.PSPDFViewController pdfController, bool animated)
+			{
+				EventHandler<PSPDFViewControllerWillShowHUDEventArgs> handler = willShowHUD;
+				if (handler != null){
+					var args = new PSPDFViewControllerWillShowHUDEventArgs (animated);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal EventHandler<PSPDFViewControllerDidShowHUDEventArgs> didShowHUD;
+			[Preserve (Conditional = true)]
+			public override void DidShowHUD (AlexTouch.PSPDFKit.PSPDFViewController pdfController, bool animated)
+			{
+				EventHandler<PSPDFViewControllerDidShowHUDEventArgs> handler = didShowHUD;
+				if (handler != null){
+					var args = new PSPDFViewControllerDidShowHUDEventArgs (animated);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal PSPDFViewControllerShouldHideHUD shouldHideHUD;
+			[Preserve (Conditional = true)]
+			public override bool ShouldHideHUD (AlexTouch.PSPDFKit.PSPDFViewController pdfController, bool animated)
+			{
+				PSPDFViewControllerShouldHideHUD handler = shouldHideHUD;
+				if (handler != null)
+					return handler (pdfController, animated);
+				return true;
+			}
+			
+			internal EventHandler<PSPDFViewControllerWillHideHUDEventArgs> willHideHUD;
+			[Preserve (Conditional = true)]
+			public override void WillHideHUD (AlexTouch.PSPDFKit.PSPDFViewController pdfController, bool animated)
+			{
+				EventHandler<PSPDFViewControllerWillHideHUDEventArgs> handler = willHideHUD;
+				if (handler != null){
+					var args = new PSPDFViewControllerWillHideHUDEventArgs (animated);
+					handler (pdfController, args);
+				}
+			}
+			
+			internal EventHandler<PSPDFViewControllerDidHideHUDEventArgs> didHideHUD;
+			[Preserve (Conditional = true)]
+			public override void DidHideHUD (AlexTouch.PSPDFKit.PSPDFViewController pdfController, bool animated)
+			{
+				EventHandler<PSPDFViewControllerDidHideHUDEventArgs> handler = didHideHUD;
+				if (handler != null){
+					var args = new PSPDFViewControllerDidHideHUDEventArgs (animated);
+					handler (pdfController, args);
+				}
+			}
+			
+		}
+		
+		public PSPDFViewControllerShouldSetDocument ShouldSetDocument {
+			get { return EnsurePSPDFViewControllerDelegate ().shouldSetDocument; }
+			set { EnsurePSPDFViewControllerDelegate ().shouldSetDocument = value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerWillDisplayDocumentEventArgs> WillDisplayDocument {
+			add { EnsurePSPDFViewControllerDelegate ().willDisplayDocument += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().willDisplayDocument -= value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerDidDisplayDocumentEventArgs> DidDisplayDocument {
+			add { EnsurePSPDFViewControllerDelegate ().didDisplayDocument += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().didDisplayDocument -= value; }
+		}
+		
+		public PSPDFViewControllerShouldScrollToPage ShouldScrollToPage {
+			get { return EnsurePSPDFViewControllerDelegate ().shouldScrollToPage; }
+			set { EnsurePSPDFViewControllerDelegate ().shouldScrollToPage = value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerDidShowPageViewEventArgs> DidShowPageView {
+			add { EnsurePSPDFViewControllerDelegate ().didShowPageView += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().didShowPageView -= value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerDidRenderPageViewEventArgs> DidRenderPageView {
+			add { EnsurePSPDFViewControllerDelegate ().didRenderPageView += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().didRenderPageView -= value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerDidChangeViewModeEventArgs> DidChangeViewMode {
+			add { EnsurePSPDFViewControllerDelegate ().didChangeViewMode += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().didChangeViewMode -= value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerDidEndPageDraggingEventArgs> DidEndPageDragging {
+			add { EnsurePSPDFViewControllerDelegate ().didEndPageDragging += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().didEndPageDragging -= value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerDidEndPageScrollingAnimationEventArgs> DidEndPageScrollingAnimation {
+			add { EnsurePSPDFViewControllerDelegate ().didEndPageScrollingAnimation += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().didEndPageScrollingAnimation -= value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerDidEndPageZoomingEventArgs> DidEndPageZooming {
+			add { EnsurePSPDFViewControllerDelegate ().didEndPageZooming += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().didEndPageZooming -= value; }
+		}
+		
+		public PSPDFViewControllerDocumentForRelativePath DocumentForRelativePath {
+			get { return EnsurePSPDFViewControllerDelegate ().documentForRelativePath; }
+			set { EnsurePSPDFViewControllerDelegate ().documentForRelativePath = value; }
+		}
+		
+		public PSPDFViewControllerDidTapOnPageView DidTapOnPageView {
+			get { return EnsurePSPDFViewControllerDelegate ().didTapOnPageView; }
+			set { EnsurePSPDFViewControllerDelegate ().didTapOnPageView = value; }
+		}
+		
+		public PSPDFViewControllerDidLongPressOnPageView DidLongPressOnPageView {
+			get { return EnsurePSPDFViewControllerDelegate ().didLongPressOnPageView; }
+			set { EnsurePSPDFViewControllerDelegate ().didLongPressOnPageView = value; }
+		}
+		
+		public PSPDFViewControllerShouldDisplayAnnotation ShouldDisplayAnnotation {
+			get { return EnsurePSPDFViewControllerDelegate ().shouldDisplayAnnotation; }
+			set { EnsurePSPDFViewControllerDelegate ().shouldDisplayAnnotation = value; }
+		}
+		
+		public PSPDFViewControllerDidTapOnAnnotation DidTapOnAnnotation {
+			get { return EnsurePSPDFViewControllerDelegate ().didTapOnAnnotation; }
+			set { EnsurePSPDFViewControllerDelegate ().didTapOnAnnotation = value; }
+		}
+		
+		public PSPDFViewControllerAnnotationViewForAnnotation AnnotationViewForAnnotation {
+			get { return EnsurePSPDFViewControllerDelegate ().annotationViewForAnnotation; }
+			set { EnsurePSPDFViewControllerDelegate ().annotationViewForAnnotation = value; }
+		}
+		
+		public PSPDFViewControllerResolveCustomAnnotationPathToken ResolveCustomAnnotationPathToken {
+			get { return EnsurePSPDFViewControllerDelegate ().resolveCustomAnnotationPathToken; }
+			set { EnsurePSPDFViewControllerDelegate ().resolveCustomAnnotationPathToken = value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerWillShowAnnotationViewEventArgs> WillShowAnnotationView {
+			add { EnsurePSPDFViewControllerDelegate ().willShowAnnotationView += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().willShowAnnotationView -= value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerDidShowAnnotationViewEventArgs> DidShowAnnotationView {
+			add { EnsurePSPDFViewControllerDelegate ().didShowAnnotationView += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().didShowAnnotationView -= value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerDidLoadPageViewEventArgs> DidLoadPageView {
+			add { EnsurePSPDFViewControllerDelegate ().didLoadPageView += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().didLoadPageView -= value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerWillUnloadPageViewEventArgs> WillUnloadPageView {
+			add { EnsurePSPDFViewControllerDelegate ().willUnloadPageView += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().willUnloadPageView -= value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerWillShowControllerEventArgs> WillShowController {
+			add { EnsurePSPDFViewControllerDelegate ().willShowController += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().willShowController -= value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerDidShowControllerEventArgs> DidShowController {
+			add { EnsurePSPDFViewControllerDelegate ().didShowController += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().didShowController -= value; }
+		}
+		
+		public PSPDFViewControllerShouldShowHUD ShouldShowHUD {
+			get { return EnsurePSPDFViewControllerDelegate ().shouldShowHUD; }
+			set { EnsurePSPDFViewControllerDelegate ().shouldShowHUD = value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerWillShowHUDEventArgs> WillShowHUD {
+			add { EnsurePSPDFViewControllerDelegate ().willShowHUD += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().willShowHUD -= value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerDidShowHUDEventArgs> DidShowHUD {
+			add { EnsurePSPDFViewControllerDelegate ().didShowHUD += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().didShowHUD -= value; }
+		}
+		
+		public PSPDFViewControllerShouldHideHUD ShouldHideHUD {
+			get { return EnsurePSPDFViewControllerDelegate ().shouldHideHUD; }
+			set { EnsurePSPDFViewControllerDelegate ().shouldHideHUD = value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerWillHideHUDEventArgs> WillHideHUD {
+			add { EnsurePSPDFViewControllerDelegate ().willHideHUD += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().willHideHUD -= value; }
+		}
+		
+		public event EventHandler<PSPDFViewControllerDidHideHUDEventArgs> DidHideHUD {
+			add { EnsurePSPDFViewControllerDelegate ().didHideHUD += value; }
+			remove { EnsurePSPDFViewControllerDelegate ().didHideHUD -= value; }
+		}
+		
 		protected override void Dispose (bool disposing)
 		{
 			__mt_ViewState_var = null;
@@ -2106,4 +2580,173 @@ namespace AlexTouch.PSPDFKit {
 			base.Dispose (disposing);
 		}
 	} /* class PSPDFViewController */
+	
+	
+	//
+	// EventArgs classes
+	//
+	public partial class PSPDFViewControllerWillDisplayDocumentEventArgs : EventArgs {
+		public PSPDFViewControllerWillDisplayDocumentEventArgs (AlexTouch.PSPDFKit.PSPDFDocument document)
+		{
+			this.Document = document;
+		}
+		public AlexTouch.PSPDFKit.PSPDFDocument Document { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerDidDisplayDocumentEventArgs : EventArgs {
+		public PSPDFViewControllerDidDisplayDocumentEventArgs (AlexTouch.PSPDFKit.PSPDFDocument document)
+		{
+			this.Document = document;
+		}
+		public AlexTouch.PSPDFKit.PSPDFDocument Document { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerDidShowPageViewEventArgs : EventArgs {
+		public PSPDFViewControllerDidShowPageViewEventArgs (AlexTouch.PSPDFKit.PSPDFPageView pageView)
+		{
+			this.PageView = pageView;
+		}
+		public AlexTouch.PSPDFKit.PSPDFPageView PageView { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerDidRenderPageViewEventArgs : EventArgs {
+		public PSPDFViewControllerDidRenderPageViewEventArgs (AlexTouch.PSPDFKit.PSPDFPageView pageView)
+		{
+			this.PageView = pageView;
+		}
+		public AlexTouch.PSPDFKit.PSPDFPageView PageView { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerDidChangeViewModeEventArgs : EventArgs {
+		public PSPDFViewControllerDidChangeViewModeEventArgs (PSPDFViewMode viewMode)
+		{
+			this.ViewMode = viewMode;
+		}
+		public PSPDFViewMode ViewMode { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerDidEndPageDraggingEventArgs : EventArgs {
+		public PSPDFViewControllerDidEndPageDraggingEventArgs (UIScrollView scrollView, bool decelerate, PointF velocity, PointF targetContentOffset)
+		{
+			this.ScrollView = scrollView;
+			this.Decelerate = decelerate;
+			this.Velocity = velocity;
+			this.TargetContentOffset = targetContentOffset;
+		}
+		public UIScrollView ScrollView { get; set; }
+		public bool Decelerate { get; set; }
+		public PointF Velocity { get; set; }
+		public PointF TargetContentOffset { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerDidEndPageScrollingAnimationEventArgs : EventArgs {
+		public PSPDFViewControllerDidEndPageScrollingAnimationEventArgs (UIScrollView scrollView)
+		{
+			this.ScrollView = scrollView;
+		}
+		public UIScrollView ScrollView { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerDidEndPageZoomingEventArgs : EventArgs {
+		public PSPDFViewControllerDidEndPageZoomingEventArgs (UIScrollView scrollView, float scale)
+		{
+			this.ScrollView = scrollView;
+			this.Scale = scale;
+		}
+		public UIScrollView ScrollView { get; set; }
+		public float Scale { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerWillShowAnnotationViewEventArgs : EventArgs {
+		public PSPDFViewControllerWillShowAnnotationViewEventArgs (AlexTouch.PSPDFKit.PSPDFAnnotationView annotationView, AlexTouch.PSPDFKit.PSPDFPageView pageView)
+		{
+			this.AnnotationView = annotationView;
+			this.PageView = pageView;
+		}
+		public AlexTouch.PSPDFKit.PSPDFAnnotationView AnnotationView { get; set; }
+		public AlexTouch.PSPDFKit.PSPDFPageView PageView { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerDidShowAnnotationViewEventArgs : EventArgs {
+		public PSPDFViewControllerDidShowAnnotationViewEventArgs (AlexTouch.PSPDFKit.PSPDFAnnotationView annotationView, AlexTouch.PSPDFKit.PSPDFPageView pageView)
+		{
+			this.AnnotationView = annotationView;
+			this.PageView = pageView;
+		}
+		public AlexTouch.PSPDFKit.PSPDFAnnotationView AnnotationView { get; set; }
+		public AlexTouch.PSPDFKit.PSPDFPageView PageView { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerDidLoadPageViewEventArgs : EventArgs {
+		public PSPDFViewControllerDidLoadPageViewEventArgs (AlexTouch.PSPDFKit.PSPDFPageView pageView)
+		{
+			this.PageView = pageView;
+		}
+		public AlexTouch.PSPDFKit.PSPDFPageView PageView { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerWillUnloadPageViewEventArgs : EventArgs {
+		public PSPDFViewControllerWillUnloadPageViewEventArgs (AlexTouch.PSPDFKit.PSPDFPageView pageView)
+		{
+			this.PageView = pageView;
+		}
+		public AlexTouch.PSPDFKit.PSPDFPageView PageView { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerWillShowControllerEventArgs : EventArgs {
+		public PSPDFViewControllerWillShowControllerEventArgs (NSObject viewController, NSObject controller, bool animated)
+		{
+			this.ViewController = viewController;
+			this.Controller = controller;
+			this.Animated = animated;
+		}
+		public NSObject ViewController { get; set; }
+		public NSObject Controller { get; set; }
+		public bool Animated { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerDidShowControllerEventArgs : EventArgs {
+		public PSPDFViewControllerDidShowControllerEventArgs (NSObject viewController, NSObject controller, bool animated)
+		{
+			this.ViewController = viewController;
+			this.Controller = controller;
+			this.Animated = animated;
+		}
+		public NSObject ViewController { get; set; }
+		public NSObject Controller { get; set; }
+		public bool Animated { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerWillShowHUDEventArgs : EventArgs {
+		public PSPDFViewControllerWillShowHUDEventArgs (bool animated)
+		{
+			this.Animated = animated;
+		}
+		public bool Animated { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerDidShowHUDEventArgs : EventArgs {
+		public PSPDFViewControllerDidShowHUDEventArgs (bool animated)
+		{
+			this.Animated = animated;
+		}
+		public bool Animated { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerWillHideHUDEventArgs : EventArgs {
+		public PSPDFViewControllerWillHideHUDEventArgs (bool animated)
+		{
+			this.Animated = animated;
+		}
+		public bool Animated { get; set; }
+	}
+	
+	public partial class PSPDFViewControllerDidHideHUDEventArgs : EventArgs {
+		public PSPDFViewControllerDidHideHUDEventArgs (bool animated)
+		{
+			this.Animated = animated;
+		}
+		public bool Animated { get; set; }
+	}
+	
 }

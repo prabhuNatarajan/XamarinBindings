@@ -113,7 +113,9 @@ namespace AlexTouch.PSPDFKit
 	////	PSPDFViewController.h	//
 	//////////////////////////////////
 	
-	[BaseType (typeof (PSPDFBaseViewController))]
+	[BaseType (typeof (PSPDFBaseViewController),
+	Delegates=new string [] {"WeakDelegate"},
+	Events=new Type [] { typeof (PSPDFViewControllerDelegate) })]
 	interface PSPDFViewController 
 	{
 		[Export ("initWithDocument:")]
@@ -585,91 +587,91 @@ namespace AlexTouch.PSPDFKit
 	[Model]
 	interface PSPDFViewControllerDelegate 
 	{
-		[Export ("pdfViewController:shouldSetDocument:")]
+		[Export ("pdfViewController:shouldSetDocument:"), DelegateName ("PSPDFViewControllerShouldSetDocument"), DefaultValue (true)]
 		bool ShouldSetDocument (PSPDFViewController pdfController, PSPDFDocument document);
 		
-		[Export ("pdfViewController:willDisplayDocument:")]
+		[Export ("pdfViewController:willDisplayDocument:"), EventArgs ("PSPDFViewControllerWillDisplayDocument")]
 		void WillDisplayDocument (PSPDFViewController pdfController, PSPDFDocument document);
 		
-		[Export ("pdfViewController:didDisplayDocument:")]
+		[Export ("pdfViewController:didDisplayDocument:"), EventArgs ("PSPDFViewControllerDidDisplayDocument")]
 		void DidDisplayDocument (PSPDFViewController pdfController, PSPDFDocument document);
 		
-		[Export ("pdfViewController:shouldScrollToPage:")]
+		[Export ("pdfViewController:shouldScrollToPage:"), DelegateName ("PSPDFViewControllerShouldScrollToPage"), DefaultValue (true)]
 		bool ShouldScrollToPage (PSPDFViewController pdfController, uint page);
 		
-		[Export ("pdfViewController:didShowPageView:")]
+		[Export ("pdfViewController:didShowPageView:"), EventArgs ("PSPDFViewControllerDidShowPageView")]
 		void DidShowPageView (PSPDFViewController pdfController, PSPDFPageView pageView);
 		
-		[Export ("pdfViewController:didRenderPageView:")]
+		[Export ("pdfViewController:didRenderPageView:"), EventArgs ("PSPDFViewControllerDidRenderPageView")]
 		void DidRenderPageView (PSPDFViewController pdfController, PSPDFPageView pageView);
 		
-		[Export ("pdfViewController:didChangeViewMode:")]
+		[Export ("pdfViewController:didChangeViewMode:"), EventArgs ("PSPDFViewControllerDidChangeViewMode")]
 		void DidChangeViewMode (PSPDFViewController pdfController, PSPDFViewMode viewMode);
 		
-		[Export ("pdfViewController:didEndPageDragging:willDecelerate:withVelocity:targetContentOffset:")]
+		[Export ("pdfViewController:didEndPageDragging:willDecelerate:withVelocity:targetContentOffset:"), EventArgs ("PSPDFViewControllerDidEndPageDragging")]
 		void DidEndPageDragging (PSPDFViewController pdfController, UIScrollView scrollView, bool decelerate, PointF velocity, ref PointF targetContentOffset);
 		
-		[Export ("pdfViewController:didEndPageScrollingAnimation:")]
+		[Export ("pdfViewController:didEndPageScrollingAnimation:"), EventArgs ("PSPDFViewControllerDidEndPageScrollingAnimation")]
 		void DidEndPageScrollingAnimation (PSPDFViewController pdfController, UIScrollView scrollView);
-		
-		[Export ("pdfViewController:didEndPageZooming:atScale:")]
+
+		[Export ("pdfViewController:didEndPageZooming:atScale:"), EventArgs ("PSPDFViewControllerDidEndPageZooming")]
 		void DidEndPageZooming (PSPDFViewController pdfController, UIScrollView scrollView, float scale);
 		
-		[Export ("pdfViewController:documentForRelativePath:")]
+		[Export ("pdfViewController:documentForRelativePath:"), DelegateName ("PSPDFViewControllerDocumentForRelativePath"), DefaultValue (null)]
 		PSPDFDocument DocumentForRelativePath (PSPDFViewController pdfController, string relativePath);
 		
-		[Export ("pdfViewController:didTapOnPageView:atPoint:")]
+		[Export ("pdfViewController:didTapOnPageView:atPoint:"), DelegateName ("PSPDFViewControllerDidTapOnPageView"), DefaultValue (false)]
 		bool DidTapOnPageView (PSPDFViewController pdfController, PSPDFPageView pageView, PointF viewPoint);
 		
-		[Export ("pdfViewController:didLongPressOnPageView:atPoint:gestureRecognizer:")]
+		[Export ("pdfViewController:didLongPressOnPageView:atPoint:gestureRecognizer:"), DelegateName ("PSPDFViewControllerDidLongPressOnPageView"), DefaultValue (false)]
 		bool DidLongPressOnPageView (PSPDFViewController pdfController, PSPDFPageView pageView, PointF viewPoint, UILongPressGestureRecognizer gestureRecognizer);
 		
-		[Export ("pdfViewController:shouldDisplayAnnotation:onPageView:")]
+		[Export ("pdfViewController:shouldDisplayAnnotation:onPageView:"), DelegateName ("PSPDFViewControllerShouldDisplayAnnotation"), DefaultValue (true)]
 		bool ShouldDisplayAnnotation (PSPDFViewController pdfController, PSPDFAnnotation annotation, PSPDFPageView pageView);
 		
-		[Export ("pdfViewController:didTapOnAnnotation:annotationPoint:annotationView:pageView:viewPoint:")]
+		[Export ("pdfViewController:didTapOnAnnotation:annotationPoint:annotationView:pageView:viewPoint:"), DelegateName ("PSPDFViewControllerDidTapOnAnnotation"), DefaultValue (false)]
 		bool DidTapOnAnnotation (PSPDFViewController pdfController, PSPDFAnnotation annotation, PointF annotationPoint, PSPDFAnnotationView annotationView, PSPDFPageView pageView, PointF viewPoint);
 		
-		[Export ("pdfViewController:annotationView:forAnnotation:onPageView:")]
+		[Export ("pdfViewController:annotationView:forAnnotation:onPageView:"), DelegateName ("PSPDFViewControllerAnnotationViewForAnnotation"), DefaultValueFromArgument ("annotationView")]
 		PSPDFAnnotationView AnnotationViewForAnnotation (PSPDFViewController pdfController, PSPDFAnnotationView annotationView, PSPDFAnnotation annotation, PSPDFPageView pageView);
 		
-		[Export ("pdfViewController:resolveCustomAnnotationPathToken:")]
+		[Export ("pdfViewController:resolveCustomAnnotationPathToken:"), DelegateName ("PSPDFViewControllerResolveCustomAnnotationPathToken"), DefaultValue (null)]
 		string ResolveCustomAnnotationPathToken (PSPDFViewController pdfController, string pathToken);
 		
-		[Export ("pdfViewController:willShowAnnotationView:onPageView:")]
+		[Export ("pdfViewController:willShowAnnotationView:onPageView:"), EventArgs ("PSPDFViewControllerWillShowAnnotationView")]
 		void WillShowAnnotationView (PSPDFViewController pdfController, PSPDFAnnotationView annotationView, PSPDFPageView pageView);
 		
-		[Export ("pdfViewController:didShowAnnotationView:onPageView:")]
+		[Export ("pdfViewController:didShowAnnotationView:onPageView:"), EventArgs ("PSPDFViewControllerDidShowAnnotationView")]
 		void DidShowAnnotationView (PSPDFViewController pdfController, PSPDFAnnotationView annotationView, PSPDFPageView pageView);
-		
-		[Export ("pdfViewController:didLoadPageView:")]
+
+		[Export ("pdfViewController:didLoadPageView:"), EventArgs ("PSPDFViewControllerDidLoadPageView")]
 		void DidLoadPageView (PSPDFViewController pdfController, PSPDFPageView pageView);
 		
-		[Export ("pdfViewController:willUnloadPageView:")]
+		[Export ("pdfViewController:willUnloadPageView:"), EventArgs ("PSPDFViewControllerWillUnloadPageView")]
 		void WillUnloadPageView (PSPDFViewController pdfController, PSPDFPageView pageView);
 		
-		[Export ("pdfViewController:willShowController:embeddedInController:animated:")]
+		[Export ("pdfViewController:willShowController:embeddedInController:animated:"), EventArgs ("PSPDFViewControllerWillShowController")]
 		void WillShowController (PSPDFViewController pdfController, NSObject viewController, NSObject controller, bool animated);
 		
-		[Export ("pdfViewController:didShowController:embeddedInController:animated:")]
+		[Export ("pdfViewController:didShowController:embeddedInController:animated:"), EventArgs ("PSPDFViewControllerDidShowController")]
 		void DidShowController (PSPDFViewController pdfController, NSObject viewController, NSObject controller, bool animated);
 		
-		[Export ("pdfViewController:shouldShowHUD:")]
+		[Export ("pdfViewController:shouldShowHUD:"), DelegateName ("PSPDFViewControllerShouldShowHUD"), DefaultValue (true)]
 		bool ShouldShowHUD (PSPDFViewController pdfController, bool animated);
 		
-		[Export ("pdfViewController:willShowHUD:")]
+		[Export ("pdfViewController:willShowHUD:"), EventArgs ("PSPDFViewControllerWillShowHUD")]
 		void WillShowHUD (PSPDFViewController pdfController, bool animated);
 		
-		[Export ("pdfViewController:didShowHUD:")]
+		[Export ("pdfViewController:didShowHUD:"), EventArgs ("PSPDFViewControllerDidShowHUD")]
 		void DidShowHUD (PSPDFViewController pdfController, bool animated);
 		
-		[Export ("pdfViewController:shouldHideHUD:")]
-		void ShouldHideHUD (PSPDFViewController pdfController, bool animated);
+		[Export ("pdfViewController:shouldHideHUD:"), DelegateName ("PSPDFViewControllerShouldHideHUD"), DefaultValue (true)]
+		bool ShouldHideHUD (PSPDFViewController pdfController, bool animated);
 		
-		[Export ("pdfViewController:willHideHUD:")]
+		[Export ("pdfViewController:willHideHUD:"), EventArgs ("PSPDFViewControllerWillHideHUD")]
 		void WillHideHUD (PSPDFViewController pdfController, bool animated);
 		
-		[Export ("pdfViewController:didHideHUD:")]
+		[Export ("pdfViewController:didHideHUD:"), EventArgs ("PSPDFViewControllerDidHideHUD")]
 		void DidHideHUD (PSPDFViewController pdfController, bool animated);
 	}
 	

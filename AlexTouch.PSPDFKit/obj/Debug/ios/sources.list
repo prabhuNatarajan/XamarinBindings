@@ -91,3 +91,4 @@ obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFTransparentToolbar.g.cs
 obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFFreeTextAnnotation.g.cs
 obj/Debug/ios/AlexTouch.PSPDFKit/PSPDFHUDView.g.cs
 obj/Debug/ios/AlexTouch.PSPDFKit/UIImageExtension.g.cs
+obj/Debug/ios/SupportDelegates.g.cs

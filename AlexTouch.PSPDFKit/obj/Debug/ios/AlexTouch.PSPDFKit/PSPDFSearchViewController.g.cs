@@ -57,6 +57,7 @@ namespace AlexTouch.PSPDFKit {
 		static readonly IntPtr selDidUpdateSearchForStringNewSearchResultsForPage_ = Selector.GetHandle ("didUpdateSearchForString:newSearchResults:forPage:");
 		static readonly IntPtr selDidFinishSearchForStringSearchResultsIsFullSearch_ = Selector.GetHandle ("didFinishSearchForString:searchResults:isFullSearch:");
 		static readonly IntPtr selDidCancelSearchForStringIsFullSearch_ = Selector.GetHandle ("didCancelSearchForString:isFullSearch:");
+		static readonly IntPtr selPreferredStatusBarStyle = Selector.GetHandle ("preferredStatusBarStyle");
 		static readonly IntPtr selSearchBarShouldBeginEditing_ = Selector.GetHandle ("searchBarShouldBeginEditing:");
 		static readonly IntPtr selSearchBarTextDidBeginEditing_ = Selector.GetHandle ("searchBarTextDidBeginEditing:");
 		static readonly IntPtr selSearchBarShouldEndEditing_ = Selector.GetHandle ("searchBarShouldEndEditing:");
@@ -68,7 +69,6 @@ namespace AlexTouch.PSPDFKit {
 		static readonly IntPtr selSearchBarCancelButtonClicked_ = Selector.GetHandle ("searchBarCancelButtonClicked:");
 		static readonly IntPtr selSearchBarResultsListButtonClicked_ = Selector.GetHandle ("searchBarResultsListButtonClicked:");
 		static readonly IntPtr selSearchBarSelectedScopeButtonIndexDidChange_ = Selector.GetHandle ("searchBar:selectedScopeButtonIndexDidChange:");
-		static readonly IntPtr selPreferredStatusBarStyle = Selector.GetHandle ("preferredStatusBarStyle");
 		
 		static readonly IntPtr class_ptr = Class.GetHandle ("PSPDFSearchViewController");
 		
@@ -419,6 +419,17 @@ namespace AlexTouch.PSPDFKit {
 			
 		}
 		
+		[Export ("preferredStatusBarStyle")]
+		[CompilerGenerated]
+		public virtual MonoTouch.UIKit.UIStatusBarStyle PreferredStatusBarStyle ()
+		{
+			if (IsDirectBinding) {
+				return (MonoTouch.UIKit.UIStatusBarStyle) MonoTouch.ObjCRuntime.Messaging.int_objc_msgSend (this.Handle, selPreferredStatusBarStyle);
+			} else {
+				return (MonoTouch.UIKit.UIStatusBarStyle) MonoTouch.ObjCRuntime.Messaging.int_objc_msgSendSuper (this.SuperHandle, selPreferredStatusBarStyle);
+			}
+		}
+		
 		[Export ("searchBarShouldBeginEditing:")]
 		[CompilerGenerated]
 		public virtual bool SearchBarShouldBeginEditing (MonoTouch.UIKit.UISearchBar searchBar)
@@ -573,17 +584,6 @@ namespace AlexTouch.PSPDFKit {
 				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_IntPtr_int (this.Handle, selSearchBarSelectedScopeButtonIndexDidChange_, searchBar.Handle, selectedScope);
 			} else {
 				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSendSuper_IntPtr_int (this.SuperHandle, selSearchBarSelectedScopeButtonIndexDidChange_, searchBar.Handle, selectedScope);
-			}
-		}
-		
-		[Export ("preferredStatusBarStyle")]
-		[CompilerGenerated]
-		public virtual MonoTouch.UIKit.UIStatusBarStyle PreferredStatusBarStyle ()
-		{
-			if (IsDirectBinding) {
-				return (MonoTouch.UIKit.UIStatusBarStyle) MonoTouch.ObjCRuntime.Messaging.int_objc_msgSend (this.Handle, selPreferredStatusBarStyle);
-			} else {
-				return (MonoTouch.UIKit.UIStatusBarStyle) MonoTouch.ObjCRuntime.Messaging.int_objc_msgSendSuper (this.SuperHandle, selPreferredStatusBarStyle);
 			}
 		}
 		

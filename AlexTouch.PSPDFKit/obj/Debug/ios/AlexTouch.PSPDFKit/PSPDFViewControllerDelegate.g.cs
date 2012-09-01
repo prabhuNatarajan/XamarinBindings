@@ -251,7 +251,7 @@ namespace AlexTouch.PSPDFKit {
 		
 		[Export ("pdfViewController:shouldHideHUD:")]
 		[CompilerGenerated]
-		public virtual void ShouldHideHUD (PSPDFViewController pdfController, bool animated)
+		public virtual bool ShouldHideHUD (PSPDFViewController pdfController, bool animated)
 		{
 			throw new You_Should_Not_Call_base_In_This_Method ();
 		}

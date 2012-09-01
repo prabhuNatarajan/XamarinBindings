@@ -1,9 +1,8 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AlexTouch.PSPDFKit/ApiDefinition.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AlexTouch.PSPDFKit/Extensions.cs">
     <Files>
       <File FileName="AlexTouch.PSPDFKit/Extensions.cs" Line="413" Column="79" />
-      <File FileName="AlexTouch.PSPDFKit/ApiDefinition.cs" Line="3806" Column="63" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
