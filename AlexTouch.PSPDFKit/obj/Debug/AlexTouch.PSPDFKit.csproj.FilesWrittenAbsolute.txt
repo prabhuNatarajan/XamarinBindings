@@ -1,4 +1,0 @@
-/Users/dalex/Projects/Git/MonoTouch-PSPDFKit-bindings/AlexTouch.PSPDFKit/bin/Debug/AlexTouch.PSPDFKit.dll.mdb
-/Users/dalex/Projects/Git/MonoTouch-PSPDFKit-bindings/AlexTouch.PSPDFKit/bin/Debug/AlexTouch.PSPDFKit.dll
-/Users/dalex/Projects/Git/MonoTouch-PSPDFKit-bindings/AlexTouch.PSPDFKit/obj/Debug/AlexTouch.PSPDFKit.dll
-/Users/dalex/Projects/Git/MonoTouch-PSPDFKit-bindings/AlexTouch.PSPDFKit/obj/Debug/AlexTouch.PSPDFKit.dll.mdb
