@@ -30,13 +30,12 @@ namespace AlexTouch.PSPDFKit
 	{
 		[Static, Export ("sharedGlobalLock")]
 		PSPDFGlobalLock SharedGlobalLock ();
+
+		[Export ("tryLockWithDocument:page:error:")][Internal]
+		IntPtr /*CGPDFPage*/ TryLockWithDocumentPageError_ (PSPDFDocument document, uint page, out NSError error);
 		
-		//TODO: Check if this works
-		//		[Export ("tryLockWithDocument:page:error:")][Internal]
-		//		CGPDFPage TryLockWithDocumentPageError_ (PSPDFDocument document, uint page, out NSError error);
-		
-		//		[Export ("lockWithDocument:page:error:")]
-		//		CGPDFPage LockWithDocumentPageError (PSPDFDocument document, uint page, out NSError error);
+		[Export ("lockWithDocument:page:error:")] [Internal]
+		IntPtr /*CGPDFPage*/ LockWithDocumentPageError_ (PSPDFDocument document, uint page, out NSError error);
 		
 		[Export ("freeWithPDFPageRef:")][Internal]
 		void _FreeWithPDFPageRef(IntPtr /*CGPDFPage*/ pdfPage, bool unusedArg);
@@ -1224,8 +1223,8 @@ namespace AlexTouch.PSPDFKit
 		[Export("iterateOverPageRef:")]
 		void IterateOverPageRef (PSPDFDocumentProviderIterateOverPageRef pageRefBlock);
 
-		//		[Export ("requestPageRefForPageNumber:")][Internal]
-		//		IntPtr /*CGPDFPage*/ RequestPageRefForPageNumber_ (uint page);
+		[Export ("requestPageRefForPageNumber:")][Internal]
+		IntPtr /*CGPDFPage*/ RequestPageRefForPageNumber_ (uint page);
 
 		[Export("releasePageRef:")][Internal]
 		void ReleasePageRef_ (IntPtr /*CGPDFPageRef*/ pageRef);

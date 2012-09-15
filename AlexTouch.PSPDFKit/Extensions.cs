@@ -501,6 +501,18 @@ namespace AlexTouch.PSPDFKit
 	//////////////////////////////////////////
 	public partial class PSPDFGlobalLock : NSObject
 	{
+		public CGPDFPage TryLockWithDocumentPageError (PSPDFDocument document, uint page, out NSError error)
+		{
+			IntPtr ptr = TryLockWithDocumentPageError_ (document, page, out error);
+			return new CGPDFPage(ptr);
+		}
+
+		public CGPDFPage LockWithDocumentPageError (PSPDFDocument document, uint page, out NSError error)
+		{
+			IntPtr ptr = LockWithDocumentPageError_ (document, page, out error);
+			return new CGPDFPage(ptr);
+		}
+
 		public void FreeWithPDFPageRef (CGPDFPage pdfPage)
 		{
 			_FreeWithPDFPageRef(pdfPage.Handle, true);
@@ -970,7 +982,12 @@ namespace AlexTouch.PSPDFKit
 		{
 			ReleasePageRef_ (pageRef.Handle);
 		}
-		
+
+		public CGPDFPage RequestPageRefForPageNumber (uint page)
+		{
+			IntPtr ptr = RequestPageRefForPageNumber_ (page);
+			return new CGPDFPage(ptr);
+		}		
 	}
 	
 	//////////////////////////////////////////////
