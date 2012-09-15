@@ -1,3 +1,10 @@
 bin/
 obj/
 .DS_Store
+.DS_Store
+
+AlexTouch.PSPDFKit/obj/.DS_Store
+
+AlexTouch.PSPDFKit/obj/Debug/.DS_Store
+
+AlexTouch.PSPDFKit/.DS_Store
