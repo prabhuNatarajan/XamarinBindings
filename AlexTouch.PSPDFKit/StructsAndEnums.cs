@@ -135,17 +135,17 @@ namespace AlexTouch.PSPDFKit
 	////	Start 							//
 	//////////////////////////////////////////
 
-	public enum PSPDFAnnotationType
+	public enum PSPDFAnnotationType : uint
 	{
 		Undefined = 0,      // any annotation whose type couldn't be recognized.
 		Link      = 1 << 1,
 		Highlight = 1 << 2, // (Highlight, Underline, StrikeOut) - PSPDFHighlightAnnotationView
 		Text      = 1 << 5,
 		Ink       = 1 << 6,
-		Shape     = 1 << 7,
+		Shape     = 1 << 7, // Square, Circle
 		Line      = 1 << 8,
 		Note      = 1 << 9,
-		All       = Link | Highlight | Text | Ink | Shape | Line | Note
+		All       = 4294967295
 	}
 
 	//////////////////////////////////////////////////
@@ -353,17 +353,18 @@ namespace AlexTouch.PSPDFKit
 	}
 
 	//////////////////////////////////////////////////
-	////	PSPDFAnnotationToolbarMode.h enums 		//
+	////	PSPDFAnnotationToolbar.h enums	 		//
 	////	Start									//
 	//////////////////////////////////////////////////
 	
-	public enum PSPDFAnnotationToolbarMode
+	public enum PSPDFAnnotationToolbarMode : uint
 	{
 		None,
-		Comment,
+		Note,
 		Highlight,
 		StrikeOut,
 		Underline,
+		FreeText,
 		Draw
 	}
 
