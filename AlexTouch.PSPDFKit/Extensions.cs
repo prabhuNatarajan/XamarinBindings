@@ -59,26 +59,26 @@ namespace AlexTouch.PSPDFKit
 			}
 		}
 
-		private static float kPSPDFKitPDFAnimationDuration;
+		private static float kPSPDFAnimationDuration;
 		
 		public static float AnimationDuration
 		{
 			get 
 			{
 				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				kPSPDFKitPDFAnimationDuration = Dlfcn.GetFloat(RTLD_MAIN_ONLY, "kPSPDFKitPDFAnimationDuration");
-				return kPSPDFKitPDFAnimationDuration;
+				kPSPDFAnimationDuration = Dlfcn.GetFloat(RTLD_MAIN_ONLY, "kPSPDFAnimationDuration");
+				return kPSPDFAnimationDuration;
 			}
 			set 
 			{
-				kPSPDFKitPDFAnimationDuration = value;
+				kPSPDFAnimationDuration = value;
 				
 				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitPDFAnimationDuration");
+				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFAnimationDuration");
 
 				unsafe 
 				{
-					float m = kPSPDFKitPDFAnimationDuration;
+					float m = kPSPDFAnimationDuration;
 					Marshal.WriteIntPtr(ptr, *(IntPtr*)&m);
 				}
 			}
@@ -96,53 +96,54 @@ namespace AlexTouch.PSPDFKit
 			}
 		}
 
-		private static bool kPSPDFKitDebugScrollViews;
-
-		public static bool DebugScrollViews
-		{
-			get 
-			{
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugScrollViews");
-
-				kPSPDFKitDebugScrollViews = Convert.ToBoolean(Marshal.ReadByte(ptr));
-				
-				return kPSPDFKitDebugScrollViews;
-			}
-			set 
-			{
-				kPSPDFKitDebugScrollViews = value;
-				
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugScrollViews");
-
-				Marshal.WriteByte(ptr, Convert.ToByte(kPSPDFKitDebugScrollViews));
-			}
-		}
-
-		private static bool kPSPDFKitDebugMemory;
-		
-		public static bool DebugMemory
-		{
-			get 
-			{
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugMemory");
-				
-				kPSPDFKitDebugMemory = Convert.ToBoolean(Marshal.ReadByte(ptr));
-				
-				return kPSPDFKitDebugMemory;
-			}
-			set 
-			{
-				kPSPDFKitDebugMemory = value;
-				
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugMemory");
-				
-				Marshal.WriteByte(ptr, Convert.ToByte(kPSPDFKitDebugMemory));
-			}
-		}
+		//Removed kPSPDFKitDebugScrollViews on version 2.3.1
+//		private static bool kPSPDFKitDebugScrollViews;
+//
+//		public static bool DebugScrollViews
+//		{
+//			get 
+//			{
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugScrollViews");
+//
+//				kPSPDFKitDebugScrollViews = Convert.ToBoolean(Marshal.ReadByte(ptr));
+//				
+//				return kPSPDFKitDebugScrollViews;
+//			}
+//			set 
+//			{
+//				kPSPDFKitDebugScrollViews = value;
+//				
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugScrollViews");
+//
+//				Marshal.WriteByte(ptr, Convert.ToByte(kPSPDFKitDebugScrollViews));
+//			}
+//		}
+//
+//		private static bool kPSPDFKitDebugMemory;
+//		
+//		public static bool DebugMemory
+//		{
+//			get 
+//			{
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugMemory");
+//				
+//				kPSPDFKitDebugMemory = Convert.ToBoolean(Marshal.ReadByte(ptr));
+//				
+//				return kPSPDFKitDebugMemory;
+//			}
+//			set 
+//			{
+//				kPSPDFKitDebugMemory = value;
+//				
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugMemory");
+//				
+//				Marshal.WriteByte(ptr, Convert.ToByte(kPSPDFKitDebugMemory));
+//			}
+//		}
 
 		private static float kPSPDFInitialAnnotationLoadDelay;
 		
@@ -493,6 +494,72 @@ namespace AlexTouch.PSPDFKit
 			return Convert.ToBoolean(Marshal.ReadByte(ptr));
 		}
 
+		[DllImportAttribute("__Internal", EntryPoint = "PSPDFIndexSetFromArray")]
+		private static extern IntPtr _IndexSetFromArray(IntPtr array);
+		
+		public static NSIndexSet IndexSetFromArray(NSNumber [] array)
+		{
+			List<NSObject> obj = new List<NSObject>();
+
+			foreach (var item in array)
+				obj.Add(item);
+
+			NSArray arr = NSArray.FromNSObjects(obj.ToArray());
+
+			return new NSIndexSet(_IndexSetFromArray(arr.Handle));
+		}
+
+		[DllImportAttribute("__Internal", EntryPoint = "PSPDFCacheKeyboard")]
+		private static extern void _CacheKeyboard();
+		
+		public static void CacheKeyboard()
+		{
+			_CacheKeyboard();
+		}
+
+		[DllImportAttribute("__Internal", EntryPoint = "PSPDFIsRotationLocked")]
+		[return: MarshalAsAttribute(UnmanagedType.Bool)]
+		private static extern bool _IsRotationLocked();
+
+		[Since(6,0)]
+		public static bool IsRotationLocked
+		{
+			get 
+			{
+				return _IsRotationLocked();
+			}
+		}
+
+		[DllImportAttribute("__Internal", EntryPoint = "PSPDFLockRotation")]
+		private static extern void _LockRotation();
+
+		[Since(6,0)]
+		public static void LockRotation()
+		{
+			_LockRotation();
+		}
+
+		[DllImportAttribute("__Internal", EntryPoint = "PSPDFUnlockRotation")]
+		private static extern void _UnlockRotation();
+		
+		[Since(6,0)]
+		public static void UnlockRotation()
+		{
+			_UnlockRotation();
+		}
+
+		[DllImportAttribute("__Internal", EntryPoint = "PSPDFTempFileURL")]
+		private static extern IntPtr _TempFileURL(IntPtr prefix);
+		
+		public static NSUrl TempFileURL(string prefix)
+		{
+			NSString pref = new NSString(prefix);
+
+			NSUrl url = new NSUrl(_TempFileURL(pref.Handle));
+			
+			return url;
+		}
+
 
 	}
 
@@ -571,33 +638,34 @@ namespace AlexTouch.PSPDFKit
 	
 	public partial class PSPDFTextParser : NSObject
 	{
-		public PSPDFTextParser (CGPDFPage page) : this(page.Handle, true)
+		public PSPDFTextParser (CGPDFPage pageRef, uint page, NSMutableDictionary fontCache, bool hideGlyphsOutsidePageRect) : this(pageRef.Handle, page, fontCache, hideGlyphsOutsidePageRect)
 		{
 		}
 
-		private static bool kPSPDFTextParserDebugLogEnabled;
-		
-		public static bool DebugLogEnabled
-		{
-			get 
-			{
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFTextParserDebugLogEnabled");
-				
-				kPSPDFTextParserDebugLogEnabled = Convert.ToBoolean(Marshal.ReadByte(ptr));
-				
-				return kPSPDFTextParserDebugLogEnabled;
-			}
-			set 
-			{
-				kPSPDFTextParserDebugLogEnabled = value;
-				
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFTextParserDebugLogEnabled");
-				
-				Marshal.WriteByte(ptr, Convert.ToByte(kPSPDFTextParserDebugLogEnabled));
-			}
-		}
+		//Removed on version 2.3.1
+//		private static bool kPSPDFTextParserDebugLogEnabled;
+//		
+//		public static bool DebugLogEnabled
+//		{
+//			get 
+//			{
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFTextParserDebugLogEnabled");
+//				
+//				kPSPDFTextParserDebugLogEnabled = Convert.ToBoolean(Marshal.ReadByte(ptr));
+//				
+//				return kPSPDFTextParserDebugLogEnabled;
+//			}
+//			set 
+//			{
+//				kPSPDFTextParserDebugLogEnabled = value;
+//				
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFTextParserDebugLogEnabled");
+//				
+//				Marshal.WriteByte(ptr, Convert.ToByte(kPSPDFTextParserDebugLogEnabled));
+//			}
+//		}
 	}
 	
 	//////////////////////////////////////////////
@@ -662,189 +730,169 @@ namespace AlexTouch.PSPDFKit
 			RenderPage_ (page, context.Handle, fullSize, clipRect, annotations, options);
 		}
 
-		private static string kPSPDFObjectsText;
-		
-		public static string ObjectsText
+		public CGDataProvider DataProvider
 		{
 			get 
 			{
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				kPSPDFObjectsText = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFObjectsText");
-				
-				return kPSPDFObjectsText;
-			}
-			set 
-			{
-				kPSPDFObjectsText = value;
-				
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFObjectsText");
-				
-				Marshal.WriteIntPtr(ptr, new NSString(kPSPDFObjectsText).Handle);
-				
+				IntPtr ptr = this.DataProvider_;
+				return new CGDataProvider(ptr);
 			}
 		}
 
-		private static string kPSPDFObjectsFullWords;
-		
-		public static string ObjectsFullWords
-		{
-			get 
-			{
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				kPSPDFObjectsFullWords = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFObjectsFullWords");
-				
-				return kPSPDFObjectsFullWords;
-			}
-			set 
-			{
-				kPSPDFObjectsFullWords = value;
-				
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFObjectsFullWords");
-				
-				Marshal.WriteIntPtr(ptr, new NSString(kPSPDFObjectsFullWords).Handle);
-				
-			}
-		}
-
-		private static string kPSPDFObjectsRespectTextBlocks;
-		
-		public static string ObjectsRespectTextBlocks
-		{
-			get 
-			{
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				kPSPDFObjectsRespectTextBlocks = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFObjectsRespectTextBlocks");
-				
-				return kPSPDFObjectsRespectTextBlocks;
-			}
-			set 
-			{
-				kPSPDFObjectsRespectTextBlocks = value;
-				
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFObjectsRespectTextBlocks");
-				
-				Marshal.WriteIntPtr(ptr, new NSString(kPSPDFObjectsRespectTextBlocks).Handle);
-				
-			}
-		}
-
-		private static string kPSPDFObjectsAnnotations;
-		
-		public static string ObjectsAnnotations
-		{
-			get 
-			{
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				kPSPDFObjectsAnnotations = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFObjectsAnnotations");
-				
-				return kPSPDFObjectsAnnotations;
-			}
-			set 
-			{
-				kPSPDFObjectsAnnotations = value;
-				
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFObjectsAnnotations");
-				
-				Marshal.WriteIntPtr(ptr, new NSString(kPSPDFObjectsAnnotations).Handle);
-				
-			}
-		}
-
-		private static string kPSPDFGlyphs;
-		
-		public static string Glyphs
-		{
-			get 
-			{
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				kPSPDFGlyphs = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFGlyphs");
-				
-				return kPSPDFGlyphs;
-			}
-			set 
-			{
-				kPSPDFGlyphs = value;
-				
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFGlyphs");
-				
-				Marshal.WriteIntPtr(ptr, new NSString(kPSPDFGlyphs).Handle);
-				
-			}
-		}
-
-		private static string kPSPDFWords;
-		
-		public static string Words
-		{
-			get 
-			{
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				kPSPDFWords = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFWords");
-				
-				return kPSPDFWords;
-			}
-			set 
-			{
-				kPSPDFWords = value;
-				
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFWords");
-				
-				Marshal.WriteIntPtr(ptr, new NSString(kPSPDFWords).Handle);
-				
-			}
-		}
-
-		private static string kPSPDFTextBlocks;
-		
-		public static string TextBlocks
-		{
-			get 
-			{
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				kPSPDFTextBlocks = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFTextBlocks");
-				
-				return kPSPDFTextBlocks;
-			}
-			set 
-			{
-				kPSPDFTextBlocks = value;
-				
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFTextBlocks");
-				
-				Marshal.WriteIntPtr(ptr, new NSString(kPSPDFTextBlocks).Handle);
-				
-			}
-		}
-
-		private static string kPSPDFAnnotations;
-		
-		public static string Annotations
-		{
-			get 
-			{
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				kPSPDFAnnotations = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFAnnotations");
-				
-				return kPSPDFAnnotations;
-			}
-			set 
-			{
-				kPSPDFAnnotations = value;
-				
-				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFAnnotations");
-				
-				Marshal.WriteIntPtr(ptr, new NSString(kPSPDFAnnotations).Handle);
-				
-			}
-		}
+		// Replaced with [Fields] now this are const
+//		private static string kPSPDFObjectsText;
+//		
+//		public static string ObjectsText
+//		{
+//			get 
+//			{
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				kPSPDFObjectsText = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFObjectsText");
+//				
+//				return kPSPDFObjectsText;
+//			}
+//		}
+//
+//		private static string kPSPDFObjectsFullWords;
+//		
+//		public static string ObjectsFullWords
+//		{
+//			get 
+//			{
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				kPSPDFObjectsFullWords = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFObjectsFullWords");
+//				
+//				return kPSPDFObjectsFullWords;
+//			}
+//		}
+//
+//		private static string kPSPDFObjectsRespectTextBlocks;
+//		
+//		public static string ObjectsRespectTextBlocks
+//		{
+//			get 
+//			{
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				kPSPDFObjectsRespectTextBlocks = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFObjectsRespectTextBlocks");
+//				
+//				return kPSPDFObjectsRespectTextBlocks;
+//			}
+//		}
+//
+//		private static string kPSPDFObjectsAnnotations;
+//		
+//		public static string ObjectsAnnotations
+//		{
+//			get 
+//			{
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				kPSPDFObjectsAnnotations = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFObjectsAnnotations");
+//				
+//				return kPSPDFObjectsAnnotations;
+//			}
+//			set 
+//			{
+//				kPSPDFObjectsAnnotations = value;
+//				
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFObjectsAnnotations");
+//				
+//				Marshal.WriteIntPtr(ptr, new NSString(kPSPDFObjectsAnnotations).Handle);
+//				
+//			}
+//		}
+//
+//		private static string kPSPDFGlyphs;
+//		
+//		public static string Glyphs
+//		{
+//			get 
+//			{
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				kPSPDFGlyphs = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFGlyphs");
+//				
+//				return kPSPDFGlyphs;
+//			}
+//			set 
+//			{
+//				kPSPDFGlyphs = value;
+//				
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFGlyphs");
+//				
+//				Marshal.WriteIntPtr(ptr, new NSString(kPSPDFGlyphs).Handle);
+//				
+//			}
+//		}
+//
+//		private static string kPSPDFWords;
+//		
+//		public static string Words
+//		{
+//			get 
+//			{
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				kPSPDFWords = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFWords");
+//				
+//				return kPSPDFWords;
+//			}
+//			set 
+//			{
+//				kPSPDFWords = value;
+//				
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFWords");
+//				
+//				Marshal.WriteIntPtr(ptr, new NSString(kPSPDFWords).Handle);
+//				
+//			}
+//		}
+//
+//		private static string kPSPDFTextBlocks;
+//		
+//		public static string TextBlocks
+//		{
+//			get 
+//			{
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				kPSPDFTextBlocks = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFTextBlocks");
+//				
+//				return kPSPDFTextBlocks;
+//			}
+//			set 
+//			{
+//				kPSPDFTextBlocks = value;
+//				
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFTextBlocks");
+//				
+//				Marshal.WriteIntPtr(ptr, new NSString(kPSPDFTextBlocks).Handle);
+//				
+//			}
+//		}
+//
+//		private static string kPSPDFAnnotations;
+//		
+//		public static string Annotations
+//		{
+//			get 
+//			{
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				kPSPDFAnnotations = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFAnnotations");
+//				
+//				return kPSPDFAnnotations;
+//			}
+//			set 
+//			{
+//				kPSPDFAnnotations = value;
+//				
+//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFAnnotations");
+//				
+//				Marshal.WriteIntPtr(ptr, new NSString(kPSPDFAnnotations).Handle);
+//				
+//			}
+//		}
 	}
 	
 	//////////////////////////////////////////////
@@ -858,14 +906,14 @@ namespace AlexTouch.PSPDFKit
 			
 		}
 		
-		public CGPDFDocument RequestDocumentRef ()
+		public CGPDFDocument RequestDocumentRefWithOwner (NSObject owner)
 		{
-			return new CGPDFDocument(RequestDocumentRef_ ());
+			return new CGPDFDocument(RequestDocumentRefWithOwner_ (owner));
 		}
 		
-		public void ReleaseDocumentRef (CGPDFDocument documentRef)
+		public void ReleaseDocumentRef (CGPDFDocument documentRef, NSObject owner)
 		{
-			ReleaseDocumentRef_ (documentRef.Handle);
+			ReleaseDocumentRef_ (documentRef.Handle, owner);
 		}
 		
 		public void ReleasePageRef (CGPDFPage pageRef)
@@ -878,6 +926,15 @@ namespace AlexTouch.PSPDFKit
 			IntPtr ptr = RequestPageRefForPageNumber_ (page);
 			return new CGPDFPage(ptr);
 		}		
+
+		public CGDataProvider DataProvider
+		{
+			get 
+			{
+				IntPtr ptr = this.DataProvider_;
+				return new CGDataProvider(ptr);
+			}
+		}
 	}
 	
 	//////////////////////////////////////////////
@@ -1003,27 +1060,27 @@ namespace AlexTouch.PSPDFKit
 	
 	public partial class PSPDFWebViewController : PSPDFBaseViewController
 	{
-		private static bool PSPDFHonorBlackAndTranslucentSettingsOnViewController;
+		private static bool PSPDFHonorBlackAndTranslucentSettingsOnWebViewController;
 		
-		public static bool HonorBlackAndTranslucentSettingsOnViewController
+		public static bool HonorBlackAndTranslucentSettingsOnWebViewController
 		{
 			get 
 			{
 				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "PSPDFHonorBlackAndTranslucentSettingsOnViewController");
+				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "PSPDFHonorBlackAndTranslucentSettingsOnWebViewController");
 				
-				PSPDFHonorBlackAndTranslucentSettingsOnViewController = Convert.ToBoolean(Marshal.ReadByte(ptr));
+				PSPDFHonorBlackAndTranslucentSettingsOnWebViewController = Convert.ToBoolean(Marshal.ReadByte(ptr));
 				
-				return PSPDFHonorBlackAndTranslucentSettingsOnViewController;
+				return PSPDFHonorBlackAndTranslucentSettingsOnWebViewController;
 			}
 			set 
 			{
-				PSPDFHonorBlackAndTranslucentSettingsOnViewController = value;
+				PSPDFHonorBlackAndTranslucentSettingsOnWebViewController = value;
 				
 				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "PSPDFHonorBlackAndTranslucentSettingsOnViewController");
+				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "PSPDFHonorBlackAndTranslucentSettingsOnWebViewController");
 				
-				Marshal.WriteByte(ptr, Convert.ToByte(PSPDFHonorBlackAndTranslucentSettingsOnViewController));
+				Marshal.WriteByte(ptr, Convert.ToByte(PSPDFHonorBlackAndTranslucentSettingsOnWebViewController));
 			}
 		}	
 	}

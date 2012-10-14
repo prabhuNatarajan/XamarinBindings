@@ -1,4 +1,6 @@
 using System;
+using System.Runtime.InteropServices;
+using MonoTouch.ObjCRuntime;
 
 namespace AlexTouch.PSPDFKit
 {
@@ -16,7 +18,9 @@ namespace AlexTouch.PSPDFKit
 		FailedToWriteAnnotations = 410,
 		OutlineParser = 500,
 		UnableToConvertToDataRepresentation = 600,
-		Unknown = 900,
+		RemoveCacheError = 700,
+		FailedToConvertToPDF = 800,
+		Unknown = 900
 	}
 
 	public enum PSPDFLogLevel
@@ -60,8 +64,9 @@ namespace AlexTouch.PSPDFKit
 
 	public enum PSPDFPageTransition
 	{
-		ScrollPerPageTransition = 0,     // default mode for iOS4. Has one scrollView per page.
-		CurlTransition = 2               // replaces pageCurlEnabled. iOS5+ feature.
+		PerPage,      // default mode for iOS4. Has one scrollView per page.
+		ScrollContinuous,   // Similar to UIWebView. Ignores PSPDFPageModeDouble.
+		Curl                // replaces pageCurlEnabled. iOS5+ feature.ure.
 	}
 
 	public enum PSPDFViewMode
@@ -90,7 +95,7 @@ namespace AlexTouch.PSPDFKit
 		BlackOpaque,        /// Opaque Black everywhere
 		Default,            /// Default statusbar (white on iPhone/black on iPad)
 		Disable,            /// Never show status bar
-		Ignore = 0x100      /// Causes this class to ignore the statusbar entirely.
+		Ignore = 256      /// Causes this class to ignore the statusbar entirely.
 	}
 
 	public enum PSPDFHUDViewMode
@@ -135,17 +140,19 @@ namespace AlexTouch.PSPDFKit
 	////	Start 							//
 	//////////////////////////////////////////
 
+	[Flags]
 	public enum PSPDFAnnotationType : uint
 	{
-		Undefined = 0,      // any annotation whose type couldn't be recognized.
-		Link      = 1 << 1,
-		Highlight = 1 << 2, // (Highlight, Underline, StrikeOut) - PSPDFHighlightAnnotationView
-		Text      = 1 << 5,
-		Ink       = 1 << 6,
-		Shape     = 1 << 7, // Square, Circle
-		Line      = 1 << 8,
-		Note      = 1 << 9,
-		All       = 4294967295
+		None      = 0,
+		Link      = 2,
+		Highlight = 4, // (Highlight, Underline, StrikeOut) - PSPDFHighlightAnnotationView
+		Text      = 8,
+		Ink       = 16,
+		Shape     = 32, // Square, Circle
+		Line      = 64,
+		Note      = 128,
+		Undefined = 2147483648, // any annotation whose type couldn't be recognized
+		All       = uint.MaxValue
 	}
 
 	//////////////////////////////////////////////////
@@ -172,40 +179,59 @@ namespace AlexTouch.PSPDFKit
 		Curl   // curled shadow style
 	}
 
-	//////////////////////////////////////////
-	////	PSCollectionView.h enums 		//
-	////	Start 							//
-	//////////////////////////////////////////
+	//////////////////////////////////////////////////////////
+	////	PSTCollectionViewScrollPosition.h enums 		//
+	////	Start 											//
+	//////////////////////////////////////////////////////////
 
-	public enum PSCollectionViewScrollPosition : uint
+	[Since (6,0)]
+	[Flags]
+	public enum PSTCollectionViewScrollPosition : uint
 	{
 		None                 = 0,
 		
 		// The vertical positions are mutually exclusive to each other, but are bitwise or-able with the horizontal scroll positions.
 		// Combining positions from the same grouping (horizontal or vertical) will result in an NSInvalidArgumentException.
-		Top                  = 1 << 0,
-		CenteredVertically   = 1 << 1,
-		Bottom               = 1 << 2,
+		Top                  = 1,
+		CenteredVertically   = 2,
+		Bottom               = 4,
 		
 		// Likewise, the horizontal positions are mutually exclusive to each other.
-		Left                 = 1 << 3,
-		CenteredHorizontally = 1 << 4,
-		Right                = 1 << 5
+		Left                 = 8,
+		CenteredHorizontally = 16,
+		Right                = 32
 	}
 
-	//////////////////////////////////////////////
-	////	PSCollectionViewLayout.h enums 		//
-	////	Start 								//
-	//////////////////////////////////////////////
+	[Flags]
+	public enum UICollectionViewScrollPosition : uint
+	{
+		None                 = 0,
+		
+		// The vertical positions are mutually exclusive to each other, but are bitwise or-able with the horizontal scroll positions.
+		// Combining positions from the same grouping (horizontal or vertical) will result in an NSInvalidArgumentException.
+		Top                  = 1,
+		CenteredVertically   = 2,
+		Bottom               = 4,
+		
+		// Likewise, the horizontal positions are mutually exclusive to each other.
+		Left                 = 8,
+		CenteredHorizontally = 16,
+		Right                = 32
+	}
 
-	public enum PSCollectionViewItemType : uint
+	//////////////////////////////////////////////////
+	////	PSTCollectionViewLayout.h enums 		//
+	////	Start 									//
+	//////////////////////////////////////////////////
+
+	public enum PSTCollectionViewItemType : uint
 	{
 		Cell,
 		DecorationView,
 		SupplementaryView
 	}
 
-	public enum PSCollectionUpdateAction
+	public enum PSTCollectionUpdateAction
 	{
 		Insert,
 		Delete,
@@ -252,13 +278,14 @@ namespace AlexTouch.PSPDFKit
 	public enum PSPDFLinkAnnotationType
 	{
 		Page = 0,
-		WebURL,
-		Video,
-		YouTube,
-		Audio,
-		Image,
-		Browser,
-		Custom
+		WebURL,  // 1
+		Document,// 2
+		Video,   // 3
+		YouTube, // 4
+		Audio,   // 5
+		Image,   // 6
+		Browser, // 7
+		Custom  /// any annotation format that is not recognized is custom, calling the delegate viewForAnnotation:
 	}
 
 	//////////////////////////////////////////////
@@ -278,13 +305,15 @@ namespace AlexTouch.PSPDFKit
 	////	Start 								//
 	//////////////////////////////////////////////
 
+	[Flags]
 	public enum PSPDFWebViewControllerAvailableActions : uint
 	{
 		None             = 0,
-		OpenInSafari     = 1 << 0,
-		MailLink         = 1 << 1,
-		CopyLink         = 1 << 2,
-		Print            = 1 << 3
+		OpenInSafari     = 1,
+		MailLink         = 2,
+		CopyLink         = 4,
+		Print            = 8,
+		All				 = 15
 	}
 
 	//////////////////////////////////
@@ -312,13 +341,20 @@ namespace AlexTouch.PSPDFKit
 	////	Start	 								//
 	//////////////////////////////////////////////////
 
-	public enum PSCollectionViewScrollDirection
+	[Since(6,0)]
+	public enum PSTCollectionViewScrollDirection
 	{
 		Vertical,
 		Horizontal
 	}
 
-	public enum PSFlowLayoutHorizontalAlignment
+	public enum UICollectionViewScrollDirection
+	{
+		Vertical,
+		Horizontal
+	}
+
+	public enum PSTFlowLayoutHorizontalAlignment
 	{
 		Left,
 		Centered,
@@ -379,5 +415,80 @@ namespace AlexTouch.PSPDFKit
 		DetailTop,
 		DetailBottom
 	}
+
+	//////////////////////////////////////
+	////	PSPDFColorView.h enums 		//
+	////	Start						//
+	//////////////////////////////////////
+
+	public enum PSPDFColorViewBorderStyle
+	{
+		Single = 0,
+		Top, 
+		Middle, 
+		Bottom
+	}
+
+	//////////////////////////////////////
+	////	PSPDFColorView.h enums 		//
+	////	Start						//
+	//////////////////////////////////////
+	
+	public enum PSPDFGradientViewDirection
+	{
+		Horizontal,
+		Vertical
+	}
+
+	//////////////////////////////////////
+	////	PSPDFColorView.h enums 		//
+	////	Start						//
+	//////////////////////////////////////
+	
+	public enum PSPDFProgressHUDMaskType : uint
+	{
+		None = 1, // allow user interactions while HUD is displayed
+		Clear, // don't allow
+		Black, // don't allow and dim the UI in the back of the HUD
+		Gradient // don't allow and dim the UI with a a-la-alert-view bg gradient
+	}
+
+	//////////////////////////////////////////////////////
+	////	PSPDFViewControllerDelegates.h enums 		//
+	////	Start										//
+	//////////////////////////////////////////////////////
+
+//	[StructLayout(LayoutKind.Sequential)]
+//	public struct PSPDFDelegateFlags
+//	{
+//		uint delegateShouldSetDocument;
+//		uint delegateWillDisplayDocument;
+//		uint delegateDidDisplayDocument;
+//		uint delegateDidShowPageView;
+//		uint delegateDidRenderPageView;
+//		uint delegateDidChangeViewMode;
+//		uint delegateDidTapOnPageView;
+//		uint delegateDidLongPressOnPageView;
+//		uint delegateShouldSelectText;
+//		uint delegateDidSelectText;
+//		uint delegateShouldShowMenuItemsForSelectedText;
+//		uint delegateShouldSelectAnnotation;
+//		uint delegateDidSelectAnnotation;
+//		uint delegateShouldShowMenuItemsForAnnotation;
+//		uint delegateDidTapOnAnnotation;
+//		uint delegateShouldDisplayAnnotation;
+//		uint delegateShouldScrollToPage;
+//		uint delegateAnnotationViewForAnnotation;
+//		uint delegateWillShowAnnotationView;
+//		uint delegateDidShowAnnotationView;
+//		uint delegateDidLoadPageView;
+//		uint delegateWillUnloadPageView;
+//		uint delegateDidEndPageDraggingWillDecelerate;
+//		uint delegateDidEndPageScrollingAnimation;
+//		uint delegateDidEndZoomingAtScale;
+//		uint delegateShouldShowControllerAnimated;
+//		uint delegateDidShowControllerAnimated;
+//		uint delegateDocumentForRelativePath;
+//	}
 }
 

@@ -61,7 +61,7 @@ namespace AlexTouch.PSPDFKit
 	[BaseType (typeof (PSPDFBaseViewController),
 	Delegates=new string [] {"WeakDelegate"},
 	Events=new Type [] { typeof (PSPDFViewControllerDelegate) })]
-	interface PSPDFViewController 
+	interface PSPDFViewController
 	{
 		[Export ("initWithDocument:")]
 		IntPtr Constructor (PSPDFDocument document);
@@ -85,27 +85,17 @@ namespace AlexTouch.PSPDFKit
 		void ScrollRectToVisibleAnimated(RectangleF rec, bool animated);
 		
 		[Export("zoomToRect:animated:")]
-		void ZoomToRectAnimated(RectangleF rec, bool animated);
+		void ZoomToRectAnimated (RectangleF rec, bool animated);
+
+		[Export("setZoomScale:animated:")]
+		void SetZoomScale (float scale, bool animated);
 		
 		[Export ("viewState")]
 		PSPDFViewState ViewState { get; set; }
 		
 		[Export("setViewState:animated:")]
 		void SetViewStateAnimated(PSPDFViewState viewState, bool animated);
-		
-		//
-		//	- (IBAction)reloadData; -> Omited!!
-		//	This method must be called from MonoTouch App Project like this
-		//
-		//	[Export ("reloadData")]
-		//	public void ReloadData () {
-		//		//reloadData funky code goes here
-		//	}
-		//	---------- o ----------- o ----------- o ---------- o ----------
-		//	Experimental binding of reloadData 
-		//	WebRef: http://stackoverflow.com/questions/5117960/monotouch-create-iboutlet-and-actions-programatically
-		//	TODO: Verify if this worked if ever needed
-		//
+
 		[Export ("reloadData")]
 		void ReloadData();
 		
@@ -120,6 +110,9 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("renderInvertEnabled", ArgumentSemantic.Assign)]
 		bool RenderInvertEnabled { get; set; }
+
+		[Export ("renderAnnotationTypes", ArgumentSemantic.Assign)]
+		PSPDFAnnotationType RenderAnnotationTypes { get; set; }
 		
 		[Export ("HUDView")]
 		PSPDFHUDView HUDView { get; }
@@ -237,6 +230,9 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("bookmarkButtonItem")]
 		PSPDFBarButtonItem BookmarkButtonItem { get; }
+
+		[Export ("brightnessButtonItem")]
+		PSPDFBarButtonItem BrightnessButtonItem { get; }
 		
 		[Export ("leftBarButtonItems")]
 		PSPDFBarButtonItem [] LeftBarButtonItems { get; set; }
@@ -282,7 +278,10 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("clipToPageBoundaries", ArgumentSemantic.Assign)]
 		bool ClipToPageBoundaries { get; set; }
-		
+
+		[Export ("minimumZoomScale", ArgumentSemantic.Assign)]
+		float MinimumZoomScale { get; set; }
+
 		[Export ("maximumZoomScale", ArgumentSemantic.Assign)]
 		float MaximumZoomScale { get; set; }
 		
@@ -300,7 +299,10 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("tintColor")]
 		UIColor TintColor { get; set; }
-		
+
+		[Export ("shouldTintPopovers", ArgumentSemantic.Assign)]
+		bool ShouldTintPopovers { get; }
+
 		[Export ("isNavigationBarHidden", ArgumentSemantic.Assign)]
 		bool NavigationBarHidden { get; }
 		
@@ -323,7 +325,7 @@ namespace AlexTouch.PSPDFKit
 		void setViewModeAnimated (PSPDFViewMode viewMode, bool animated);
 		
 		[Export ("gridView")]
-		PSCollectionView GridView { get; }
+		PSTCollectionView GridView { get; }
 		
 		[Export ("thumbnailSize", ArgumentSemantic.Assign)]
 		SizeF ThumbnailSize { get; set; }
@@ -346,11 +348,32 @@ namespace AlexTouch.PSPDFKit
 		[Export ("presentModalViewController:embeddedInNavigationController:withCloseButton:animated:")]
 		void PresentModalViewController (UIViewController controller, bool embedded, bool closeButton, bool animated);
 
+		[Field ("PSPDFPresentOptionRect", "__Internal")]
+		NSString PSPDFPresentOptionRect { get; }
+		
+		[Field ("PSPDFPresentOptionPopoverContentSize", "__Internal")]
+		NSString PSPDFPresentOptionPopoverContentSize { get; }
+		
+		[Field ("PSPDFPresentOptionAllowedPopoverArrowDirections", "__Internal")]
+		NSString PSPDFPresentOptionAllowedPopoverArrowDirections { get; }
+		
+		[Field ("PSPDFPresentOptionModalPresentationStyle", "__Internal")]
+		NSString PSPDFPresentOptionModalPresentationStyle { get; }
+		
+		[Field ("PSPDFPresentOptionAlwaysModal", "__Internal")]
+		NSString PSPDFPresentOptionAlwaysModal { get; }
+		
+		[Field ("PSPDFPresentOptionPassthroughViews", "__Internal")]
+		NSString PSPDFPresentOptionPassthroughViews { get; }
+
 		[Export ("presentViewControllerModalOrPopover:embeddedInNavigationController:withCloseButton:animated:sender:rect:")]
 		NSObject PresentViewControllerModalOrPopover (UIViewController controller, bool embedded, bool closeButton, bool animated, UIBarButtonItem sender, RectangleF rect);
 
 		[Export ("visiblePageNumbers")]
 		NSNumber [] VisiblePageNumbers { get; }
+
+		[Export ("visiblePageViews")]
+		PSPDFPageView [] VisiblePageViews { get; }
 		
 		[Export ("isLastPage")]
 		bool IsLastPage { get; }
@@ -395,6 +418,10 @@ namespace AlexTouch.PSPDFKit
 		
 		[Bind ("contentRect")]
 		RectangleF ContentRect ();
+
+		[Export ("applicationDidEnterBackground:")]
+		void ApplicationDidEnterBackground (NSNotification notification);
+
 	}
 	
 	[BaseType (typeof (NSObject))]
@@ -434,13 +461,7 @@ namespace AlexTouch.PSPDFKit
 	
 	[BaseType (typeof (NSObject))]
 	interface PSPDFWord 
-	{
-		[Export ("frame", ArgumentSemantic.Retain)]
-		RectangleF Frame { get; set; }
-		
-		[Export ("glyphs")]
-		PSPDFGlyph [] Glyphs { get; set; }
-		
+	{		
 		[Export("initWithGlyphs:")]
 		IntPtr Constructor (PSPDFGlyph [] wordGlyphs);
 		
@@ -458,6 +479,12 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export("compareByLayout:")]
 		NSComparisonResult CompareByLayout (PSPDFWord word);
+
+		[Export ("frame", ArgumentSemantic.Retain)]
+		RectangleF Frame { get; set; }
+		
+		[Export ("glyphs")]
+		PSPDFGlyph [] Glyphs { get; set; }
 	}
 	
 	//////////////////////////////////////
@@ -700,7 +727,7 @@ namespace AlexTouch.PSPDFKit
 	[BaseType (typeof (NSObject),
 	Delegates=new string [] {"WeakDelegate"},
 	Events=new Type [] { typeof (PSPDFDocumentDelegate) })]
-	interface PSPDFDocument 
+	interface PSPDFDocument
 	{
 		[Static][Export("PDFDocument")]
 		PSPDFDocument PDFDocument ();
@@ -771,6 +798,9 @@ namespace AlexTouch.PSPDFKit
 		[Export("fileNamesWithDataDictionary")][NullAllowed]
 		NSDictionary FileNamesWithDataDictionary { get; }
 
+		[Export("fileNameForPage:")]
+		string FileNameForPage (uint pageIndex);
+
 		[Export("basePath")][NullAllowed]
 		NSUrl BasePath { get; set; }
 		
@@ -786,8 +816,8 @@ namespace AlexTouch.PSPDFKit
 		[Export("dataArray", ArgumentSemantic.Copy)][NullAllowed]
 		NSData [] DataArray { get; }
 		
-		[Export("dataProvider")][NullAllowed]
-		NSObject DataProvider { get; }
+		[Export("dataProvider", ArgumentSemantic.Assign)][Internal]
+		IntPtr /*CGDataProviderRef*/ DataProvider_ { get; }
 		
 		[Export("title", ArgumentSemantic.Copy)]
 		string Title { get; set; }
@@ -864,6 +894,9 @@ namespace AlexTouch.PSPDFKit
 		[Export("fillCache")]
 		void FillCache ();
 
+		[Export("fillPageInfoCache")]
+		void FillPageInfoCache ();
+
 		[Export("cacheDirectory", ArgumentSemantic.Copy)]
 		string CacheDirectory { get; set; }
 
@@ -932,6 +965,42 @@ namespace AlexTouch.PSPDFKit
 
 		[Export("renderPage:inContext:withSize:clippedToRect:withAnnotations:options:")] [Internal]
 		void RenderPage_ (uint page, IntPtr /*CGContextRef*/ context, SizeF fullSize, RectangleF clipRect, PSPDFAnnotation [] annotations, NSDictionary options);
+
+		[Export("renderOptions")]
+		NSDictionary RenderOptions { get; set; }
+
+		//Options
+		[Field ("kPSPDFObjectsText", "__Internal")]
+		NSString PSPDFObjectsText { get; }
+
+		[Field ("kPSPDFObjectsFullWords", "__Internal")]
+		NSString PSPDFObjectsFullWords { get; }
+
+		[Field ("kPSPDFObjectsTextBlocks", "__Internal")]
+		NSString PSPDFObjectsTextBlocks { get; }
+
+		[Field ("kPSPDFObjectsTextBlocksIgnoreLarge", "__Internal")]
+		NSString PSPDFObjectsTextBlocksIgnoreLarge { get; }
+
+		[Field ("kPSPDFObjectsAnnotationTypes", "__Internal")]
+		NSString PSPDFObjectsAnnotationTypes { get; }
+
+		[Field ("kPSPDFObjectsAnnotationPageBounds", "__Internal")]
+		NSString PSPDFObjectsAnnotationPageBounds { get; }
+
+		//Output Categories
+
+		[Field ("kPSPDFGlyphs", "__Internal")]
+		NSString PSPDFGlyphs { get; }
+
+		[Field ("kPSPDFWords", "__Internal")]
+		NSString PSPDFWords { get; }
+
+		[Field ("kPSPDFTextBlocks", "__Internal")]
+		NSString PSPDFTextBlocks { get; }
+
+		[Field ("kPSPDFAnnotations", "__Internal")]
+		NSString PSPDFAnnotations { get; }
 
 		[Export("objectsAtPDFPoint:page:options:")]
 		NSDictionary ObjectsAtPDFPoint (PointF pdfPoint, uint page, [NullAllowed] NSDictionary options);
@@ -1007,8 +1076,14 @@ namespace AlexTouch.PSPDFKit
 	[Model]
 	interface PSPDFDocumentDelegate 
 	{		
-		[Export ("pdfDocument:resolveCustomAnnotationPathToken:"), DelegateName ("PSPDFDocumentResolveCustomAnnotationPathToken"), DefaultValue (null)]
+		[Export ("pdfDocument:resolveCustomAnnotationPathToken:"), DelegateName ("PSPDFDocumentDelegateResolveCustomAnnotationPathToken"), DefaultValue (null)]
 		string ResolveCustomAnnotationPathToken (PSPDFDocument document, string pathToken);
+
+		[Export ("pdfDocument:didSaveAnnotations:"), EventArgs ("PSPDFDocumentDelegateDidSaveAnnotations")]
+		void DidSaveAnnotations (PSPDFDocument document, PSPDFAnnotation [] annotations);
+
+		[Export ("pdfDocument:failedToSaveAnnotations:withError:"), EventArgs ("PSPDFDocumentDelegateFailedToSaveAnnotations")]
+		void FailedToSaveAnnotations (PSPDFDocument document, PSPDFAnnotation [] annotations, NSError error);
 	}
 
 	//////////////////////////////////////////
@@ -1033,20 +1108,23 @@ namespace AlexTouch.PSPDFKit
 		[Export("removeBookmarkForPage:")] [PostGet("Bookmarks")]
 		bool RemoveBookmarkForPage (uint page);
 
+		[Export("clearAllBookmarksWithError:")] [PostGet("Bookmarks")]
+		bool ClearAllBookmarksWithError (out NSError error);
+
 		[Export("bookmarkForPage:")]
 		PSPDFBookmark BookmarkForPage (uint page);
 
-		[Bind("cachePath:")]
+		[Bind("cachePath")]
 		string CachePath ();
 
-		[Bind("bookmarkPath:")]
+		[Bind("bookmarkPath")]
 		string BookmarkPath ();
 
-		[Bind("loadBookmarks:")]
-		PSPDFBookmark [] LoadBookmarks ();
+		[Bind("loadBookmarksWithError:")]
+		PSPDFBookmark [] LoadBookmarksWithError (out NSError error);
 
-		[Bind("saveBookmarks:")]
-		void SaveBookmarks ();
+		[Bind("saveBookmarksWithError:")]
+		bool SaveBookmarksWithError (out NSError error);
 	}
 	
 	//////////////////////////////////////////
@@ -1055,24 +1133,24 @@ namespace AlexTouch.PSPDFKit
 	
 	[BaseType (typeof (NSObject))]
 	[Model]
-	interface PSPDFSearchDelegate 
+	interface PSPDFTextSearchDelegate 
 	{		
-		[Export ("willStartSearchForString:isFullSearch:"), EventArgs ("PSPDFTextSearchWillStartSearch")]
-		void WillStartSearch (string searchString, bool isFullSearch);
+		[Export ("willStartSearch:forTerm:isFullSearch:"), EventArgs ("PSPDFTextSearchWillStartSearch")]
+		void WillStartSearch (PSPDFTextSearch textSearch, string searchTerm, bool isFullSearch);
 		
-		[Export ("didUpdateSearchForString:newSearchResults:forPage:"), EventArgs ("PSPDFTextSearchDidUpdateSearch")]
-		void DidUpdateSearch (string searchString, PSPDFSearchResult [] searchResults, uint page);
+		[Export ("didUpdateSearch:forTerm:newSearchResults:forPage:"), EventArgs ("PSPDFTextSearchDidUpdateSearch")]
+		void DidUpdateSearch (PSPDFTextSearch textSearch, string searchTerm, PSPDFSearchResult [] searchResults, uint page);
 		
-		[Export ("didFinishSearchForString:searchResults:isFullSearch:"), EventArgs ("PSPDFTextSearchDidFinishSearch")]
-		void DidFinishSearch (string searchString, PSPDFSearchResult [] searchResults, bool isFullSearch);
+		[Export ("didFinishSearch:forTerm:searchResults:isFullSearch:"), EventArgs ("PSPDFTextSearchDidFinishSearch")]
+		void DidFinishSearch (PSPDFTextSearch textSearch, string searchTerm,  PSPDFSearchResult [] searchResults, bool isFullSearch);
 		
-		[Export ("didCancelSearchForString:isFullSearch:"), EventArgs ("PSPDFTextSearchDidCancelSearch")]
-		void DidCancelSearch (string searchString, bool isFullSearch);
+		[Export ("didCancelSearch:forTerm:isFullSearch:"), EventArgs ("PSPDFTextSearchDidCancelSearch")]
+		void DidCancelSearch (PSPDFTextSearch textSearch, string searchTerm, bool isFullSearch);
 	}
 	
 	[BaseType (typeof (NSObject),
 	Delegates=new string [] {"WeakDelegate"},
-	Events=new Type [] { typeof (PSPDFSearchDelegate) })]
+	Events=new Type [] { typeof (PSPDFTextSearchDelegate) })]
 	interface PSPDFTextSearch 
 	{
 		[Export("initWithDocument:")]
@@ -1103,7 +1181,7 @@ namespace AlexTouch.PSPDFKit
 		PSPDFDocument Document { get; }
 		
 		[Wrap ("WeakDelegate")]
-		PSPDFSearchDelegate Delegate { get; set; }
+		PSPDFTextSearchDelegate Delegate { get; set; }
 		
 		[Export ("delegate", ArgumentSemantic.Assign)][NullAllowed]
 		NSObject WeakDelegate { get; set; }
@@ -1117,17 +1195,17 @@ namespace AlexTouch.PSPDFKit
 	[Model]
 	interface PSPDFSearchOperationDelegate 
 	{		
+		[Export ("didUpdateSearchOperation:forString:newSearchResults:forPage:"), EventArgs ("PSPDFSearchOperationDidUpdateSearchOperation")] [Abstract]
+		void DidUpdateSearchOperation (PSPDFSearchOperation operation, string searchString, PSPDFSearchResult [] searchResults, uint page);
+
 		[Export ("willStartSearchOperation:forString:isFullSearch:"), EventArgs ("PSPDFSearchOperationWillStartSearchOperation")]
 		void WillStartSearchOperation (PSPDFSearchOperation operation, string searchString, bool isFullSearch);
-		
-		[Export ("didUpdateSearchOperation:forString:newSearchResults:forPage:"), EventArgs ("PSPDFSearchOperationDidUpdateSearchOperation")]
-		void DidUpdateSearchOperation (PSPDFSearchOperation operation, string searchString, PSPDFSearchResult [] searchResults, uint page);
 	}
 
 
 	[BaseType (typeof (NSOperation),
 	Delegates=new string [] {"WeakDelegate"},
-	Events=new Type [] { typeof (PSPDFSearchDelegate) })]
+	Events=new Type [] { typeof (PSPDFSearchOperationDelegate) })]
 	interface PSPDFSearchOperation 
 	{
 		[Export("initWithDocument:searchText:")]
@@ -1179,8 +1257,8 @@ namespace AlexTouch.PSPDFKit
 		void DidAppendData (PSPDFDocumentProvider documentProvider, NSData data);
 	}
 
-	delegate void PSPDFDocumentProviderPerformBlock (PSPDFDocumentProvider docProvider, IntPtr /*CGPDFDocumentRef*/ documentRef);
-	delegate void PSPDFDocumentProviderIterateOverPageRef (PSPDFDocumentProvider docProvider, IntPtr /*CGPDFDocumentRef*/ documentRef, IntPtr /*CGPDFPageRef*/ pageRef, uint pageNumber);
+	delegate void PSPDFDocumentProviderPerformBlock (PSPDFDocumentProvider docProvider, IntPtr /*CGPDFDocumentRef*/ documentRefHandle);
+	delegate void PSPDFDocumentProviderIterateOverPageRef (PSPDFDocumentProvider docProvider, IntPtr /*CGPDFDocumentRef*/ documentRefHandle, IntPtr /*CGPDFPageRef*/ pageRefHandle, uint pageNumber);
 
 	[BaseType (typeof (NSObject),
 	Delegates=new string [] {"WeakDelegate"},
@@ -1202,8 +1280,8 @@ namespace AlexTouch.PSPDFKit
 		[Export("data")][NullAllowed]
 		NSData Data { get; }
 		
-		[Export("dataProvider")][NullAllowed]
-		NSObject DataProvider { get; }
+		[Export("dataProvider", ArgumentSemantic.Assign)] [Internal]
+		IntPtr /*CGDataProviderRef*/ DataProvider_ { get; }
 		
 		[Export("document")]
 		PSPDFDocument Document { get; }
@@ -1214,11 +1292,11 @@ namespace AlexTouch.PSPDFKit
 		[Export ("delegate", ArgumentSemantic.Assign)][NullAllowed]
 		NSObject WeakDelegate { get; set; }
 		
-		[Export("requestDocumentRef")][Internal]
-		IntPtr RequestDocumentRef_ ();
+		[Export("requestDocumentRefWithOwner:")][Internal]
+		IntPtr RequestDocumentRefWithOwner_ (NSObject owner);
 		
-		[Export("releaseDocumentRef:")][Internal]
-		void ReleaseDocumentRef_ (IntPtr /*CGPDFDocumentRef*/ documentRef);
+		[Export("releaseDocumentRef:withOwner:")][Internal]
+		void ReleaseDocumentRef_ (IntPtr /*CGPDFDocumentRef*/ documentRef, NSObject owner);
 		
 		[Export("performBlock:")]
 		void PerformBlock (PSPDFDocumentProviderPerformBlock documentRefBlock);
@@ -1273,6 +1351,12 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export("title", ArgumentSemantic.Copy)]
 		string Title { get; }
+
+		[Export("textParserForPage:")]
+		PSPDFTextParser TextParserForPage (uint page);
+
+		[Export("hasLoadedTextParserForPage:")]
+		bool HasLoadedTextParserForPage (uint page);
 		
 		[Export("outlineParser")]
 		PSPDFOutlineParser OutlineParser { get; set; }
@@ -1303,8 +1387,11 @@ namespace AlexTouch.PSPDFKit
 	[BaseType (typeof (NSObject))]
 	interface PSPDFLabelParser 
 	{
-		[Export("initWithDocument:")]
-		IntPtr Constructor (PSPDFDocument document);
+		[Export("initWithDocumentProvider:")]
+		IntPtr Constructor (PSPDFDocumentProvider documentProvider);
+
+		[Export("documentProvider")]
+		PSPDFDocumentProvider DocumentProvider { get; }
 		
 		[Export("parseDocument")]
 		NSDictionary ParseDocument ();
@@ -1456,6 +1543,9 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export("outlineAvailable", ArgumentSemantic.Assign)]
 		bool OutlineAvailable { [Bind("isOutlineAvailable")] get; }
+
+		[Export("documentProvider")]
+		PSPDFDocumentProvider DocumentProvider { get; }
 		
 		[Static][Export("resolveDestNames:documentRef:")][Internal]
 		NSDictionary ResolveDestNames_ (NSSet destNames, IntPtr /*CGPDFDocumentRef*/ documentRef);
@@ -1551,9 +1641,6 @@ namespace AlexTouch.PSPDFKit
 		[Export ("pdfScale")]
 		float PdfScale { get; }
 		
-		[Export ("suspendUpdate", ArgumentSemantic.Assign)]
-		bool SuspendUpdate { get; set; }
-		
 		[Export ("rendering", ArgumentSemantic.Assign)]
 		bool Rendering { [Bind("isRendering")] get; }
 		
@@ -1620,8 +1707,8 @@ namespace AlexTouch.PSPDFKit
 		[Export ("shadowOpacity", ArgumentSemantic.Assign)]
 		float ShadowOpacity { get; set; }
 		
-		[Export("updateShadow")]
-		void UpdateShadow();
+		[Export("updateShadowAnimated:")]
+		void UpdateShadowAnimated(bool animated);
 		
 		// Since it is not really useful to get "back" the block
 		//@property(nonatomic, copy) void(^updateShadowBlock)(PSPDFPageView *pageView);
@@ -1656,6 +1743,18 @@ namespace AlexTouch.PSPDFKit
 
 		[Bind ("loadPageAnnotationsAnimated:")]
 		void LoadPageAnnotationsAnimated (bool animated);
+
+		[Bind ("tappableAnnotationsAtPoint:")]
+		PSPDFAnnotation [] TappableAnnotationsAtPoint (PointF viewPoint);
+
+		[Bind ("singleTappedAtViewPoint:")]
+		bool SingleTappedAtViewPoint (PointF viewPoint);
+
+		[Bind ("renderOptionsDictWithZoomScale:")]
+		NSDictionary RenderOptionsDictWithZoomScale (float zoomScale);
+
+		[Export ("suspendUpdate", ArgumentSemantic.Assign)]
+		bool SuspendUpdate { get; set; }
 	}
 
 	[BaseType (typeof (UIImageView))]
@@ -1809,7 +1908,7 @@ namespace AlexTouch.PSPDFKit
 		string [] SupportedTypes ();
 
 		[Static][Export ("isWriteable")]
-		bool IsWriteable { [Bind("isWriteable")] get; }
+		bool IsWriteable { get; }
 		
 		[Export ("initWithType:")]
 		IntPtr Constructor (PSPDFAnnotationType annotationType);
@@ -1849,7 +1948,10 @@ namespace AlexTouch.PSPDFKit
 
 		[Export ("overlay", ArgumentSemantic.Assign)]
 		bool Overlay { [Bind("isOverlay")] get; }
-		
+
+		[Export ("editable", ArgumentSemantic.Assign)]
+		bool Editable { [Bind("isEditable")] get; set; }
+
 		[Export ("typeString", ArgumentSemantic.Copy)]
 		string TypeString { get; set; }
 		
@@ -1958,12 +2060,13 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("pageView")]
 		PSPDFPageView PageView { get; set; }
-		
-		[Export ("showLoupe")]
-		void ShowLoupe ();
-		
-		[Export ("hideLoupe")]
-		void HideLoupe ();
+
+		//Removed on version 2.3.1
+//		[Export ("showLoupe")]
+//		void ShowLoupe ();
+//		
+//		[Export ("hideLoupe")]
+//		void HideLoupe ();
 
 		[Export ("updateMenu")]
 		void UpdateMenu ();
@@ -1988,7 +2091,7 @@ namespace AlexTouch.PSPDFKit
 
 		[Export ("isTextSelectionFeatureAvailable")]
 		[Static]
-		bool IsTextSelectionFeatureAvailable { [Bind("isTextSelectionFeatureAvailable")] get; }
+		bool IsTextSelectionFeatureAvailable { get; }
 	}
 
 	//////////////////////////////////////////
@@ -2006,7 +2109,13 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("targetSize", ArgumentSemantic.Assign)]
 		SizeF TargetSize { get; set; }
-		
+
+		[Export ("showLoupeAnimated:")]
+		void ShowLoupeAnimated (bool animated);
+
+		[Export ("hideLoupeAnimated:")]
+		void HideLoupeAnimated (bool animated);
+
 	}
 	
 	//////////////////////////////
@@ -2016,6 +2125,9 @@ namespace AlexTouch.PSPDFKit
 	[BaseType (typeof (NSObject))]
 	interface PSPDFTextParser 
 	{		
+		[Export ("initWithPDFPage:page:fontCache:hideGlyphsOutsidePageRect:")][Internal]
+		IntPtr Constructor (IntPtr /*CGPDFPage*/ pageRef, uint page, [NullAllowed] NSMutableDictionary fontCache, bool hideGlyphsOutsidePageRect);
+
 		[Export ("text")][NullAllowed]
 		string Text { get; set; }
 		
@@ -2027,9 +2139,6 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("textBlocks")]
 		PSPDFTextBlock [] TextBlocks { get; }
-
-		[Export ("initWithPDFPage:")][Internal]
-		IntPtr Constructor (IntPtr /*CGPDFPage*/ page, bool par);
 		
 	}
 
@@ -2040,7 +2149,7 @@ namespace AlexTouch.PSPDFKit
 	[BaseType (typeof (NSObject))]
 	interface PSPDFTextBlock 
 	{	
-		[Export ("initWithGlyphs")]
+		[Export ("initWithGlyphs:")]
 		IntPtr Constructor (PSPDFGlyph [] glyps);
 
 		[Export ("frame")]
@@ -2050,7 +2159,7 @@ namespace AlexTouch.PSPDFKit
 		PSPDFWord [] Words { get; }
 
 		[Export ("glyphs")]
-		PSPDFGlyph [] Glyphs { get; }
+		PSPDFGlyph [] Glyphs { get; set; }
 		
 		[Export ("content")]
 		string Content { get; }		
@@ -2114,7 +2223,7 @@ namespace AlexTouch.PSPDFKit
 	//////////////////////////////////////////
 	
 	[BaseType (typeof (UIScrollView))]
-	interface PSPDFScrollView
+	interface PSPDFScrollView : UIScrollViewDelegateProtocol, PSPDFLongPressGestureRecognizerDelegate
 	{
 		[Export("displayDocument:withPage:")]
 		void DisplayDocumentWithPage(PSPDFDocument document, uint page);
@@ -2197,9 +2306,9 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export("rotationActive", ArgumentSemantic.Assign)]
 		bool RotationActive { [Bind("isRotationActive")] get; set; }
-		
-		[Bind("didReceiveMemoryWarning")]
-		void DidReceiveMemoryWarning ();
+
+		[Export("animatingZoomIn", ArgumentSemantic.Assign)]
+		bool AnimatingZoomIn { [Bind("isAnimatingZoomIn")] get; }
 		
 		[Bind("switchPages")]
 		void SwitchPages ();
@@ -2208,9 +2317,9 @@ namespace AlexTouch.PSPDFKit
 		void EnsureContentIsCentered ();
 		
 		[Bind("pageViewForPoint:")]
-		PSPDFPageView SwitchPages (PointF point);
+		PSPDFPageView PageViewForPoint (PointF point);
 	}
-	
+
 	//////////////////////////////////////
 	////		PSPDFPageInfo.h			//
 	//////////////////////////////////////
@@ -2241,11 +2350,11 @@ namespace AlexTouch.PSPDFKit
 	}
 	
 	//////////////////////////////////////////////
-	////		PSCollectionViewCell.h			//
+	////		PSTCollectionViewCell.h			//
 	//////////////////////////////////////////////
 	
 	[BaseType (typeof (UIView))]
-	interface PSCollectionReusableView 
+	interface PSTCollectionReusableView 
 	{
 		[Export("reuseIdentifier", ArgumentSemantic.Copy)]
 		string ReuseIdentifier { get; }
@@ -2254,17 +2363,17 @@ namespace AlexTouch.PSPDFKit
 		void PrepareForReuse ();
 		
 		[Export("applyLayoutAttributes:")]
-		void ApplyLayoutAttributes (PSCollectionViewLayoutAttributes layoutAttributes);
+		void ApplyLayoutAttributes (PSTCollectionViewLayoutAttributes layoutAttributes);
 		
 		[Export("willTransitionFromLayout:toLayout:")]
-		void WillTransitionFromLayoutToLayout (PSCollectionViewLayout oldLayout, PSCollectionViewLayout newLayout);
+		void WillTransitionFromLayoutToLayout (PSTCollectionViewLayout oldLayout, PSTCollectionViewLayout newLayout);
 		
 		[Export("didTransitionFromLayout:toLayout:")]
-		void DidTransitionFromLayoutToLayout (PSCollectionViewLayout oldLayout, PSCollectionViewLayout newLayout);
+		void DidTransitionFromLayoutToLayout (PSTCollectionViewLayout oldLayout, PSTCollectionViewLayout newLayout);
 	}
 	
-	[BaseType (typeof (PSCollectionReusableView))]
-	interface PSCollectionViewCell 
+	[BaseType (typeof (PSTCollectionReusableView))]
+	interface PSTCollectionViewCell 
 	{
 		[Export("contentView")]
 		UIView ContentView { get; }
@@ -2284,98 +2393,101 @@ namespace AlexTouch.PSPDFKit
 		// Extensions
 
 		[Export("collectionView")]
-		PSCollectionView CollectionView { get; set; }
+		PSTCollectionView CollectionView { get; set; }
 
 		[Export("reuseIdentifier")][New]
 		string ReuseIdentifier { get; set; }
 
 		[Export("layoutAttributes")]
-		PSCollectionViewLayoutAttributes LayoutAttributes { get; }
+		PSTCollectionViewLayoutAttributes LayoutAttributes { get; }
 	}
 	
-	//////////////////////////////////////////
-	////		PSCollectionView.h			//
-	//////////////////////////////////////////
+	//////////////////////////////////////////////////
+	////		PSTCollectionViewCommon.h			//
+	//////////////////////////////////////////////////
 	
 	[BaseType (typeof (NSObject))]
 	[Model]
-	interface PSCollectionViewDataSource 
+	interface PSTCollectionViewDataSource 
 	{
 		[Abstract][Export ("collectionView:numberOfItemsInSection:")]
-		int CollectionViewNumberOfItemsInSection (PSCollectionView collectionView, int section);
+		int CollectionViewNumberOfItemsInSection (PSTCollectionView collectionView, int section);
 		
 		[Abstract][Export ("collectionView:cellForItemAtIndexPath:")]
-		PSCollectionViewCell CollectionViewCellForItemAtIndexPath (PSCollectionView collectionView, NSIndexPath indexPath);
+		PSTCollectionViewCell CollectionViewCellForItemAtIndexPath (PSTCollectionView collectionView, NSIndexPath indexPath);
 		
 		[Export ("numberOfSectionsInCollectionView:")]
-		int NumberOfSectionsInCollectionView (PSCollectionView collectionView);
+		int NumberOfSectionsInCollectionView (PSTCollectionView collectionView);
 		
 		[Export ("collectionView:viewForSupplementaryElementOfKind:atIndexPath:")]
-		PSCollectionReusableView CollectionViewViewForSupplementaryElementOfKind (PSCollectionView collectionView, string kind, NSIndexPath indexPath);
+		PSTCollectionReusableView CollectionViewViewForSupplementaryElementOfKind (PSTCollectionView collectionView, string kind, NSIndexPath indexPath);
 	}
 	
 	[BaseType (typeof (UIScrollViewDelegate))]
 	[Model]
-	interface PSCollectionViewDelegate 
+	interface PSTCollectionViewDelegate 
 	{
 		[Export ("collectionView:shouldHighlightItemAtIndexPath:")]
-		bool ShouldHighlightItem (PSCollectionView collectionView, NSIndexPath indexPath);
+		bool ShouldHighlightItem (PSTCollectionView collectionView, NSIndexPath indexPath);
 		
 		[Export ("collectionView:didHighlightItemAtIndexPath:")]
-		void DidHighlightItem (PSCollectionView collectionView, NSIndexPath indexPath);
+		void DidHighlightItem (PSTCollectionView collectionView, NSIndexPath indexPath);
 		
 		[Export ("collectionView:didUnhighlightItemAtIndexPath:")]
-		void DidUnhighlightItem (PSCollectionView collectionView, NSIndexPath indexPath);
+		void DidUnhighlightItem (PSTCollectionView collectionView, NSIndexPath indexPath);
 		
 		[Export ("collectionView:shouldSelectItemAtIndexPath:")]
-		bool ShouldSelectItem (PSCollectionView collectionView, NSIndexPath indexPath);
+		bool ShouldSelectItem (PSTCollectionView collectionView, NSIndexPath indexPath);
 		
 		[Export ("collectionView:shouldDeselectItemAtIndexPath:")]
-		bool ShouldDeselectItem (PSCollectionView collectionView, NSIndexPath indexPath);
+		bool ShouldDeselectItem (PSTCollectionView collectionView, NSIndexPath indexPath);
 		
 		[Export ("collectionView:didSelectItemAtIndexPath:")]
-		void DidSelectItem (PSCollectionView collectionView, NSIndexPath indexPath);
+		void DidSelectItem (PSTCollectionView collectionView, NSIndexPath indexPath);
 		
 		[Export ("collectionView:didDeselectItemAtIndexPath:")]
-		void DidDeselectItem (PSCollectionView collectionView, NSIndexPath indexPath);
+		void DidDeselectItem (PSTCollectionView collectionView, NSIndexPath indexPath);
 		
 		[Export ("collectionView:didEndDisplayingCell:forItemAtIndexPath:")]
-		void DidEndDisplayingCell (PSCollectionView collectionView, PSCollectionViewCell cell, NSIndexPath indexPath);
+		void DidEndDisplayingCell (PSTCollectionView collectionView, PSTCollectionViewCell cell, NSIndexPath indexPath);
 		
 		[Export ("collectionView:didEndDisplayingSupplementaryView:forElementOfKind:atIndexPath:")]
-		void DidEndDisplayingSupplementaryView (PSCollectionView collectionView, PSCollectionReusableView view, string elementKind, NSIndexPath indexPath);
+		void DidEndDisplayingSupplementaryView (PSTCollectionView collectionView, PSTCollectionReusableView view, string elementKind, NSIndexPath indexPath);
 		
 		[Export ("collectionView:shouldShowMenuForItemAtIndexPath:")]
-		bool ShouldShowMenuForItem (PSCollectionView collectionView, NSIndexPath indexPath);
+		bool ShouldShowMenuForItem (PSTCollectionView collectionView, NSIndexPath indexPath);
 		
 		[Export ("collectionView:canPerformAction:forItemAtIndexPath:withSender")]
-		bool CanPerformAction (PSCollectionView collectionView, Selector action, NSIndexPath indexPath, NSObject sender);
+		bool CanPerformAction (PSTCollectionView collectionView, Selector action, NSIndexPath indexPath, NSObject sender);
 		
 		[Export ("collectionView:performAction:forItemAtIndexPath:withSender")]
-		void PerformAction (PSCollectionView collectionView, Selector action, NSIndexPath indexPath, NSObject sender);
-		
+		void PerformAction (PSTCollectionView collectionView, Selector action, NSIndexPath indexPath, NSObject sender);
 	}	
 
-	delegate void PSCollectionViewPerformBatchUpdates();
-	delegate void PSCollectionViewCompletion(bool finished);
+	//////////////////////////////////////////
+	////		PSTCollectionView.h			//
+	//////////////////////////////////////////
+
+	delegate void PSTCollectionViewPerformBatchUpdates();
+	delegate void PSTCollectionViewCompletion(bool finished);
 	
 	[BaseType (typeof (UIScrollView))]
-	interface PSCollectionView 
+	interface PSTCollectionView 
 	{
 		[Export ("initWithFrame:collectionViewLayout:")]
-		IntPtr Constructor (RectangleF frame, PSCollectionViewLayout layout);
+		IntPtr Constructor (RectangleF frame, PSTCollectionViewLayout layout);
 		
 		[Export("collectionViewLayout", ArgumentSemantic.Retain)]
-		PSCollectionViewLayout CollectionViewLayout { get; set; }
+		PSTCollectionViewLayout CollectionViewLayout { get; set; }
 		
 		[Wrap ("WeakDelegate")][New]
-		PSCollectionViewDelegate Delegate { get; set; }
+		PSTCollectionViewDelegate Delegate { get; set; }
 		
 		[Export ("delegate", ArgumentSemantic.Assign)][NullAllowed][New]
 		NSObject WeakDelegate { get; set; }
 		
 		[Wrap ("WeakDataSource")]
-		PSCollectionViewDataSource DataSource { get; set; }
+		PSTCollectionViewDataSource DataSource { get; set; }
 		
 		[Export ("dataSource", ArgumentSemantic.Assign)][NullAllowed]
 		NSObject WeakDataSource { get; set; }
@@ -2388,12 +2500,18 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("registerClass:forSupplementaryViewOfKind:withReuseIdentifier:")]
 		void RegisterClass (Class viewClass, string elementKind, string identifier);
+
+		[Export ("registerNib:forCellWithReuseIdentifier:")]
+		void RegisterNib (UINib nib, string identifier);
+
+		[Export ("registerNib:forSupplementaryViewOfKind:withReuseIdentifier:")]
+		void RegisterNib (UINib nib, string kind, string identifier);
 		
 		[Export ("dequeueReusableCellWithReuseIdentifier:forIndexPath:")]
 		NSObject DequeueReusableCell (string identifier, NSIndexPath indexPath);
 		
 		[Export ("dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:")]
-		NSObject DequeueReusableSupplementaryView (string elementKind, string identifier, NSIndexPath indexPath);
+		NSObject DequeueReusableSupplementaryViewOfKind (string elementKind, string identifier, NSIndexPath indexPath);
 		
 		[Export("allowsSelection")]
 		bool AllowsSelection { get; set; }
@@ -2405,7 +2523,7 @@ namespace AlexTouch.PSPDFKit
 		NSIndexPath [] IndexPathsForSelectedItems();
 		
 		[Export("selectItemAtIndexPath:animated:scrollPosition:")]
-		void SelectItemAtIndexPath(NSIndexPath indexPath, bool animated, PSCollectionViewScrollPosition scrollPosition);
+		void SelectItemAtIndexPath(NSIndexPath indexPath, bool animated, PSTCollectionViewScrollPosition scrollPosition);
 		
 		[Export("deselectItemAtIndexPath:animated:")]
 		void DeselectItemAtIndexPath(NSIndexPath indexPath, bool animated);
@@ -2414,7 +2532,7 @@ namespace AlexTouch.PSPDFKit
 		void ReloadData();
 		
 		[Export("setCollectionViewLayout:animated:")]
-		void SetCollectionViewLayout(PSCollectionViewLayout layout, bool animated);
+		void SetCollectionViewLayout(PSTCollectionViewLayout layout, bool animated);
 		
 		[Export("numberOfSections")]
 		int NumberOfSections();
@@ -2423,28 +2541,28 @@ namespace AlexTouch.PSPDFKit
 		int NumberOfItemsInSection(int section);
 		
 		[Export("layoutAttributesForItemAtIndexPath:")]
-		PSCollectionViewLayoutAttributes LayoutAttributesForItemAtIndexPath(NSIndexPath indexPath);
+		PSTCollectionViewLayoutAttributes LayoutAttributesForItemAtIndexPath(NSIndexPath indexPath);
 		
 		[Export("layoutAttributesForSupplementaryElementOfKind:atIndexPath:")]
-		PSCollectionViewLayoutAttributes LayoutAttributesForSupplementaryElementOfKind(string kind, NSIndexPath indexPath);
+		PSTCollectionViewLayoutAttributes LayoutAttributesForSupplementaryElementOfKind(string kind, NSIndexPath indexPath);
 		
 		[Export("indexPathForItemAtPoint:")]
 		NSIndexPath IndexPathForItemAtPoint(PointF point);
 		
 		[Export("indexPathForCell:")]
-		NSIndexPath IndexPathForCell(PSCollectionViewCell cell);
+		NSIndexPath IndexPathForCell(PSTCollectionViewCell cell);
 		
 		[Export("cellForItemAtIndexPath:")]
-		PSCollectionViewCell CellForItemAtIndexPath(NSIndexPath indexPath);
+		PSTCollectionViewCell CellForItemAtIndexPath(NSIndexPath indexPath);
 		
 		[Export("visibleCells")]
-		NSArray VisibleCells();
+		NSObject [] VisibleCells();
 		
 		[Export("indexPathsForVisibleItems")]
 		NSIndexPath [] IndexPathsForVisibleItems();
 		
 		[Export("scrollToItemAtIndexPath:atScrollPosition:animated:")]
-		void ScrollToItemAtIndexPath(NSIndexPath indexPath, PSCollectionViewScrollPosition scrollPosition, bool animated);
+		void ScrollToItemAtIndexPath(NSIndexPath indexPath, PSTCollectionViewScrollPosition scrollPosition, bool animated);
 		
 		[Export("insertSections:")]
 		void InsertSections(NSIndexSet sections);
@@ -2471,15 +2589,15 @@ namespace AlexTouch.PSPDFKit
 		void MoveItemAtIndexPath(NSIndexPath fromIndexPath, NSIndexPath toIndexPath);
 		
 		[Export("performBatchUpdates:completion:")]
-		void MoveItemAtIndexPath(PSCollectionViewPerformBatchUpdates updates, PSCollectionViewCompletion completion);	
+		void MoveItemAtIndexPath(PSTCollectionViewPerformBatchUpdates updates, PSTCollectionViewCompletion completion);	
 	}
 	
 	//////////////////////////////////////////////////
-	////		PSCollectionViewLayout.h			//
+	////		PSTCollectionViewLayout.h			//
 	//////////////////////////////////////////////////
 	
 	[BaseType (typeof (NSObject))]
-	interface PSCollectionViewLayoutAttributes 
+	interface PSTCollectionViewLayoutAttributes 
 	{
 		[Export("frame")]
 		RectangleF Frame { get; set; }
@@ -2520,7 +2638,7 @@ namespace AlexTouch.PSPDFKit
 		string RepresentedElementKind { get; }
 		
 		[Export("representedElementCategory")]
-		PSCollectionViewItemType RepresentedElementCategory { get; }
+		PSTCollectionViewItemType RepresentedElementCategory { get; }
 		
 		[Bind ("isDecorationView")]
 		bool IsDecorationView ();
@@ -2547,11 +2665,17 @@ namespace AlexTouch.PSPDFKit
 //	}
 	
 	[BaseType (typeof (NSObject))]
-	interface PSCollectionViewLayout 
+	interface PSTCollectionViewLayout 
 	{
+		[Field ("PSTCollectionViewLayoutAwokeFromNib", "__Internal")]
+		NSString PSTCollectionViewLayoutAwokeFromNib { get; }
+
 		[Export("collectionView")]
-		PSCollectionView CollectionView { get; }
-		
+		PSTCollectionView CollectionView { get; }
+
+		[Export("invalidateLayout")]
+		void InvalidateLayout();
+
 		[Export ("registerClass:forDecorationViewWithReuseIdentifier:")] 
 		void RegisterClass (Class c, NSString id);
 		
@@ -2564,16 +2688,16 @@ namespace AlexTouch.PSPDFKit
 		void PrepareLayout();
 		
 		[Bind("layoutAttributesForElementsInRect:")]
-		PSCollectionViewLayoutAttributes [] LayoutAttributesForElementsInRect(RectangleF rect);
+		PSTCollectionViewLayoutAttributes [] LayoutAttributesForElementsInRect(RectangleF rect);
 		
 		[Bind("layoutAttributesForItemAtIndexPath:")]
-		PSCollectionViewLayoutAttributes LayoutAttributesForElementsInRect(NSIndexPath indexPath);
+		PSTCollectionViewLayoutAttributes LayoutAttributesForElementsInRect(NSIndexPath indexPath);
 		
 		[Bind("layoutAttributesForSupplementaryViewOfKind:atIndexPath:")]
-		PSCollectionViewLayoutAttributes LayoutAttributesForElementsInRect(string kind, NSIndexPath indexPath);
+		PSTCollectionViewLayoutAttributes LayoutAttributesForElementsInRect(string kind, NSIndexPath indexPath);
 		
 		[Bind("layoutAttributesForDecorationViewWithReuseIdentifier:atIndexPath:")]
-		PSCollectionViewLayoutAttributes LayoutAttributesForDecorationViewWithReuseIdentifier(string identifier, NSIndexPath indexPath);
+		PSTCollectionViewLayoutAttributes LayoutAttributesForDecorationViewWithReuseIdentifier(string identifier, NSIndexPath indexPath);
 		
 		[Bind("shouldInvalidateLayoutForBoundsChange:")]
 		bool ShouldInvalidateLayoutForBoundsChange(RectangleF newBounds);
@@ -2587,30 +2711,28 @@ namespace AlexTouch.PSPDFKit
 		// Extension methods UpdateSupportHooks
 		
 //		[Bind("prepareForCollectionViewUpdates:")]
-//		void PrepareForCollectionViewUpdates(PSCollectionViewUpdateItem [] updateItems);
+//		void PrepareForCollectionViewUpdates(PSTCollectionViewUpdateItem [] updateItems);
 		
 		[Bind("finalizeCollectionViewUpdates")]
 		void FinalizeCollectionViewUpdates();
 		
 		[Bind("initialLayoutAttributesForInsertedItemAtIndexPath:")]
-		PSCollectionViewLayoutAttributes InitialLayoutAttributesForInsertedItemAtIndexPath(NSIndexPath itemIndexPath);
+		PSTCollectionViewLayoutAttributes InitialLayoutAttributesForInsertedItemAtIndexPath(NSIndexPath itemIndexPath);
 		
 		[Bind("finalLayoutAttributesForDeletedItemAtIndexPath:")]
-		PSCollectionViewLayoutAttributes FinalLayoutAttributesForDeletedItemAtIndexPath(NSIndexPath itemIndexPath);
+		PSTCollectionViewLayoutAttributes FinalLayoutAttributesForDeletedItemAtIndexPath(NSIndexPath itemIndexPath);
 
 		[Bind("initialLayoutAttributesForInsertedSupplementaryElementOfKind:atIndexPath:")]
-		PSCollectionViewLayoutAttributes InitialLayoutAttributesForInsertedSupplementaryElementOfKind(string elementKind, NSIndexPath elementIndexPath);
+		PSTCollectionViewLayoutAttributes InitialLayoutAttributesForInsertedSupplementaryElementOfKind(string elementKind, NSIndexPath elementIndexPath);
 
 		[Bind("finalLayoutAttributesForDeletedSupplementaryElementOfKind:atIndexPath:")]
-		PSCollectionViewLayoutAttributes FinalLayoutAttributesForDeletedSupplementaryElementOfKind(string elementKind, NSIndexPath elementIndexPath);
+		PSTCollectionViewLayoutAttributes FinalLayoutAttributesForDeletedSupplementaryElementOfKind(string elementKind, NSIndexPath elementIndexPath);
 		
 		// Extension methods UpdateSupportHooks
 		
 		[Bind("setCollectionViewBoundsSize:")]
 		void SetCollectionViewBoundsSize(SizeF size);
 	}
-
-
 	
 	//////////////////////////////////////////////
 	////		PSPDFNoteAnnotation.h			//
@@ -2627,6 +2749,9 @@ namespace AlexTouch.PSPDFKit
 
 		[Export ("hitTest:withViewBounds:")]
 		bool HitTestWithViewBounds (PointF point, RectangleF bounds);
+
+		[Export ("boundingBoxForPageViewBounds:")]
+		RectangleF BoundingBoxForPageViewBounds (RectangleF pageBounds);
 	}
 	
 	//////////////////////////////////////////////
@@ -2807,9 +2932,17 @@ namespace AlexTouch.PSPDFKit
 	//////////////////////////////////////////////////
 	////		PSPDFWebViewController.h			//
 	//////////////////////////////////////////////////
-	
+
+	[BaseType (typeof (NSObject))]
+	[Model]
+	interface PSPDFWebViewControllerDelegate 
+	{		
+		[Export("masterViewController")]
+		UIViewController MasterViewController ();
+	}
+
 	[BaseType (typeof (PSPDFBaseViewController))] 
-	interface PSPDFWebViewController
+	interface PSPDFWebViewController : PSPDFStyleable
 	{
 		
 		[Static][Export("modalWebViewWithURL:")]
@@ -2827,17 +2960,17 @@ namespace AlexTouch.PSPDFKit
 		[Export("popoverController")]
 		UIPopoverController PopoverController { get; set; }
 
-		[Export("copyStyleFromPDFViewController:")]
-		void CopyStyleFromPDFViewController (PSPDFViewController pdfController);
+		[Wrap ("WeakDelegate")]
+		PSPDFWebViewControllerDelegate Delegate { get; set; }
+		
+		[Export ("delegate", ArgumentSemantic.Assign)][NullAllowed]
+		NSObject WeakDelegate { get; set; }
 
-		[Export("barStyle", ArgumentSemantic.Assign)]
-		UIBarStyle BarStyle { get; set; }
+		[Export("updateGlobalActivityIndicator", ArgumentSemantic.Assign)]
+		bool UpdateGlobalActivityIndicator { get; set; }
 
-		[Export("isBarTranslucent", ArgumentSemantic.Assign)]
-		bool IsBarTranslucent { get; set; }
-
-		[Export("tintColor")]
-		UIColor TintColor { get; set; }
+		[Bind ("setActivityIndicatorEnabled:")]
+		void SetActivityIndicatorEnabled (bool enabled);
 	}
 	
 	//////////////////////////////////////////////
@@ -2897,7 +3030,7 @@ namespace AlexTouch.PSPDFKit
 	[BaseType (typeof (PSPDFBaseViewController),
 	Delegates=new string [] {"WeakDelegate"},
 	Events=new Type [] { typeof (PSPDFNoteAnnotationControllerDelegate) })]
-	interface PSPDFNoteAnnotationController 
+	interface PSPDFNoteAnnotationController : PSPDFStyleable
 	{
 		[Export("initWithAnnotation:editable:")]
 		IntPtr Constructor (PSPDFAnnotation annotation, bool allowEditing);
@@ -2919,6 +3052,12 @@ namespace AlexTouch.PSPDFKit
 
 		[Bind("deleteAnnotation:")]
 		void DeleteAnnotation (UIBarButtonItem barButtonItem);
+
+		[Export("backgroundView")]
+		PSPDFGradientView BackgroundView { get; set; }
+
+		[Export("optionsView")]
+		UIView OptionsView { get; set; }
 	}
 
 	//////////////////////////////////////////////////
@@ -3048,8 +3187,8 @@ namespace AlexTouch.PSPDFKit
 		[Export("resumeCachingForService:")]
 		bool ResumeCachingForService (NSObject service);
 		
-		[Export("removeCacheForDocument:deleteDocument:waitUntilDone:")]
-		void ResumeCachingForService (PSPDFDocument document, bool deleteDocument, bool wait);
+		[Export("removeCacheForDocument:deleteDocument:error:")]
+		bool RemoveCacheForDocument (PSPDFDocument document, bool deleteDocument, out NSError error);
 		
 		[Export("clearCache")]
 		bool ClearCache ();
@@ -3141,8 +3280,8 @@ namespace AlexTouch.PSPDFKit
 	[Model]
 	interface PSPDFOutlineViewControllerDelegate 
 	{		
-		[Export ("outlineController:didTapAtElement:"), EventArgs ("PSPDFOutlineViewControllerDidTapAtElement")] [Abstract]
-		void DidTapAtElement (PSPDFOutlineViewController outlineController, PSPDFOutlineElement outlineElement);
+		[Export ("outlineController:didTapAtElement:"), DelegateName ("PSPDFOutlineViewControllerDidTapAtElement"), DefaultValue (true)] [Abstract]
+		bool DidTapAtElement (PSPDFOutlineViewController outlineController, PSPDFOutlineElement outlineElement);
 	}
 	
 	[BaseType (typeof (UITableViewController),
@@ -3217,41 +3356,41 @@ namespace AlexTouch.PSPDFKit
 	}
 	
 	//////////////////////////////////////////////////////
-	////		PSCollectionViewFlowLayout.h			//
+	////		PSTCollectionViewFlowLayout.h			//
 	//////////////////////////////////////////////////////
 	
-	[BaseType (typeof (PSCollectionViewDelegate))]
+	[BaseType (typeof (PSTCollectionViewDelegate))]
 	[Model]
-	interface PSCollectionViewDelegateFlowLayout 
+	interface PSTCollectionViewDelegateFlowLayout 
 	{		
 		[Export ("collectionView:layout:sizeForItemAtIndexPath:")]
-		SizeF SizeForItemAtIndexPath (PSCollectionView collectionView, PSCollectionViewLayout collectionViewLayout, NSIndexPath indexPath);
+		SizeF SizeForItemAtIndexPath (PSTCollectionView collectionView, PSTCollectionViewLayout collectionViewLayout, NSIndexPath indexPath);
 		
 		[Export ("collectionView:layout:insetForSectionAtIndex:")]
-		UIEdgeInsets InsetForSectionAtIndex (PSCollectionView collectionView, PSCollectionViewLayout collectionViewLayout, int section);
+		UIEdgeInsets InsetForSectionAtIndex (PSTCollectionView collectionView, PSTCollectionViewLayout collectionViewLayout, int section);
 		
 		[Export ("collectionView:layout:minimumLineSpacingForSectionAtIndex:")]
-		float MinimumLineSpacingForSectionAtIndex (PSCollectionView collectionView, PSCollectionViewLayout collectionViewLayout, int section);
+		float MinimumLineSpacingForSectionAtIndex (PSTCollectionView collectionView, PSTCollectionViewLayout collectionViewLayout, int section);
 		
 		[Export ("collectionView:layout:minimumInteritemSpacingForSectionAtIndex:")]
-		float MinimumInteritemSpacingForSectionAtIndex (PSCollectionView collectionView, PSCollectionViewLayout collectionViewLayout, int section);
+		float MinimumInteritemSpacingForSectionAtIndex (PSTCollectionView collectionView, PSTCollectionViewLayout collectionViewLayout, int section);
 		
 		[Export ("collectionView:layout:referenceSizeForHeaderInSection:")]
-		SizeF ReferenceSizeForHeaderInSection (PSCollectionView collectionView, PSCollectionViewLayout collectionViewLayout, int section);
+		SizeF ReferenceSizeForHeaderInSection (PSTCollectionView collectionView, PSTCollectionViewLayout collectionViewLayout, int section);
 		
 		[Export ("collectionView:layout:referenceSizeForFooterInSection:")]
-		SizeF ReferenceSizeForFooterInSection (PSCollectionView collectionView, PSCollectionViewLayout collectionViewLayout, int section);
+		SizeF ReferenceSizeForFooterInSection (PSTCollectionView collectionView, PSTCollectionViewLayout collectionViewLayout, int section);
 		
 	}
 	
-	[BaseType (typeof (PSCollectionViewLayout))]
-	interface PSCollectionViewFlowLayout
+	[BaseType (typeof (PSTCollectionViewLayout))]
+	interface PSTCollectionViewFlowLayout
 	{
-		[Field ("PSCollectionElementKindSectionHeader", "__Internal")]
-		NSString PSCollectionElementKindSectionHeader { get; }
+		[Field ("PSTCollectionElementKindSectionHeader", "__Internal")]
+		NSString PSTCollectionElementKindSectionHeader { get; }
 		
-		[Field ("PSCollectionElementKindSectionFooter", "__Internal")]
-		NSString PSCollectionElementKindSectionFooter { get; }
+		[Field ("PSTCollectionElementKindSectionFooter", "__Internal")]
+		NSString PSTCollectionElementKindSectionFooter { get; }
 		
 		[Export ("minimumLineSpacing")]
 		float MinimumLineSpacing { get; set; }
@@ -3263,7 +3402,7 @@ namespace AlexTouch.PSPDFKit
 		SizeF ItemSize { get; set; }
 		
 		[Export ("scrollDirection")]
-		PSCollectionViewScrollDirection ScrollDirection { get; set; }
+		PSTCollectionViewScrollDirection ScrollDirection { get; set; }
 		
 		[Export ("headerReferenceSize")]
 		SizeF HeaderReferenceSize { get; set; }
@@ -3279,14 +3418,14 @@ namespace AlexTouch.PSPDFKit
 		
 		// Extensions Private API
 		
-		[Field ("PSFlowLayoutCommonRowHorizontalAlignmentKey", "__Internal")]
-		NSString PSFlowLayoutCommonRowHorizontalAlignmentKey { get; }
+		[Field ("PSTFlowLayoutCommonRowHorizontalAlignmentKey", "__Internal")]
+		NSString PSTFlowLayoutCommonRowHorizontalAlignmentKey { get; }
 		
-		[Field ("PSFlowLayoutLastRowHorizontalAlignmentKey", "__Internal")]
-		NSString PSFlowLayoutLastRowHorizontalAlignmentKey { get; }
+		[Field ("PSTFlowLayoutLastRowHorizontalAlignmentKey", "__Internal")]
+		NSString PSTFlowLayoutLastRowHorizontalAlignmentKey { get; }
 		
-		[Field ("PSFlowLayoutRowVerticalAlignmentKey", "__Internal")]
-		NSString PSFlowLayoutRowVerticalAlignmentKey { get; }
+		[Field ("PSTFlowLayoutRowVerticalAlignmentKey", "__Internal")]
+		NSString PSTFlowLayoutRowVerticalAlignmentKey { get; }
 
 //		Removed on Version 2
 
@@ -3400,7 +3539,7 @@ namespace AlexTouch.PSPDFKit
 	////		PSPDFThumbnailGridViewCell.h			//
 	//////////////////////////////////////////////////////
 	
-	[BaseType (typeof (PSCollectionViewCell))]
+	[BaseType (typeof (PSTCollectionViewCell))]
 	interface PSPDFThumbnailGridViewCell : PSPDFCacheDelegate
 	{
 		[Export("document")]
@@ -3493,7 +3632,7 @@ namespace AlexTouch.PSPDFKit
 	//////////////////////////////////////////////////
 	
 	[BaseType (typeof (UITableViewController))]
-	interface PSPDFSearchViewController : UISearchDisplayDelegateProtocol, UISearchBarDelegateProtocol, PSPDFCacheDelegate, PSPDFSearchDelegate, PSPDFStatusBarStyleHint
+	interface PSPDFSearchViewController : UISearchDisplayDelegateProtocol, UISearchBarDelegateProtocol, PSPDFCacheDelegate, PSPDFTextSearchDelegate, PSPDFStatusBarStyleHint
 	{
 		[Export ("initWithDocument:pdfController:")]
 		IntPtr Constructor (PSPDFDocument document, PSPDFViewController pdfController);
@@ -3512,6 +3651,9 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("clearHighlightsWhenClosed", ArgumentSemantic.Assign)]
 		bool ClearHighlightsWhenClosed { get; set; }
+
+		[Export ("maximumNumberOfSearchResultsDisplayed", ArgumentSemantic.Assign)]
+		uint MaximumNumberOfSearchResultsDisplayed { get; set; }
 		
 		[Export ("updateResultCell:searchResult:")]
 		void UpdateResultCell (UITableViewCell cell, PSPDFSearchResult searchResult);
@@ -3684,19 +3826,20 @@ namespace AlexTouch.PSPDFKit
 		void UpdateAnimated (bool animated);
 	}
 	
-	//////////////////////////////////////////////
-	////		PSPDFPagedScrollView.h			//
-	//////////////////////////////////////////////
-	
-	[BaseType (typeof (PSPDFScrollView))]
-	interface PSPDFPagedScrollView 
-	{
-		[Export ("initWithTransitionViewController:")]
-		IntPtr Constructor (UIViewController viewController);
-		
-		[Export ("contentController")]
-		UIViewController ContentController { get; }
-	}
+//	Removed in version 2.3.1
+//	//////////////////////////////////////////////
+//	////		PSPDFPagedScrollView.h			//
+//	//////////////////////////////////////////////
+//	
+//	[BaseType (typeof (PSPDFScrollView))]
+//	interface PSPDFPagedScrollView 
+//	{
+//		[Export ("initWithTransitionViewController:")]
+//		IntPtr Constructor (UIViewController viewController);
+//		
+//		[Export ("contentController")]
+//		UIViewController ContentController { get; }
+//	}
 	
 	//////////////////////////////////////////////////
 	////		PSPDFPageViewController.h			//
@@ -3749,7 +3892,7 @@ namespace AlexTouch.PSPDFKit
 		void SetPage (uint page, bool animated);
 		
 		[Export ("visiblePageNumbers")]
-		NSArray VisiblePageNumbers ();
+		NSNumber [] VisiblePageNumbers ();
 		
 		[Export ("pageViewForPage:")]
 		PSPDFPageView PageViewForPage (uint page);
@@ -3793,7 +3936,7 @@ namespace AlexTouch.PSPDFKit
 		PSPDFViewController PdfController { get; set; }
 		
 		[Export ("scrollView")]
-		PSPDFPagedScrollView ScrollView { get; set; }
+		PSPDFContentScrollView ScrollView { get; set; }
 		
 		[Export ("visiblePageViews")]
 		PSPDFPageView [] VisiblePageViews ();
@@ -3813,8 +3956,7 @@ namespace AlexTouch.PSPDFKit
 		[Export ("pspdfSinglePageViewControllerWillDealloc:")][Abstract]
 		void PspdfSinglePageViewControllerWillDealloc (PSPDFSinglePageViewController singlePageViewController);
 	}
-	
-	
+
 	[BaseType (typeof (PSPDFBaseViewController))] 
 	interface PSPDFSinglePageViewController 
 	{
@@ -3860,11 +4002,14 @@ namespace AlexTouch.PSPDFKit
 		[Export ("tabbedPDFController:didChangeDocuments:"), EventArgs("PSPDFTabbedViewControllerDocs")]
 		void DidChangeDocuments (PSPDFTabbedViewController tabbedPDFController, PSPDFDocument [] oldDocuments);
 		
-		[Export ("tabbedPDFController:willChangeVisibleDocument:"), DelegateName ("PSPDFTabbedViewControllerDocument"), DefaultValue (true)]
-		bool WillChangeVisibleDocument (PSPDFTabbedViewController tabbedPDFController, PSPDFDocument newDocument);
+		[Export ("tabbedPDFController:shouldChangeVisibleDocument:"), DelegateName ("PSPDFTabbedViewControllerDocument"), DefaultValue (true)]
+		bool ShouldChangeVisibleDocument (PSPDFTabbedViewController tabbedPDFController, PSPDFDocument newDocument);
 		
 		[Export ("tabbedPDFController:didChangeVisibleDocument:"), EventArgs("PSPDFTabbedViewControllerDoc")]
 		void DidChangeVisibleDocument (PSPDFTabbedViewController tabbedPDFController, PSPDFDocument oldDocument);
+
+		[Export ("tabbedPDFController:shouldCloseDocument:"), DelegateName ("PSPDFTabbedViewControllerDocument"), DefaultValue (true)]
+		bool ShouldCloseDocument (PSPDFTabbedViewController tabbedPDFController, PSPDFDocument closedDocument);
 
 		[Export ("tabbedPDFController:didCloseDocument:"), EventArgs("PSPDFTabbedViewControllerDoc")]
 		void DidCloseDocument (PSPDFTabbedViewController tabbedPDFController, PSPDFDocument closedDocument);
@@ -3977,6 +4122,14 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("dataSource", ArgumentSemantic.Assign)][NullAllowed]
 		NSObject WeakDataSource { get; set; }
+
+		// Extensions
+
+		[Export ("selectTabAtIndex:animated:callDelegate:")]
+		void SelectTabAtIndex (uint index, bool animated, bool callDelegate);
+
+		[Export ("scrollView")]
+		UIScrollView ScrollView { get; }
 	}
 
 	//////////////////////////////////////////////////////
@@ -4033,6 +4186,444 @@ namespace AlexTouch.PSPDFKit
 	{
 		
 	}
+
+	// New stuff Below
+
+	//////////////////////////////////////////////////////
+	////		PSPDFBrightnessViewController.h			//
+	//////////////////////////////////////////////////////
+	
+	[BaseType (typeof (PSPDFBaseViewController))]
+	interface PSPDFBrightnessViewController 
+	{
+		[Export ("wantsSoftwareDimming", ArgumentSemantic.Assign)]
+		bool WantsSoftwareDimming { get; set; }
+
+		[Export ("wantsAdditionalSoftwareDimming", ArgumentSemantic.Assign)]
+		bool WantsAdditionalSoftwareDimming { get; set; }
+
+		[Export ("additionalBrightnessDimmingFactor", ArgumentSemantic.Assign)]
+		float AdditionalBrightnessDimmingFactor { get; set; }
+
+		//Extensions
+
+		[Export ("slider")]
+		UISlider Slider { get; set; }
+
+		[Export ("gradient")]
+		PSPDFGradientView Gradient { get; set; }
+
+		[Export ("dimmingView")]
+		PSPDFDimmingView DimmingView { get; }
+
+		[Bind ("addDimmingView")] [PostGet("DimmingView")]
+		PSPDFDimmingView AddDimmingView ();
+
+		[Bind ("removeDimmingView")] [PostGet("DimmingView")]
+		void RemoveDimmingView ();
+	}
+
+	[BaseType (typeof (UIView))]
+	interface PSPDFDimmingView 
+	{		
+		[Export ("additionalBrightnessDimmingFactor", ArgumentSemantic.Assign)]
+		float AdditionalBrightnessDimmingFactor { get; set; }
+	}
+
+	//////////////////////////////////////////////////////////
+	////		PSPDFLongPressGestureRecognizer.h			//
+	//////////////////////////////////////////////////////////
+
+	[BaseType (typeof (UILongPressGestureRecognizer))]
+	interface PSPDFLongPressGestureRecognizer 
+	{
+
+	}
+
+	[BaseType (typeof (UIGestureRecognizerDelegate))]
+	[Model]
+	interface PSPDFLongPressGestureRecognizerDelegate 
+	{		
+		[Export ("pressRecognizerShouldHandlePressImmediately:")][Abstract]
+		bool PressRecognizerShouldHandlePressImmediately (PSPDFLongPressGestureRecognizer recognizer);
+	}
+
+	//////////////////////////////////////////////////////////
+	////		PSPDFColorSelectionViewController.h			//
+	//////////////////////////////////////////////////////////
+
+	[BaseType (typeof (UIViewController),
+	Delegates= new string [] {"WeakDelegate"},
+	Events=new Type [] { typeof (PSPDFColorSelectionViewControllerDelegate) })]
+	interface PSPDFColorSelectionViewController 
+	{
+		[Export ("defaultColorPickerWithTitle:delegate:")] [Static]
+		PSPDFSimplePageViewController DefaultColorPickerWithTitle (string title, PSPDFColorSelectionViewControllerDelegate Delegate);
+
+		[Export ("monoChromeSelectionViewController")] [Static]
+		PSPDFColorSelectionViewController MonoChromeSelectionViewController ();
+
+		[Export ("rainbowSelectionViewController")] [Static]
+		PSPDFColorSelectionViewController RainbowSelectionViewController ();
+
+		[Export ("initWithColors:")]
+		IntPtr Constructor(UIColor [] colors);
+
+		[Wrap ("WeakDelegate")]
+		PSPDFColorSelectionViewControllerDelegate Delegate { get; set; }
+		
+		[Export ("delegate", ArgumentSemantic.Assign)][NullAllowed]
+		NSObject WeakDelegate { get; set; }
+	}
+
+	[BaseType (typeof (NSObject))]
+	[Model]
+	interface PSPDFColorSelectionViewControllerDelegate 
+	{		
+		[Export ("colorSelectionControllerSelectedColor:"), DelegateName ("PSPDFColorSelectionViewControllerColor"), DefaultValue (null) ][Abstract]
+		UIColor ColorSelectionControllerSelectedColor (PSPDFColorSelectionViewController controller);
+		
+		[Export ("colorSelectionController:didSelectedColor:"), EventArgs("PSPDFColorSelectionViewControllerDidSelectedColor")][Abstract]
+		void DidSelectedColor (PSPDFColorSelectionViewController controller, UIColor color);
+	}
+
+	//////////////////////////////////////////
+	////		PSPDFColorView.h			//
+	//////////////////////////////////////////
+	
+	[BaseType (typeof (UIControl))]
+	interface PSPDFColorView 
+	{
+		[Export ("colorViewWithColor:borderStyle:")] [Static]
+		PSPDFColorView ColorViewWithColor (UIColor color, PSPDFColorViewBorderStyle borderStyle);
+
+		[Export ("color")]
+		UIColor Color { get; set; }
+
+		[Export ("borderStyle")]
+		PSPDFColorViewBorderStyle BorderStyle { get; set; }
+
+		[Export ("setSelected:animated:")]
+		void SetSelected (bool selected, bool animated);
+	}
+
+	//////////////////////////////////////////////////
+	////		PSPDFContentScrollView.h			//
+	//////////////////////////////////////////////////
+	
+	[BaseType (typeof (PSPDFScrollView))]
+	interface PSPDFContentScrollView 
+	{
+		[Export ("initWithTransitionViewController:")]
+		IntPtr Constructor (PSPDFTransitionProtocol viewController);
+		
+		[Export ("contentController")]
+		PSPDFTransitionProtocol ContentController { get; }
+	}
+
+	//////////////////////////////////////////////////////////////
+	////		PSPDFContinuousScrollViewController.h			//
+	//////////////////////////////////////////////////////////////
+	
+	[BaseType (typeof (PSPDFBaseViewController))]
+	interface PSPDFContinuousScrollViewController : PSPDFTransitionProtocol, UIScrollViewDelegateProtocol
+	{
+		[Export ("initWithPDFController:")]
+		IntPtr Constructor (PSPDFViewController pdfController);
+		
+//		[Export ("pdfController")] [New]
+//		PSPDFViewController PdfController { get; set; }
+
+//		[Export ("scrollView")] [New]
+//		PSPDFContentScrollView ScrollView { get; set; }
+
+		[Export ("pagePadding", ArgumentSemantic.Assign)]
+		float PagePadding { get; set; }
+
+		[Export ("compensatedContentOffset")]
+		PointF CompensatedContentOffset { get; }
+	}
+
+	//////////////////////////////////////////
+	////		PSPDFGradientView.h			//
+	//////////////////////////////////////////
+	
+	[BaseType (typeof (UIView))]
+	interface PSPDFGradientView
+	{
+		[Export ("direction", ArgumentSemantic.Assign)]
+		PSPDFGradientViewDirection Direction { get; set; }
+		
+		[Export ("colors", ArgumentSemantic.Copy)]
+		UIColor [] Colors { get; set; }
+		
+		[Export ("locations", ArgumentSemantic.Copy)] [NullAllowed]
+		NSNumber [] Locations { get; set; }
+	}
+
+	//////////////////////////////////////////////////
+	////		PSPDFOrderedDictionary.h			//
+	//////////////////////////////////////////////////
+	
+	[BaseType (typeof (NSMutableDictionary))]
+	interface PSPDFOrderedDictionary
+	{
+		[Export ("keyArray")]
+		NSMutableArray KeyArray { get; }
+		
+		[Export ("insertObject:forKey:atIndex:")] [PostGet("KeyArray")]
+		void InsertObject (NSObject anObject, NSObject aKey, uint anIndex);
+
+		[Export ("keyAtIndex:")]
+		NSObject KeyAtIndex (uint anIndex);
+		
+		[Export ("reverseKeyEnumerator")]
+		NSEnumerator ReverseKeyEnumerator { get; }
+	}
+
+	//////////////////////////////////////////////////////
+	////		PSPDFPageScrollViewController.h			//
+	//////////////////////////////////////////////////////
+	
+	[BaseType (typeof (PSPDFBaseViewController))]
+	interface PSPDFPageScrollViewController : PSPDFTransitionProtocol, UIScrollViewDelegateProtocol
+	{
+		[Export ("initWithPDFController:")]
+		IntPtr Constructor (PSPDFViewController pdfController);
+
+//		[Export ("pdfController")] [New]
+//		PSPDFViewController PdfController { get; set; }
+
+		[Export ("pagingScrollView")]
+		PSPDFPagingScrollView PagingScrollView { get; }
+
+		[Export ("pagePadding", ArgumentSemantic.Assign)]
+		float PagePadding { get; set; }
+
+//		[Export ("visiblePageNumbers")] [New]
+//		PSPDFPageView [] VisiblePageNumbers { get; }
+
+//		[Export ("pageViewForPage:")] [New]
+//		PSPDFPageView PageViewForPage (uint page);
+
+//		[Export ("setPage:animated:")] [New]
+//		void SetPage (uint page, bool animated);
+
+		[Export ("reloadData")]
+		void ReloadData ();
+
+		// Extensions
+
+		[Export ("targetPageAfterRotation", ArgumentSemantic.Assign)]
+		uint TargetPageAfterRotation { get; set; }
+	}
+
+	[BaseType (typeof (UIScrollView))]
+	interface PSPDFPagingScrollView
+	{
+	}
+
+	//////////////////////////////////////////////////////
+	////		PSPDFPopoverBackgroundView.h			//
+	//////////////////////////////////////////////////////
+	
+	[BaseType (typeof (UIPopoverBackgroundView))]
+	interface PSPDFPopoverBackgroundView
+	{
+		[Export ("arrowOffset", ArgumentSemantic.Assign)]
+		float ArrowOffset { get; set; }
+
+		[Export ("arrowDirection", ArgumentSemantic.Assign)]
+		UIPopoverArrowDirection ArrowDirection { get; set; }
+
+		[Export ("setContentInset:")] [Static]
+		void SetContentInset (float contentInset);
+
+		[Export ("setTintColor:")] [Static]
+		void SetTintColor (UIColor tintColor);
+
+		[Export ("setShadowEnabled:")] [Static]
+		void SetShadowEnabled (bool shadowEnabled);
+
+		[Export ("setArrowBase:")] [Static]
+		void SetArrowBase (float arrowBase);
+
+		[Export ("setArrowHeight:")] [Static]
+		void SetArrowHeight (float arrowHeight);
+
+		[Export ("setBackgroundImage:top:right:bottom:left:")] [Static]
+		void SetBackgroundImage (UIImage background, UIImage top, UIImage right, UIImage bottom, UIImage left);
+
+		[Export ("rebuildArrowImages")] [Static]
+		void RebuildArrowImages ();
+	}
+
+	//////////////////////////////////////////
+	////		PSPDFProcessor.h			//
+	//////////////////////////////////////////
+
+	delegate void PSPDFProcessorCompletionBlockWithError (NSUrl fileUrl, NSError error);
+
+	[BaseType (typeof (NSObject))]
+	interface PSPDFProcessor
+	{
+		[Field ("kPSPDFProcessorAnnotationTypes", "__Internal")]
+		NSString PSPDFProcessorAnnotationTypes { get; }
+
+		[Field ("kPSPDFProcessorAnnotationDict", "__Internal")]
+		NSString PSPDFProcessorAnnotationDict { get; }
+
+		[Field ("kPSPDFProcessorPageRect", "__Internal")]
+		NSString PSPDFProcessorPageRect { get; }
+
+		[Field ("kPSPDFProcessorNumberOfPages", "__Internal")]
+		NSString PSPDFProcessorNumberOfPages { get; }
+
+		[Field ("kPSPDFProcessorPageBorderMargin", "__Internal")]
+		NSString PSPDFProcessorPageBorderMargin { get; }
+
+		[Field ("kPSPDFProcessorDocumentTitle", "__Internal")]
+		NSString PSPDFProcessorDocumentTitle { get; }
+
+		[Export ("defaultProcessor")] [Static]
+		PSPDFProcessor DefaultProcessor { get; }
+
+		[Export ("generatePDFFromDocument:pageRange:outputFileURL:options:")]
+		bool GeneratePDFFromDocumentToFile (PSPDFDocument document, NSIndexSet pageRange, NSUrl fileUrl, NSDictionary options);
+
+		[Export ("generatePDFFromDocument:pageRange:options:")]
+		NSData GeneratePDFFromDocumentToNSData (PSPDFDocument document, NSIndexSet pageRange, NSDictionary options);
+
+		[Export ("generatePDFFromHTMLString:outputFileURL:options:")]
+		bool GeneratePDFFromHTMLString (string html, NSUrl outputFileURL, NSDictionary options);
+
+		[Export ("generatePDFFromWebURL:outputFileURL:options:completionBlock:")]
+		bool GeneratePDFFromWebURL (NSUrl url, NSUrl outputFileURL, NSDictionary options, PSPDFProcessorCompletionBlockWithError completionBlock);
+	}
+
+	//////////////////////////////////////////
+	////		PSPDFProgressHUD.h			//
+	//////////////////////////////////////////
+	
+	[BaseType (typeof (UIView))]
+	interface PSPDFProgressHUD
+	{
+		[Export ("show")] [Static]
+		void Show ();
+
+		[Export ("showWithMaskType:")] [Static]
+		void ShowWithMaskType (PSPDFProgressHUDMaskType maskType);
+
+		[Export ("showWithStatus:")] [Static]
+		void ShowWithStatus (string status);
+
+		[Export ("showWithStatus:maskType:")] [Static]
+		void ShowWithStatus (string status, PSPDFProgressHUDMaskType maskType);
+
+		[Export ("setStatus:")] [Static]
+		void SetStatus (string status);
+
+		[Export ("showSuccessWithStatus:")] [Static]
+		void ShowSuccessWithStatus (string status);
+
+		[Export ("showErrorWithStatus:")] [Static]
+		void ShowErrorWithStatus (string status);
+
+		[Export ("showImage:status:")] [Static]
+		void ShowImage (UIImage image, string status);
+
+		[Export ("dismiss")] [Static]
+		void Dismiss ();
+
+		[Export ("isVisible")] [Static]
+		bool IsVisible { get; }
+	}
+
+	//////////////////////////////////////////////////////
+	////		PSPDFSimplePageViewController.h			//
+	//////////////////////////////////////////////////////
+	
+	[BaseType (typeof (UIViewController))]
+	interface PSPDFSimplePageViewController
+	{		
+		[Export ("initWithViewControllers:")]
+		IntPtr Constructor (NSObject [] viewControllers);
+
+		[Export ("changePage:")]
+		NSObject ChangePage (NSObject sender);
+	}
+
+	//////////////////////////////////////////
+	////		PSPDFStyleable.h			//
+	//////////////////////////////////////////
+	
+	[BaseType (typeof (NSObject))]
+	[Model]
+	interface PSPDFStyleable 
+	{		
+		[Export ("tintColor")]
+		UIColor TintColor { get; set; }
+
+		[Export ("barStyle", ArgumentSemantic.Assign)]
+		UIBarStyle BarStyle { get; set; }
+
+		[Export ("isBarTranslucent", ArgumentSemantic.Assign)]
+		bool IsBarTranslucent { get; set; }
+
+		[Export ("isInPopover", ArgumentSemantic.Assign)]
+		bool IsInPopover { get; set; }
+
+		[Export ("shouldTintToolbarButtons", ArgumentSemantic.Assign)]
+		bool ShouldTintToolbarButtons { get; set; }
+	}
+
+	//////////////////////////////////////////////////////
+	////		PSTCollectionViewController.h			//
+	//////////////////////////////////////////////////////
+	
+	[BaseType (typeof (UIViewController))]
+	interface PSTCollectionViewController : PSTCollectionViewDelegate, PSTCollectionViewDataSource
+	{		
+		[Export ("initWithCollectionViewLayout:")]
+		IntPtr Constructor (PSTCollectionViewLayout layout);
+		
+		[Export ("collectionView")]
+		PSTCollectionView CollectionView { get; set; }
+
+		[Export ("clearsSelectionOnViewWillAppear", ArgumentSemantic.Assign)]
+		bool ClearsSelectionOnViewWillAppear { get; set; }
+	}
+	
+	//////////////////////////////////////////////////////
+	////		PSPDFYouTubeAnnotationView.h			//
+	//////////////////////////////////////////////////////
+	
+	[BaseType (typeof (PSPDFLinkAnnotationBaseView))]
+	interface PSPDFYouTubeAnnotationView
+	{		
+		[Export ("annotation")]
+		PSPDFAnnotation Annotation { get; set; }
+
+		[Export ("youTubeURL")]
+		NSUrl YouTubeURL { get; }
+
+		[Export ("error")]
+		NSError Error { get; }
+
+		[Export ("autostartEnabled", ArgumentSemantic.Assign)]
+		bool AutostartEnabled { [Bind ("isAutostartEnabled")] get; set; }
+
+		[Export ("UIWebView", ArgumentSemantic.Assign)]
+		UIWebView WebView { get; set; }
+
+		[Export ("play")]
+		void Play();
+
+		[Export ("pause")]
+		void Pause();
+	}
+
+
 	
 	//////////////////////////////////////////////////
 	////		UIImage+PSPDFKitAdditions.h			//
@@ -4075,9 +4666,102 @@ namespace AlexTouch.PSPDFKit
 		[Bind("pspdf_animatedGIFWithPath:")][Static]
 		UIImage Pspdf_animatedGIFWithPath (string path);
 	}
-	
+
 	// Protocols
-	
+
+	interface PSPDFViewControllerDelegates //PSPDFViewControllerDelegates.h
+	{
+		[Export ("delegateShouldSetDocument:")]
+		bool DelegateShouldSetDocument (PSPDFDocument document);
+
+		[Export ("delegateWillDisplayDocument")]
+		void DelegateWillDisplayDocument ();
+
+		[Export ("delegateDidDisplayDocument")]
+		void DelegateDidDisplayDocument ();
+
+		[Export ("delegateDidShowPage:")]
+		void DelegateDidShowPage (uint realPage);
+
+		[Export ("delegateDidShowPageView:")]
+		void DelegateDidShowPageView (PSPDFPageView pageView);
+
+		[Export ("delegateDidRenderPageView:")]
+		void DelegateDidRenderPageView (PSPDFPageView pageView);
+
+		[Export ("delegateDidChangeViewMode:")]
+		void DelegateDidChangeViewMode (PSPDFViewMode viewMode);
+
+		[Export ("delegateShouldScrollToPage:")]
+		bool DelegateShouldScrollToPage (uint page);
+
+		[Export ("delegateDidTapOnPageView:atPoint:")]
+		bool DelegateDidTapOnPageView (PSPDFPageView pageView, PointF viewPoint);
+
+		[Export ("delegateDidLongPressOnPageView:atPoint:gestureRecognizer:")]
+		bool DelegateDidLongPressOnPageView (PSPDFPageView pageView, PointF viewPoint, UILongPressGestureRecognizer gestureRecognizer);
+
+		[Export ("delegateShouldSelectText:withGlyphs:atRect:onPageView:")]
+		bool DelegateShouldSelectText (string text, PSPDFGlyph [] glyphs, RectangleF rect, PSPDFPageView pageView);
+
+		[Export ("delegateDidSelectText:withGlyphs:atRect:onPageView:")]
+		void DelegateDidSelectText (string text, PSPDFGlyph [] glyphs, RectangleF rect, PSPDFPageView pageView);
+
+		[Export ("delegateShouldShowMenuItems:atSuggestedTargetRect:forSelectedText:inRect:onPageView:")]
+		PSPDFMenuItem [] DelegateShouldShowMenuItems (PSPDFMenuItem [] menuItems, RectangleF rect, string selectedText, RectangleF textRect, PSPDFPageView pageView);
+
+		[Export ("delegateDidTapOnAnnotation:annotationPoint:annotationView:pageView:viewPoint:")]
+		bool DelegateDidTapOnAnnotation (PSPDFAnnotation annotation, PointF annotationPoint, PSPDFAnnotationView annotationView, PSPDFPageView pageView, PointF viewPoint);
+
+		[Export ("delegateShouldSelectAnnotation:onPageView:")]
+		bool DelegateShouldSelectAnnotation (PSPDFAnnotation annotation, PSPDFPageView pageView);
+
+		[Export ("delegateDidSelectAnnotation:onPageView:")]
+		void DelegateDidSelectAnnotation (PSPDFAnnotation annotation, PSPDFPageView pageView);
+
+		[Export ("delegateShouldShowMenuItems:atSuggestedTargetRect:forAnnotation:inRect:onPageView:")]
+		PSPDFMenuItem [] DelegateShouldShowMenuItems (PSPDFMenuItem [] menuItems, RectangleF rect, PSPDFAnnotation annotation, RectangleF textRect, PSPDFPageView pageView);
+
+		[Export ("delegateShouldDisplayAnnotation:onPageView:")]
+		bool DelegateShouldDisplayAnnotation (PSPDFAnnotation annotation, PSPDFPageView pageView);
+
+		[Export ("delegateAnnotationView:forAnnotation:onPageView:")]
+		PSPDFAnnotationView DelegateAnnotationView (PSPDFAnnotationView annotationView, PSPDFAnnotation annotation, PSPDFPageView pageView);
+
+		[Export ("delegateWillShowAnnotationView:onPageView:")]
+		void DelegateWillShowAnnotationView (PSPDFAnnotationView annotationView, PSPDFPageView pageView);
+
+		[Export ("delegateDidShowAnnotationView:onPageView:")]
+		void DelegateDidShowAnnotationView (PSPDFAnnotationView annotationView, PSPDFPageView pageView);
+
+		[Export ("delegateDidEndPageScrollingAnimation:")]
+		void DelegateDidEndPageScrollingAnimation (UIScrollView scrollView);
+
+		[Export ("delegateDidEndZooming:withView:atScale:")]
+		void DelegateDidEndZooming (UIScrollView scrollView, UIView view, float scale);
+
+		[Export ("delegateDidEndPageDragging:willDecelerate:withVelocity:targetContentOffset:")]
+		void DelegateDidEndPageDragging (UIScrollView scrollView, bool decelerate, PointF velocity, ref PointF targetContentOffset);
+
+		[Export ("delegateDocumentForRelativePath:")]
+		PSPDFDocument DelegateDocumentForRelativePath (string relativePath);
+
+		[Export ("delegateDidLoadPageView:")]
+		void DelegateDidLoadPageView (PSPDFPageView pageView);
+
+		[Export ("delegateWillUnloadPageView:")]
+		void DelegateWillUnloadPageView (PSPDFPageView pageView);
+
+		[Export ("delegateShouldShowController:embeddedInController:animated:")]
+		bool DelegateShouldShowController (NSObject viewController, NSObject controller, bool animated);
+
+		[Export ("delegateDidShowController:embeddedInController:animated:")]
+		bool DelegateDidShowController (NSObject viewController, NSObject controller, bool animated);
+
+		[Export ("updateDelegateFlags")]
+		void UpdateDelegateFlags ();
+	}
+
 	interface UISearchDisplayDelegateProtocol 
 	{
 		[Export ("searchDisplayControllerWillBeginSearch:")]

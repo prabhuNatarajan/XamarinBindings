@@ -2,10 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="AlexTouch.PSPDFKit/ApiDefinition.cs">
     <Files>
-      <File FileName="AlexTouch.PSPDFKit/ApiDefinition.cs" Line="4052" Column="3" />
-      <File FileName="AlexTouch.PSPDFKit/Extensions.cs" Line="997" Column="4" />
-      <File FileName="AlexTouch.PSPDFKit/StructsAndEnums.cs" Line="129" Column="12" />
-      <File FileName="AlexTouch.PSPDFKit/Constants.cs" Line="4" Column="2" />
+      <File FileName="AlexTouch.PSPDFKit/ApiDefinition.cs" Line="4623" Column="9" />
+      <File FileName="AlexTouch.PSPDFKit/StructsAndEnums.cs" Line="304" Column="31" />
+      <File FileName="AlexTouch.PSPDFKit/Extensions.cs" Line="1065" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
