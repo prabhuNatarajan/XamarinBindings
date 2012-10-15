@@ -8,3 +8,9 @@ AlexTouch.PSPDFKit/obj/.DS_Store
 AlexTouch.PSPDFKit/obj/Debug/.DS_Store
 
 AlexTouch.PSPDFKit/.DS_Store
+
+*.userprefs
+
+AlexTouch.PSPDFKit.userprefs
+
+*.userprefs
