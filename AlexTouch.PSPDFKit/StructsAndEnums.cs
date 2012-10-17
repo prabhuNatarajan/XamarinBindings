@@ -90,12 +90,13 @@ namespace AlexTouch.PSPDFKit
 
 	public enum PSPDFStatusBarStyleSetting
 	{
-		Inherit,            /// Don't change status bar style, but show/hide statusbar on HUD events
-		SmartBlack,         /// Use UIStatusBarStyleBlackOpaque on iPad, UIStatusBarStyleBlackTranslucent on iPhone.
-		BlackOpaque,        /// Opaque Black everywhere
-		Default,            /// Default statusbar (white on iPhone/black on iPad)
-		Disable,            /// Never show status bar
-		Ignore = 256      /// Causes this class to ignore the statusbar entirely.
+		Inherit,             /// Don't change status bar style, but show/hide statusbar on HUD events.
+		SmartBlack,          /// UIStatusBarStyleBlackOpaque on iPad, UIStatusBarStyleBlackTranslucent on iPhone.
+		SmartBlackHideOnIpad,/// Similar to PSPDFStatusBarSmartBlack, but also hides statusBar on iPad.
+		BlackOpaque,         /// Opaque Black everywhere.
+		Default,             /// Default statusbar (white on iPhone/black on iPad).
+		Disable,             /// Never show status bar.
+		Ignore = 256       /// Causes this class to ignore the statusbar entirely.
 	}
 
 	public enum PSPDFHUDViewMode

@@ -192,6 +192,9 @@ namespace AlexTouch.PSPDFKit
 		[Export ("scrollOnTapPageEndMargin", ArgumentSemantic.Assign)]
 		float ScrollOnTapPageEndMargin { get; set; }
 
+		[Export ("internalTapGesturesEnabled", ArgumentSemantic.Assign)]
+		bool InternalTapGesturesEnabled { get; set; }
+
 		[Export ("textSelectionEnabled", ArgumentSemantic.Assign)]
 		bool TextSelectionEnabled { [Bind ("isTextSelectionEnabled")] get; set; }
 
@@ -233,6 +236,9 @@ namespace AlexTouch.PSPDFKit
 
 		[Export ("brightnessButtonItem")]
 		PSPDFBarButtonItem BrightnessButtonItem { get; }
+
+		[Export ("additionalActionsButtonItem")]
+		PSPDFBarButtonItem AdditionalActionsButtonItem { get; }
 		
 		[Export ("leftBarButtonItems")]
 		PSPDFBarButtonItem [] LeftBarButtonItems { get; set; }
@@ -453,6 +459,12 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("range", ArgumentSemantic.Assign)]
 		NSRange Range { get; set; }
+
+		[Export ("rangeInPreviewText", ArgumentSemantic.Assign)]
+		NSRange RangeInPreviewText { get; set; }
+
+		[Export ("cachedOutlineTitle", ArgumentSemantic.Copy)]
+		string CachedOutlineTitle { get; set; }
 	}
 	
 	//////////////////////////////////
@@ -731,7 +743,10 @@ namespace AlexTouch.PSPDFKit
 	{
 		[Static][Export("PDFDocument")]
 		PSPDFDocument PDFDocument ();
-		
+
+		[Static][Export("PDFDocumentWithURL:")]
+		PSPDFDocument PDFDocumentWithURL (NSUrl url);
+
 		[Static][Export("PDFDocumentWithData:")]
 		PSPDFDocument PDFDocumentWithData (NSData data);
 
@@ -749,10 +764,13 @@ namespace AlexTouch.PSPDFKit
 
 		[Static][Export("PDFDocumentWithBaseURL:files:")]
 		PSPDFDocument PDFDocumentWithBaseURL (NSUrl baseURL, NSObject [] files);
-		
-		[Static][Export("PDFDocumentWithURL:")]
-		PSPDFDocument PDFDocumentWithURL (NSUrl url);
-		
+
+		[Static][Export("PDFDocumentWithBaseURL:fileTemplate:startPage:endPage:")]
+		PSPDFDocument PDFDocumentWithBaseURL (NSUrl baseURL, string fileTemplate, int startPage, int endPage);
+
+		[Export("initWithURL:")]
+		IntPtr Constructor (NSUrl url);
+
 		[Export("initWithData:")]
 		IntPtr Constructor (NSData data);
 
@@ -764,15 +782,15 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export("initWithDataProvider:")][Internal]
 		PSPDFDocument InitWithDataProvider_ (IntPtr /*CGDataProvider*/ dataProvider);
-		
-		[Export("initWithURL:")]
-		IntPtr Constructor (NSUrl url);
-		
+
 		[Export("initWithBaseURL:files:")]
 		IntPtr Constructor (NSUrl basePath, NSArray files);
 
 		[Export("initWithBaseURL:files:")]
 		IntPtr Constructor (NSUrl basePath, NSObject [] files);
+
+		[Export("initWithBaseURL:fileTemplate:startPage:endPage:")]
+		IntPtr Constructor (NSUrl baseURL, string fileTemplate, int startPage, int endPage);
 
 		[Wrap ("WeakDelegate")]
 		PSPDFDocumentDelegate Delegate { get; set; }
@@ -945,6 +963,9 @@ namespace AlexTouch.PSPDFKit
 		[Export("documentProviderForPage:")]
 		PSPDFDocumentProvider DocumentProviderForPage (uint page);
 
+		[Export("pageOffsetForDocumentProvider:")]
+		uint PageOffsetForDocumentProvider (PSPDFDocumentProvider documentProvider);
+
 		[Export("documentProviders")]
 		PSPDFDocumentProvider [] DocumentProviders { get; }
 
@@ -959,6 +980,9 @@ namespace AlexTouch.PSPDFKit
 
 		[Export("pageLabelForPage:substituteWithPlainLabel:")] [NullAllowed]
 		string PageLabelForPage (uint page, bool substitute);
+
+		[Export("pageForPageLabel:partialMatching:")]
+		uint PageForPageLabel (string pageLabel, bool partialMatching);
 
 		[Export("renderImageForPage:withSize:clippedToRect:withAnnotations:options:")] 
 		UIImage RenderImageForPage (uint page, SizeF fullSize, RectangleF clipRect, PSPDFAnnotation [] annotations, NSDictionary options);
@@ -1394,11 +1418,14 @@ namespace AlexTouch.PSPDFKit
 		PSPDFDocumentProvider DocumentProvider { get; }
 		
 		[Export("parseDocument")]
-		NSDictionary ParseDocument ();
+		NSDictionary ParseDocument { get; }
 		
 		[Export("pageLabelForPage:")][NullAllowed]
 		string PageLabelForPage (uint page);
-		
+
+		[Export("pageForPageLabel:partialMatching:")]
+		uint PageForPageLabel (string pageLabel, bool partialMatching);
+
 		[Export("labels")]
 		NSDictionary Labels { get; }
 	}
@@ -2109,6 +2136,9 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("targetSize", ArgumentSemantic.Assign)]
 		SizeF TargetSize { get; set; }
+
+		[Export ("prepareShow")]
+		void PrepareShow ();
 
 		[Export ("showLoupeAnimated:")]
 		void ShowLoupeAnimated (bool animated);
@@ -3657,6 +3687,17 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("updateResultCell:searchResult:")]
 		void UpdateResultCell (UITableViewCell cell, PSPDFSearchResult searchResult);
+
+		// Extensions
+
+		[Bind ("filterContentForSearchText:scope:")]
+		void FilterContentForSearchText (string searchText, string scope);
+
+		[Bind ("setSearchStatus:updateTable:")]
+		void SetSearchStatus (PSPDFSearchStatus searchStatus, bool updateTable);
+
+		[Bind ("searchResultsForIndexPath:")]
+		PSPDFSearchResult SearchResultsForIndexPath (NSIndexPath indexPath);
 	}
 	
 	//////////////////////////////////////////
@@ -4482,6 +4523,9 @@ namespace AlexTouch.PSPDFKit
 		[Field ("kPSPDFProcessorPageBorderMargin", "__Internal")]
 		NSString PSPDFProcessorPageBorderMargin { get; }
 
+		[Field ("kPSPDFProcessorAdditionalDelay", "__Internal")]
+		NSString PSPDFProcessorAdditionalDelay { get; }
+
 		[Field ("kPSPDFProcessorDocumentTitle", "__Internal")]
 		NSString PSPDFProcessorDocumentTitle { get; }
 
@@ -4497,8 +4541,30 @@ namespace AlexTouch.PSPDFKit
 		[Export ("generatePDFFromHTMLString:outputFileURL:options:")]
 		bool GeneratePDFFromHTMLString (string html, NSUrl outputFileURL, NSDictionary options);
 
-		[Export ("generatePDFFromWebURL:outputFileURL:options:completionBlock:")]
-		bool GeneratePDFFromWebURL (NSUrl url, NSUrl outputFileURL, NSDictionary options, PSPDFProcessorCompletionBlockWithError completionBlock);
+		[Export ("generatePDFFromURL:outputFileURL:options:completionBlock:")] [PostGet ("ConversionOperationQueue")]
+		PSPDFConversionOperation GeneratePDFFromURL (NSUrl inputURL, NSUrl outputURL, NSDictionary options, PSPDFProcessorCompletionBlockWithError completionBlock);
+
+		[Static] [Export ("conversionOperationQueue")]
+		NSOperationQueue ConversionOperationQueue { get; }
+	}
+
+	[BaseType (typeof (NSOperation))]
+	interface PSPDFConversionOperation
+	{
+		[Export ("initWithURL:outputFileURL:options:completionBlock:")]
+		IntPtr Constructor (NSUrl inputURL, NSUrl outputFileURL, NSDictionary options, PSPDFProcessorCompletionBlockWithError completionBlock);
+
+		[Export ("inputURL")]
+		NSUrl InputURL { get; }
+
+		[Export ("outputFileURL")]
+		NSUrl OutputFileURL { get; }
+
+		[Export ("options", ArgumentSemantic.Copy)]
+		NSDictionary Options { get; }
+
+		[Export ("error")]
+		NSError Error { get; }
 	}
 
 	//////////////////////////////////////////
@@ -4613,7 +4679,7 @@ namespace AlexTouch.PSPDFKit
 		[Export ("autostartEnabled", ArgumentSemantic.Assign)]
 		bool AutostartEnabled { [Bind ("isAutostartEnabled")] get; set; }
 
-		[Export ("UIWebView", ArgumentSemantic.Assign)]
+		[Export ("webView", ArgumentSemantic.Assign)]
 		UIWebView WebView { get; set; }
 
 		[Export ("play")]
