@@ -927,7 +927,7 @@ namespace AlexTouch.PSPDFKit
 		[Export("aspectRatioEqual", ArgumentSemantic.Assign)]
 		bool AspectRatioEqual { [Bind("isAspectRatioEqual")] get; set; }
 
-		[Export("displayingPdfController")]
+		[Export("displayingPdfController")][NullAllowed]
 		PSPDFViewController DisplayingPdfController { get; set; }
 
 		[Export("unlockWithPassword:")]
@@ -985,10 +985,10 @@ namespace AlexTouch.PSPDFKit
 		uint PageForPageLabel (string pageLabel, bool partialMatching);
 
 		[Export("renderImageForPage:withSize:clippedToRect:withAnnotations:options:")] 
-		UIImage RenderImageForPage (uint page, SizeF fullSize, RectangleF clipRect, PSPDFAnnotation [] annotations, NSDictionary options);
+		UIImage RenderImageForPage (uint page, SizeF fullSize, RectangleF clipRect, [NullAllowed] PSPDFAnnotation [] annotations, NSDictionary options);
 
 		[Export("renderPage:inContext:withSize:clippedToRect:withAnnotations:options:")] [Internal]
-		void RenderPage_ (uint page, IntPtr /*CGContextRef*/ context, SizeF fullSize, RectangleF clipRect, PSPDFAnnotation [] annotations, NSDictionary options);
+		void RenderPage_ (uint page, IntPtr /*CGContextRef*/ context, SizeF fullSize, RectangleF clipRect, [NullAllowed] PSPDFAnnotation [] annotations, NSDictionary options);
 
 		[Export("renderOptions")]
 		NSDictionary RenderOptions { get; set; }
