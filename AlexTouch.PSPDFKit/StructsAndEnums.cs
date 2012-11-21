@@ -13,6 +13,7 @@ namespace AlexTouch.PSPDFKit
 	{
 		PageInvalid = 100,
 		UnableToOpenPDF = 200,
+		UnableToGetPageReference = 210,
 		DocumentLocked = 300,
 		FailedToLoadAnnotations = 400,
 		FailedToWriteAnnotations = 410,
@@ -101,9 +102,10 @@ namespace AlexTouch.PSPDFKit
 
 	public enum PSPDFHUDViewMode
 	{
-		Always,               /// Always show the HUD.
-		Automatic,            /// Show HUD on touch and first/last page.
-		Never                 /// Never show the HUD.
+		Always,                   /// Always show the HUD.
+		Automatic,                /// Show HUD on touch and first/last page.
+		AutomaticNoFirstLastPage, /// Show HUD on touch.
+		Never                     /// Never show the HUD.
 	}
 
 	public enum PSPDFLinkAction
@@ -152,8 +154,22 @@ namespace AlexTouch.PSPDFKit
 		Shape     = 32, // Square, Circle
 		Line      = 64,
 		Note      = 128,
+		Stamp     = 256,
+		RichMedia = 1024, // Embedded PDF videos
+		Screen    = 2048,
 		Undefined = 2147483648, // any annotation whose type couldn't be recognized
 		All       = uint.MaxValue
+	}
+
+	public enum PSPDFAnnotationBorderStyle : uint
+	{
+		None,
+		Solid,
+		Dashed,
+		Belved,
+		Inset,
+		Underline,
+		Unknown
 	}
 
 	//////////////////////////////////////////////////
@@ -228,17 +244,8 @@ namespace AlexTouch.PSPDFKit
 	public enum PSTCollectionViewItemType : uint
 	{
 		Cell,
-		DecorationView,
-		SupplementaryView
-	}
-
-	public enum PSTCollectionUpdateAction
-	{
-		Insert,
-		Delete,
-		Reload,
-		Move,
-		None
+		SupplementaryView,
+		DecorationView
 	}
 
 	//////////////////////////////////////////////
@@ -248,8 +255,8 @@ namespace AlexTouch.PSPDFKit
 
 	public enum PSPDFSearchMode
 	{
-		BasicSearch,
-		SearchWithHighlighting
+		Basic,
+		Highlighting
 	}
 
 	//////////////////////////////////////////////
@@ -314,7 +321,10 @@ namespace AlexTouch.PSPDFKit
 		MailLink         = 2,
 		CopyLink         = 4,
 		Print            = 8,
-		All				 = 15
+		StopReload       = 16,
+		Back             = 32,
+		Forward          = 64,
+		All              = 16777215
 	}
 
 	//////////////////////////////////
@@ -452,6 +462,53 @@ namespace AlexTouch.PSPDFKit
 		Clear, // don't allow
 		Black, // don't allow and dim the UI in the back of the HUD
 		Gradient // don't allow and dim the UI with a a-la-alert-view bg gradient
+	}
+
+	//////////////////////////////////////
+	////	PSPDFLabelView.h enums 		//
+	////	Start						//
+	//////////////////////////////////////
+	
+	public enum PSPDFLabelStyle : uint
+	{
+		Flat,
+		Bordered
+	}
+
+	//////////////////////////////////////////////////
+	////	PSPDFEmailBarButtonItem.h enums 		//
+	////	Start									//
+	//////////////////////////////////////////////////
+
+	[Flags]
+	public enum PSPDFEmailSendOptions : uint
+	{
+		CurrentPageOnly              = 1,
+		CurrentPageOnlyFlattened     = 2,
+		VisiblePages                 = 4,
+		VisiblePagesFlattened        = 8,
+		MergedFilesIfNeeded          = 16,
+		MergedFilesIfNeededFlattened = 32,
+		OriginalDocumentFiles        = 64
+	}
+
+	//////////////////////////////////////////
+	////	PSPDFResizableView.h enums 		//
+	////	Start							//
+	//////////////////////////////////////////
+
+	public enum PSPDFSelectionBorderKnobType : uint
+	{
+		None,
+		Move,
+		TopLeft,
+		TopMiddle,
+		TopRight,
+		MiddleLeft,
+		MiddleRight,
+		BottomLeft,
+		BottomMiddle,
+		BottomRight
 	}
 
 	//////////////////////////////////////////////////////
