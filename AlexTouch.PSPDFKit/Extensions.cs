@@ -653,6 +653,18 @@ namespace AlexTouch.PSPDFKit
 		{
 			return RectsFromQuadPointsInArray_(quadPointsArray.Handle);
 		}
+
+		[DllImportAttribute("__Internal", EntryPoint = "PSPDFTypeStringFromAnnotationType")]
+		private static extern IntPtr _StringFromAnnotationType(PSPDFAnnotationType annotationType);
+		
+		public static string StringFromAnnotationType(PSPDFAnnotationType annotationType)
+		{			
+			IntPtr ptr = _StringFromAnnotationType(annotationType);
+			
+			string val = (string) (NSString) Runtime.GetNSObject(ptr);
+			
+			return val;
+		}
 	}
 	
 	//////////////////////////////////////////

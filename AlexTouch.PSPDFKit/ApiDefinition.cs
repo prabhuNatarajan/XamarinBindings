@@ -53,11 +53,12 @@ namespace AlexTouch.PSPDFKit
 		[Export("hasOpenDocumentRef")]
 		bool HasOpenDocumentRef { get; set; }
 	}
-	
-	
+
 	//////////////////////////////////
 	////	PSPDFViewController.h	//
 	//////////////////////////////////
+
+	delegate void PSPDFViewControllerUpdateSettingsBlock (PSPDFViewController pdfController, UIInterfaceOrientation toInterfaceOrientation);
 	
 	[BaseType (typeof (PSPDFBaseViewController),
 	Delegates=new string [] {"WeakDelegate"},
@@ -286,7 +287,7 @@ namespace AlexTouch.PSPDFKit
 		[Export ("fitToWidthEnabled", ArgumentSemantic.Assign)]
 		bool FitToWidthEnabled { [Bind ("isFitToWidthEnabled")] get; set; }
 		
-		[Export ("fixedVerticalPositionForfitToWidthEnabledMode", ArgumentSemantic.Assign)]
+		[Export ("fixedVerticalPositionForFitToWidthEnabledMode", ArgumentSemantic.Assign)]
 		bool FixedVerticalPositionForfitToWidthEnabledMode { get; set; }
 		
 		[Export ("clipToPageBoundaries", ArgumentSemantic.Assign)]
@@ -419,6 +420,9 @@ namespace AlexTouch.PSPDFKit
 
 		[Bind ("updateSettingsForRotation:")]
 		void UpdateSettingsForRotation (UIInterfaceOrientation toInterfaceOrientation);
+
+		[Bind ("setUpdateSettingsForRotationBlock:")]
+		void SetUpdateSettingsForRotationBlock (PSPDFViewControllerUpdateSettingsBlock block);
 		
 		[Bind ("statusBarStyle")]
 		UIStatusBarStyle statusBarStyle();
@@ -5438,6 +5442,38 @@ namespace AlexTouch.PSPDFKit
 	{
 		[Export ("showThumbnailGridButton", ArgumentSemantic.Assign)]
 		bool ShowThumbnailGridButton { get; set; }
+	}
+
+	//////////////////////////////////////////////////////
+	////		PSTCollectionViewUpdateItem.h			//
+	//////////////////////////////////////////////////////
+	
+	[BaseType (typeof (NSObject))]
+	interface PSTCollectionViewUpdateItem
+	{
+		[Export ("indexPathBeforeUpdate")]
+		NSIndexPath IndexPathBeforeUpdate { get; }
+
+		[Export ("indexPathAfterUpdate")]
+		NSIndexPath IndexPathAfterUpdate { get; }
+
+		[Export ("updateAction", ArgumentSemantic.Assign)]
+		PSTCollectionUpdateAction UpdateAction { get; }
+
+		[Export ("initWithInitialIndexPath:finalIndexPath:updateAction:")]
+		IntPtr Constructor (NSIndexPath initialIndexPath, NSIndexPath finalIndexPath, PSTCollectionUpdateAction updateAction);
+
+		[Export ("initWithAction:forIndexPath:")]
+		IntPtr Constructor (PSTCollectionUpdateAction action, NSIndexPath indexPath);
+
+		[Export ("initWithOldIndexPath:newIndexPath:")]
+		IntPtr Constructor (NSIndexPath arg1, NSIndexPath arg2);
+
+		[Export ("compareIndexPaths:")]
+		NSComparisonResult CompareIndexPaths (PSTCollectionViewUpdateItem otherItem);
+
+		[Export ("inverseCompareIndexPaths:")]
+		NSComparisonResult InverseCompareIndexPaths (PSTCollectionViewUpdateItem otherItem);
 	}
 
 	//////////////////////////////////////////
