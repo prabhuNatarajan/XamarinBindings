@@ -3252,7 +3252,7 @@ namespace AlexTouch.PSPDFKit
 		bool AllowEditing { get; }
 
 		[Export("showColorAndIconOptions", ArgumentSemantic.Assign)]
-		bool ShowColorAndIconOptions { get; }
+		bool ShowColorAndIconOptions { get; set; }
 
 		[Export("textView")]
 		UITextView TextView { get; }
