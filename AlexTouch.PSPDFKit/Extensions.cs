@@ -1210,7 +1210,8 @@ namespace AlexTouch.PSPDFKit
 	
 	public partial class PSPDFFileAnnotationProvider : NSObject
 	{		
-		public PSPDFAnnotation [] AnnotationsForPage (uint page, CGPDFPage pageRef)
+		// rr: This should be virtual in order to be able to override it.
+		public virtual PSPDFAnnotation [] AnnotationsForPage (uint page, CGPDFPage pageRef)
 		{
 			return AnnotationsForPage_ (page, pageRef.Handle);
 		}
