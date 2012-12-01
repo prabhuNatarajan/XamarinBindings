@@ -1942,8 +1942,8 @@ namespace AlexTouch.PSPDFKit
 		[Static][Export ("popoverControllerForObject:")]
 		UIPopoverController PopoverControllerForObject (NSObject obj);
 		
-		[Export ("action:")][New]
-		void Action (PSPDFBarButtonItem sender);
+		[Export ("action:")]
+		void ovrAction (PSPDFBarButtonItem sender);
 
 		[Export ("longPressAction:")]
 		void LongPressAction (PSPDFBarButtonItem sender);
@@ -4903,7 +4903,7 @@ namespace AlexTouch.PSPDFKit
 		void DidChangeAnnotation (PSPDFAnnotation annotation, PSPDFAnnotation originalAnnotation, NSArray keyPaths, NSDictionary options);
 
 		[Wrap ("WeakProviderDelegate")]
-		PSPDFColorSelectionViewControllerDelegate ProviderDelegate { get; set; }
+		PSPDFAnnotationProviderChangeNotifier ProviderDelegate { get; set; }
 		
 		[Export ("providerDelegate", ArgumentSemantic.Assign)][NullAllowed]
 		NSObject WeakProviderDelegate { get; set; }
