@@ -1511,7 +1511,7 @@ namespace AlexTouch.PSPDFKit
 	interface PSPDFAnnotationParser 
 	{
 		[Export("initWithDocumentProvider:")]
-		IntPtr Constructor (PSPDFDocumentProvider documentProvider);
+		IntPtr Constructor ([NullAllowed] PSPDFDocumentProvider documentProvider);
 
 		[Export("annotationProviders", ArgumentSemantic.Copy)]
 		NSObject [] AnnotationProviders { get; set; }
@@ -3028,6 +3028,9 @@ namespace AlexTouch.PSPDFKit
 	[BaseType (typeof (PSPDFLinkAnnotationBaseView))] 
 	interface PSPDFLinkAnnotationView
 	{
+		[Export("initWithFrame:")]
+		IntPtr Constructor (RectangleF frame);
+
 		[Export("flashBackground")]
 		void FlashBackground ();
 		
@@ -4925,16 +4928,25 @@ namespace AlexTouch.PSPDFKit
 	//////////////////////////////////////////////////////
 	
 	[BaseType (typeof (NSObject))]
+	[DisableDefaultCtor]
 	interface PSPDFFileAnnotationProvider : PSPDFAnnotationProvider
 	{
 		[Export ("initWithDocumentProvider:")]
-		IntPtr Constructor (PSPDFDocumentProvider documentProvider);
+		IntPtr Constructor ([NullAllowed] PSPDFDocumentProvider documentProvider);
 
 		[Export ("documentProvider")]
-		PSPDFDocumentProvider DocumentProvider { get; set; }
+		PSPDFDocumentProvider DocumentProvider
+		{
+			get;
+			[NullAllowed] set;
+		}
 
 		[Export ("defaultAnnotationUsername", ArgumentSemantic.Copy)]
-		string DefaultAnnotationUsername { get; set; }
+		string DefaultAnnotationUsername
+		{
+			get;
+			[NullAllowed] set;
+		}
 
 		[Export ("annotationsForPage:pageRef:")] [Internal]
 		PSPDFAnnotation [] AnnotationsForPage_ (uint page, IntPtr /*CGPDFPage*/ pageRef);
