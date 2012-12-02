@@ -4777,7 +4777,7 @@ namespace AlexTouch.PSPDFKit
 	interface PSPDFStyleable 
 	{		
 		[Export ("tintColor")]
-		UIColor TintColor { get; set; }
+		UIColor TintColor { get; [NullAllowed ]set; }
 
 		[Export ("barStyle", ArgumentSemantic.Assign)]
 		UIBarStyle BarStyle { get; set; }
