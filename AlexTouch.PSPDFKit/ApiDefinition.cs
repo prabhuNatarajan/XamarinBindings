@@ -1103,7 +1103,7 @@ namespace AlexTouch.PSPDFKit
 		[Export("overrideClassNames", ArgumentSemantic.Copy)]
 		NSDictionary OverrideClassNames { get; set; }
 		
-		[Bind ("didCreateDocumentProvider:")]
+		[Export ("didCreateDocumentProvider:")]
 		PSPDFDocumentProvider DidCreateDocumentProvider (PSPDFDocumentProvider documentProvider);
 
 		[Bind ("setDidCreateDocumentProviderBlock:")]
