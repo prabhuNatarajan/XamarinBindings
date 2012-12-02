@@ -2005,19 +2005,19 @@ namespace AlexTouch.PSPDFKit
 		[Export ("zIndex", ArgumentSemantic.Assign)]
 		uint ZIndex { get; set; }
 		
-		[Export ("willShowPage:")]
+		[Export ("willShowPage:"), EventArgs ("PSPDFAnnotationViewWillShowPage")]
 		void WillShowPage (uint page);
 		
-		[Export ("didShowPage:")]
+		[Export ("didShowPage:"), EventArgs ("PSPDFAnnotationViewDidShowPage")]
 		void DidShowPage (uint page);
 		
-		[Export ("willHidePage:")]
+		[Export ("willHidePage:"), EventArgs ("PSPDFAnnotationViewWillHidePage")]
 		void WillHidePage (uint page);
 		
-		[Export ("didHidePage:")]
+		[Export ("didHidePage:"), EventArgs ("PSPDFAnnotationViewDidHidePage")]
 		void DidHidePage (uint page);
 		
-		[Export ("didChangePageFrame:")]
+		[Export ("didChangePageFrame:"), EventArgs ("PSPDFAnnotationViewDidChangePageFrame")]
 		void DidChangePageFrame (Rectangle frame);
 	}
 	
@@ -4619,7 +4619,7 @@ namespace AlexTouch.PSPDFKit
 		void SetContentInset (float contentInset);
 
 		[Export ("setTintColor:")] [Static]
-		void SetTintColor (UIColor tintColor);
+		void SetTintColor ([NullAllowed] UIColor tintColor);
 
 		[Export ("setShadowEnabled:")] [Static]
 		void SetShadowEnabled (bool shadowEnabled);
