@@ -2005,19 +2005,19 @@ namespace AlexTouch.PSPDFKit
 		[Export ("zIndex", ArgumentSemantic.Assign)]
 		uint ZIndex { get; set; }
 		
-		[Export ("willShowPage:"), EventArgs ("PSPDFAnnotationViewWillShowPage")]
+		[Export ("willShowPage:")]
 		void WillShowPage (uint page);
 		
-		[Export ("didShowPage:"), EventArgs ("PSPDFAnnotationViewDidShowPage")]
+		[Export ("didShowPage:")]
 		void DidShowPage (uint page);
 		
-		[Export ("willHidePage:"), EventArgs ("PSPDFAnnotationViewWillHidePage")]
+		[Export ("willHidePage:")]
 		void WillHidePage (uint page);
 		
-		[Export ("didHidePage:"), EventArgs ("PSPDFAnnotationViewDidHidePage")]
+		[Export ("didHidePage:")]
 		void DidHidePage (uint page);
 		
-		[Export ("didChangePageFrame:"), EventArgs ("PSPDFAnnotationViewDidChangePageFrame")]
+		[Export ("didChangePageFrame:")]
 		void DidChangePageFrame (Rectangle frame);
 	}
 	
