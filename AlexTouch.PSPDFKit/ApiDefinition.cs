@@ -2358,10 +2358,10 @@ namespace AlexTouch.PSPDFKit
 	interface PSPDFInkAnnotation 
 	{
 		[Export ("lines")]
-		NSArray Lines { get; set; }
+		NSArray Lines { get; [NullAllowed]set; }
 		
 		[Export ("paths")]
-		UIBezierPath [] Paths { get; set; }
+		UIBezierPath [] Paths { get; [NullAllowed]set; }
 
 		[Export ("rebuildPaths")]
 		void RebuildPaths ();
@@ -2384,7 +2384,7 @@ namespace AlexTouch.PSPDFKit
 		PSPDFHighlightAnnotationType HighlightType { get; set; }
 		
 		[Export ("rects")]
-		NSArray Rects { get; set; }
+		NSArray Rects { get; [NullAllowed]set; }
 
 		[Export ("highlightedString")]
 		string HighlightedString { get; }
