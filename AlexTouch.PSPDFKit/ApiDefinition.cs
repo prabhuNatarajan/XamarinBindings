@@ -4335,7 +4335,7 @@ namespace AlexTouch.PSPDFKit
 	interface PSPDFFreeTextAnnotation 
 	{
 		[Export ("fontName", ArgumentSemantic.Copy)]
-		string FontName { get; set; }
+		string FontName { get; [NullAllowed]set; }
 
 		[Export ("fontSize", ArgumentSemantic.Assign)]
 		float FontSize { get; set; }
