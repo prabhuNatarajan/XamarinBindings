@@ -2030,13 +2030,13 @@ namespace AlexTouch.PSPDFKit
 	{
 		[Static][Export ("supportedTypes")]
 		string [] SupportedTypes ();
-
+		
 		[Static][Export ("isWriteable")]
 		bool IsWriteable { get; }
-
+		
 		[Export ("isMovable")]
 		bool IsMovable { get; }
-
+		
 		[Export ("initWithType:")]
 		IntPtr Constructor (PSPDFAnnotationType annotationType);
 		
@@ -2054,13 +2054,13 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("compareByPositionOnPage:")]
 		NSComparisonResult CompareByPositionOnPage (PSPDFAnnotation otherAnnotation);
-
+		
 		[Export ("rectFromPDFArray:")][Internal]
 		RectangleF RectFromPDFArray_ (IntPtr /* CGPDFArray */ array);
-
+		
 		[Export ("rectsFromQuadPointsInArray:")][Internal]
 		NSArray RectsFromQuadPointsInArray_ (IntPtr /*CGPDFArray*/ quadPointsArray);
-
+		
 		[Export ("drawInContext:")]
 		void DrawInContext (CGContext context);
 		
@@ -2069,131 +2069,131 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export ("type", ArgumentSemantic.Assign)]
 		PSPDFAnnotationType AnnotationType { get; }
-
+		
 		[Export ("overlay", ArgumentSemantic.Assign)]
-		bool Overlay { [Bind("isOverlay")] get; set; }
-
+		bool Overlay { [Bind("isOverlay")] get; [NullAllowed]set; }
+		
 		[Export ("editable", ArgumentSemantic.Assign)]
 		bool Editable { [Bind("isEditable")] get; set; }
-
+		
 		[Export ("typeString", ArgumentSemantic.Copy)]
-		string TypeString { get; set; }
+		string TypeString { get; [NullAllowed]set; }
 		
 		[Export ("alpha", ArgumentSemantic.Assign)]
 		float Alpha { get; set; }
 		
 		[Export ("color")]
-		UIColor Color { get; set; }
+		UIColor Color { get; [NullAllowed]set; }
 		
 		[Export ("colorWithAlpha")]
 		UIColor colorWithAlpha { get; }
-
+		
 		[Export ("fillColor")]
-		UIColor FillColor { get; set; }
-
+		UIColor FillColor { get; [NullAllowed]set; }
+		
 		[Export ("contents", ArgumentSemantic.Copy)]
-		string Contents { get; set; }
+		string Contents { get; [NullAllowed]set; }
 		
 		[Export ("lineWidth", ArgumentSemantic.Assign)]
 		float LineWidth { get; set; }
-
+		
 		[Export ("borderStyle", ArgumentSemantic.Assign)]
-		PSPDFAnnotationBorderStyle BorderStyle { get; set; }
-
+		PSPDFAnnotationBorderStyle BorderStyle { get; [NullAllowed]set; }
+		
 		[Export ("dashArray", ArgumentSemantic.Copy)]
-		NSArray DashArray { get; set; }
+		NSArray DashArray { get; [NullAllowed]set; }
 		
 		[Export ("deleted", ArgumentSemantic.Assign)]
 		bool Deleted { [Bind ("isDeleted")] get; set; }
 		
 		[Export ("boundingBox", ArgumentSemantic.Assign)]
 		RectangleF BoundingBox { get; set; }
-
+		
 		[Export ("user", ArgumentSemantic.Copy)]
-		string User { get; set; }
-
+		string User { get; [NullAllowed]set; }
+		
 		[Export ("page", ArgumentSemantic.Assign)]
 		uint Page { get; set; }
-
+		
 		[Export ("absolutePage", ArgumentSemantic.Assign)]
 		uint AbsolutePage { get; }
 		
 		[Export ("dirty", ArgumentSemantic.Assign)]
 		bool Dirty { [Bind ("isDirty")] get; set; }
-
+		
 		[Export ("documentProvider")]
-		PSPDFDocumentProvider DocumentProvider { get; set; }
-
+		PSPDFDocumentProvider DocumentProvider { get; [NullAllowed]set; }
+		
 		[Export ("document", ArgumentSemantic.Assign)]
 		PSPDFDocument Document { get; }
-
+		
 		[Export ("rotation", ArgumentSemantic.Assign)]
 		int Rotation { get; set; }
-
+		
 		[Export ("isEqualToAnnotation:")]
 		int IsEqualToAnnotation (PSPDFAnnotation otherAnnotation);
-
+		
 		// Constants
-
+		
 		[Field ("PSPDFAnnotationTypeStringHighlight", "__Internal")]
 		NSString PSPDFAnnotationTypeStringHighlight { get; }
-
+		
 		[Field ("PSPDFAnnotationTypeStringUnderline", "__Internal")]
 		NSString PSPDFAnnotationTypeStringUnderline { get; }
-
+		
 		[Field ("PSPDFAnnotationTypeStringStrikeout", "__Internal")]
 		NSString PSPDFAnnotationTypeStringStrikeout { get; }
-
+		
 		[Field ("PSPDFAnnotationTypeStringNote", "__Internal")]
 		NSString PSPDFAnnotationTypeStringNote { get; }
-
+		
 		[Field ("PSPDFAnnotationTypeStringFreeText", "__Internal")]
 		NSString PSPDFAnnotationTypeStringFreeText { get; }
-
+		
 		[Field ("PSPDFAnnotationTypeStringInk", "__Internal")]
 		NSString PSPDFAnnotationTypeStringInk { get; }
-
+		
 		[Field ("PSPDFAnnotationTypeStringSquare", "__Internal")]
 		NSString PSPDFAnnotationTypeStringSquare { get; }
-
+		
 		[Field ("PSPDFAnnotationTypeStringCircle", "__Internal")]
 		NSString PSPDFAnnotationTypeStringCircle { get; }
-
+		
 		//Exstensions
-
+		
 		[Bind ("pdfRectString")]
 		string PdfRectString ();
 		
 		[Bind ("pdfColorString")]
 		string PdfColorString ();
-
+		
 		[Bind ("pdfFillColorString")]
 		string PdfFillColorString ();
-
+		
 		[Bind ("pdfColorWithAlphaString")]
 		string PdfColorWithAlphaString ();
 		
 		[Bind ("appendEscapedContents:")]
 		void AppendEscapedContents (NSMutableData pdfData);
-
+		
 		[Static][Bind ("stringsFromRectsArray:")]
 		string [] StringsFromRectsArray (NSObject [] rects);
-
+		
 		[Static][Bind ("rectsFromStringsArray:")]
 		NSObject [] RectsFromStringsArray (string [] rectStrings);
-
+		
 		[Bind ("pdfDataRepresentation")]
 		NSData PdfDataRepresentation ();
-
+		
 		[Bind ("copyAndDeleteOriginalIfNeeded")]
 		NSObject CopyAndDeleteOriginalIfNeeded ();
-
+		
 		[Export ("indexOnPage", ArgumentSemantic.Assign)]
 		int IndexOnPage { get; set; }
-
+		
 		[Export ("popupIndex", ArgumentSemantic.Assign)]
 		int PopupIndex { get; set; }
-
+		
 		[Bind ("parse")]
 		void Parse ();
 	}
