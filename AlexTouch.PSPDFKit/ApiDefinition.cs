@@ -326,7 +326,7 @@ namespace AlexTouch.PSPDFKit
 		[Export ("pageViewForPage:")][NullAllowed]
 		PSPDFPageView PageViewForPage (uint page);
 		
-		[Export ("popoverController")]
+		[Export ("popoverController")][NullAllowed]
 		UIPopoverController PopoverController { get; set; }
 		
 		[Export ("pagingScrollView")]
