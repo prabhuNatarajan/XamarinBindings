@@ -339,7 +339,7 @@ namespace AlexTouch.PSPDFKit
 		void setViewModeAnimated (PSPDFViewMode viewMode, bool animated);
 		
 		[Export ("gridView")]
-		PSUICollectionView GridView { get; }
+		UIScrollView GridView { get; }
 		
 		[Export ("thumbnailSize", ArgumentSemantic.Assign)]
 		SizeF ThumbnailSize { get; set; }
@@ -381,7 +381,7 @@ namespace AlexTouch.PSPDFKit
 		NSString PSPDFPresentOptionPassthroughViews { get; }
 
 		[Export ("presentViewControllerModalOrPopover:embeddedInNavigationController:withCloseButton:animated:sender:options:")]
-		NSObject PresentViewControllerModalOrPopover (UIViewController controller, bool embedded, bool closeButton, bool animated, NSObject sender, NSDictionary options);
+		NSObject PresentViewControllerModalOrPopover (UIViewController controller, bool embedded, bool closeButton, bool animated, [NullAllowed]NSObject sender, [NullAllowed]NSDictionary options);
 
 		[Export ("visiblePageNumbers")]
 		NSNumber [] VisiblePageNumbers { get; }
