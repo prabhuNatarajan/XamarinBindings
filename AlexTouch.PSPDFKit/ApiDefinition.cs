@@ -339,7 +339,7 @@ namespace AlexTouch.PSPDFKit
 		void setViewModeAnimated (PSPDFViewMode viewMode, bool animated);
 		
 		[Export ("gridView")]
-		UIScrollView GridView { get; }
+		NSObject GridView { get; }
 		
 		[Export ("thumbnailSize", ArgumentSemantic.Assign)]
 		SizeF ThumbnailSize { get; set; }
