@@ -510,12 +510,12 @@ namespace AlexTouch.PSPDFKit
 		}
 
 
-		[DllImportAttribute("__Internal", EntryPoint = "PSPDFIsControllerClassInPopover")]
-		private static extern IntPtr _IsControllerClassInPopover(IntPtr popoverController, IntPtr controllerClass);
+		[DllImportAttribute("__Internal", EntryPoint = "PSPDFIsControllerClassInPopoverAndVisible")]
+		private static extern IntPtr _IsControllerClassInPopoverAndVisible(IntPtr popoverController, IntPtr controllerClass);
 		
-		public static bool IsControllerClassInPopover(UIPopoverController popoverController, Class controllerClass)
+		public static bool IsControllerClassInPopoverAndVisible(UIPopoverController popoverController, Class controllerClass)
 		{
-			IntPtr ptr = _IsControllerClassInPopover(popoverController.Handle, controllerClass.Handle);
+			IntPtr ptr = _IsControllerClassInPopoverAndVisible(popoverController.Handle, controllerClass.Handle);
 			return Convert.ToBoolean(Marshal.ReadByte(ptr));
 		}
 
@@ -628,6 +628,35 @@ namespace AlexTouch.PSPDFKit
 			NSArray arry = NSArray.FromNSObjects(objs.ToArray());
 			return _RectsFromGlyphs(arry.Handle, t, boundingBox);
 		}
+
+		[DllImportAttribute("__Internal", EntryPoint = "PSPDFBoundingBoxFromGlyphs")]
+		private static extern RectangleF _BoundingBoxFromGlyphs(IntPtr glyphs, CGAffineTransform t);
+		
+		public static RectangleF BoundingBoxFromGlyphs(PSPDFGlyph [] glyphs, CGAffineTransform t)
+		{
+			var objs = new List<NSObject>();
+			
+			foreach (var glyph in glyphs)
+				objs.Add(glyph);
+			
+			NSArray arry = NSArray.FromNSObjects(objs.ToArray());
+			return _BoundingBoxFromGlyphs(arry.Handle, t);
+		}
+
+		[DllImportAttribute("__Internal", EntryPoint = "PSPDFReduceGlyphsToColumn")]
+		private static extern IntPtr _ReduceGlyphsToColumn(IntPtr glyphs);
+		
+		public static NSArray ReduceGlyphsToColumn(PSPDFGlyph [] glyphs)
+		{
+			var objs = new List<NSObject>();
+			
+			foreach (var glyph in glyphs)
+				objs.Add(glyph);
+			
+			NSArray arry = NSArray.FromNSObjects(objs.ToArray());
+			return new NSArray(_ReduceGlyphsToColumn(arry.Handle));
+		}
+	
 	}
 
 	//////////////////////////////////////////
@@ -716,6 +745,30 @@ namespace AlexTouch.PSPDFKit
 		public static NSArray PSPDFBezierPathGetPoints(UIBezierPath path)
 		{
 			return new NSArray(_PSPDFBezierPathGetPoints(path.Handle));
+		}
+
+		[DllImportAttribute("__Internal", EntryPoint = "PSPDFBoundingBoxFromLines")]
+		private static extern  RectangleF _BoundingBoxFromLines(IntPtr lines, float lineWidth);
+		
+		public static RectangleF BoundingBoxFromLines(NSArray lines, float lineWidth)
+		{
+			return _BoundingBoxFromLines(lines.Handle, lineWidth);
+		}
+
+		[DllImportAttribute("__Internal", EntryPoint = "PSPDFConvertViewLinesToPDFLines")]
+		private static extern  IntPtr _ConvertViewLinesToPDFLines(IntPtr lines, RectangleF cropBox, uint rotation, RectangleF bounds);
+		
+		public static NSArray ConvertViewLinesToPDFLines(NSArray lines, RectangleF cropBox, uint rotation, RectangleF bounds)
+		{
+			return new NSArray(_ConvertViewLinesToPDFLines(lines.Handle, cropBox, rotation, bounds));
+		}
+
+		[DllImportAttribute("__Internal", EntryPoint = "PSPDFConvertPDFLinesToViewLines")]
+		private static extern  IntPtr _ConvertPDFLinesToViewLines(IntPtr lines, RectangleF cropBox, uint rotation, RectangleF bounds);
+		
+		public static NSArray ConvertPDFLinesToViewLines(NSArray lines, RectangleF cropBox, uint rotation, RectangleF bounds)
+		{
+			return new NSArray(_ConvertPDFLinesToViewLines(lines.Handle, cropBox, rotation, bounds));
 		}
 	}
 	
@@ -1216,6 +1269,11 @@ namespace AlexTouch.PSPDFKit
 		{
 			return AnnotationsForPage_ (page, pageRef.Handle);
 		}
+
+		public virtual PSPDFAnnotation [] ParseAnnotationsForPage (uint page, CGPDFPage pageRef)
+		{
+			return ParseAnnotationsForPage_ (page, pageRef.Handle);
+		}
 	}
 
 	//////////////////////////////////////////////////
@@ -1278,8 +1336,6 @@ namespace AlexTouch.PSPDFKit
 			return (UIImage) imgExt;
 		}	
 	}
-	
-	
-	
+
 }
 

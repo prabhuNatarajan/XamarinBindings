@@ -17,6 +17,7 @@ namespace AlexTouch.PSPDFKit
 		DocumentLocked = 300,
 		FailedToLoadAnnotations = 400,
 		FailedToWriteAnnotations = 410,
+		FailedToLoadBookmarks = 450,
 		OutlineParser = 500,
 		UnableToConvertToDataRepresentation = 600,
 		RemoveCacheError = 700,
@@ -149,7 +150,7 @@ namespace AlexTouch.PSPDFKit
 		None      = 0,
 		Link      = 2,
 		Highlight = 4, // (Highlight, Underline, StrikeOut) - PSPDFHighlightAnnotationView
-		Text      = 8,
+		Text      = 8, // FreeText
 		Ink       = 16,
 		Shape     = 32, // Square, Circle
 		Line      = 64,
@@ -412,7 +413,8 @@ namespace AlexTouch.PSPDFKit
 		StrikeOut,
 		Underline,
 		FreeText,
-		Draw
+		Draw,
+		Signature
 	}
 
 	//////////////////////////////////////
@@ -451,10 +453,10 @@ namespace AlexTouch.PSPDFKit
 		Vertical
 	}
 
-	//////////////////////////////////////
-	////	PSPDFColorView.h enums 		//
-	////	Start						//
-	//////////////////////////////////////
+	//////////////////////////////////////////
+	////	PSPDFProgressHUD.h enums 		//
+	////	Start							//
+	//////////////////////////////////////////
 	
 	public enum PSPDFProgressHUDMaskType : uint
 	{
@@ -524,7 +526,63 @@ namespace AlexTouch.PSPDFKit
 		Move,
 		None
 	}
+	
+	//////////////////////////////////////////////////////////
+	////	PSPDFColorSelectionViewController.h	 enums 		//
+	////	Start											//
+	//////////////////////////////////////////////////////////
 
+	public enum PSPDFColorPickerStyle : uint
+	{
+		Rainbow,
+		Modern,
+		Vintage,
+		Monochrome,
+		HSVPicker
+	}
+
+	//////////////////////////////////////////////
+	////	PSPDFBrightnessSlider.h	 enums 		//
+	////	Start								//
+	//////////////////////////////////////////////
+	
+	public enum PSPDFThumbImageStyle
+	{
+		Default = 0,
+		HourGlass,
+		ArrowLoop,
+	}
+
+	public enum PSPDFSliderBackgroundStyle
+	{
+		Default = 0,
+		Grayscale,
+		Colorfull,
+	}
+
+	//////////////////////////////////////////
+	////	PSPDFBarButtonItem.h enums 		//
+	////	Start							//
+	//////////////////////////////////////////
+	
+	[Flags]
+	public enum PSPDFPrintOptions : uint
+	{
+		DocumentOnly            = 1,
+		IncludeAnnotations     	= 2
+	}
+
+	//////////////////////////////////////////////////
+	////	PSPDFOpenInBarButtonItem.h enums 		//
+	////	Start									//
+	//////////////////////////////////////////////////
+	
+	[Flags]
+	public enum PSPDFOpenInOptions : uint
+	{
+		Original              	= 1,
+		FlattenAnnotations     	= 2
+	}
 
 	//////////////////////////////////////////////////////
 	////	PSPDFViewControllerDelegates.h enums 		//
