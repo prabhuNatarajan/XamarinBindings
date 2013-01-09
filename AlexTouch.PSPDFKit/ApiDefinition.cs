@@ -5424,7 +5424,7 @@ namespace AlexTouch.PSPDFKit
 	////		PSPDFGenericAnnotationView.h			//
 	//////////////////////////////////////////////////////
 	
-	[BaseType (typeof (PSPDFAnnotationView))]
+	[BaseType (typeof (UIView))]
 	interface PSPDFGenericAnnotationView 
 	{
 		[Export ("initWithAnnotation:")]
