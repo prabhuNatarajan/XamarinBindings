@@ -22,6 +22,9 @@ namespace AlexTouch.PSPDFKit
 		UnableToConvertToDataRepresentation = 600,
 		RemoveCacheError = 700,
 		FailedToConvertToPDF = 800,
+		FailedToGeneratePDFInvalidArguments = 810,
+		FailedToGeneratePDFDocumentInvalid = 820,
+		FailedToUpdatePageObject = 850,
 		Unknown = 900
 	}
 
@@ -66,9 +69,9 @@ namespace AlexTouch.PSPDFKit
 
 	public enum PSPDFPageTransition
 	{
-		PerPage,      // default mode for iOS4. Has one scrollView per page.
+		PerPage,     	    // One scrollView per page.
 		ScrollContinuous,   // Similar to UIWebView. Ignores PSPDFPageModeDouble.
-		Curl                // replaces pageCurlEnabled. iOS5+ feature.ure.
+		Curl                // iBooks
 	}
 
 	public enum PSPDFViewMode
@@ -148,6 +151,7 @@ namespace AlexTouch.PSPDFKit
 	public enum PSPDFAnnotationType : uint
 	{
 		None      = 0,
+		Undefined = 1,
 		Link      = 2,
 		Highlight = 4, // (Highlight, Underline, StrikeOut) - PSPDFHighlightAnnotationView
 		Text      = 8, // FreeText
@@ -158,7 +162,6 @@ namespace AlexTouch.PSPDFKit
 		Stamp     = 256,
 		RichMedia = 1024, // Embedded PDF videos
 		Screen    = 2048,
-		Undefined = 2147483648, // any annotation whose type couldn't be recognized
 		All       = uint.MaxValue
 	}
 
@@ -202,7 +205,6 @@ namespace AlexTouch.PSPDFKit
 	////	Start 											//
 	//////////////////////////////////////////////////////////
 
-	[Since (6,0)]
 	[Flags]
 	public enum PSTCollectionViewScrollPosition : uint
 	{
@@ -294,6 +296,7 @@ namespace AlexTouch.PSPDFKit
 		Audio,   // 5
 		Image,   // 6
 		Browser, // 7
+		Control, // 8
 		Custom  /// any annotation format that is not recognized is custom, calling the delegate viewForAnnotation:
 	}
 
@@ -353,7 +356,6 @@ namespace AlexTouch.PSPDFKit
 	////	Start	 								//
 	//////////////////////////////////////////////////
 
-	[Since(6,0)]
 	public enum PSTCollectionViewScrollDirection
 	{
 		Vertical,
@@ -414,7 +416,9 @@ namespace AlexTouch.PSPDFKit
 		Underline,
 		FreeText,
 		Draw,
-		Signature
+		Signature,
+		Stamp,
+		Image
 	}
 
 	//////////////////////////////////////
@@ -583,43 +587,4 @@ namespace AlexTouch.PSPDFKit
 		Original              	= 1,
 		FlattenAnnotations     	= 2
 	}
-
-	//////////////////////////////////////////////////////
-	////	PSPDFViewControllerDelegates.h enums 		//
-	////	Start										//
-	//////////////////////////////////////////////////////
-
-//	[StructLayout(LayoutKind.Sequential)]
-//	public struct PSPDFDelegateFlags
-//	{
-//		uint delegateShouldSetDocument;
-//		uint delegateWillDisplayDocument;
-//		uint delegateDidDisplayDocument;
-//		uint delegateDidShowPageView;
-//		uint delegateDidRenderPageView;
-//		uint delegateDidChangeViewMode;
-//		uint delegateDidTapOnPageView;
-//		uint delegateDidLongPressOnPageView;
-//		uint delegateShouldSelectText;
-//		uint delegateDidSelectText;
-//		uint delegateShouldShowMenuItemsForSelectedText;
-//		uint delegateShouldSelectAnnotation;
-//		uint delegateDidSelectAnnotation;
-//		uint delegateShouldShowMenuItemsForAnnotation;
-//		uint delegateDidTapOnAnnotation;
-//		uint delegateShouldDisplayAnnotation;
-//		uint delegateShouldScrollToPage;
-//		uint delegateAnnotationViewForAnnotation;
-//		uint delegateWillShowAnnotationView;
-//		uint delegateDidShowAnnotationView;
-//		uint delegateDidLoadPageView;
-//		uint delegateWillUnloadPageView;
-//		uint delegateDidEndPageDraggingWillDecelerate;
-//		uint delegateDidEndPageScrollingAnimation;
-//		uint delegateDidEndZoomingAtScale;
-//		uint delegateShouldShowControllerAnimated;
-//		uint delegateDidShowControllerAnimated;
-//		uint delegateDocumentForRelativePath;
-//	}
 }
-
