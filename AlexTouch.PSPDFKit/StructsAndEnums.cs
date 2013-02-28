@@ -22,6 +22,8 @@ namespace AlexTouch.PSPDFKit
 		UnableToConvertToDataRepresentation = 600,
 		RemoveCacheError = 700,
 		FailedToConvertToPDF = 800,
+		FailedToGeneratePDFInvalidArguments = 810,
+		FailedToGeneratePDFDocumentInvalid = 820,
 		Unknown = 900
 	}
 
@@ -97,8 +99,7 @@ namespace AlexTouch.PSPDFKit
 		SmartBlackHideOnIpad,/// Similar to PSPDFStatusBarSmartBlack, but also hides statusBar on iPad.
 		BlackOpaque,         /// Opaque Black everywhere.
 		Default,             /// Default statusbar (white on iPhone/black on iPad).
-		Disable,             /// Never show status bar.
-		Ignore = 256       /// Causes this class to ignore the statusbar entirely.
+		Disable              /// Never show status bar.
 	}
 
 	public enum PSPDFHUDViewMode
@@ -139,6 +140,13 @@ namespace AlexTouch.PSPDFKit
 		WithExternalFileAsFallback
 	}
 
+	public enum PSPDFTextCheckingType : uint
+	{
+		Link        = 1,  // URLs
+		PhoneNumber = 2,  // Phone numbers
+		All         = uint.MaxValue
+	}
+
 	//////////////////////////////////////////
 	////	PSPDFAnnotation.h enums 		//
 	////	Start 							//
@@ -148,6 +156,7 @@ namespace AlexTouch.PSPDFKit
 	public enum PSPDFAnnotationType : uint
 	{
 		None      = 0,
+		Undefined = 1,
 		Link      = 2,
 		Highlight = 4, // (Highlight, Underline, StrikeOut) - PSPDFHighlightAnnotationView
 		Text      = 8, // FreeText
@@ -158,7 +167,6 @@ namespace AlexTouch.PSPDFKit
 		Stamp     = 256,
 		RichMedia = 1024, // Embedded PDF videos
 		Screen    = 2048,
-		Undefined = 2147483648, // any annotation whose type couldn't be recognized
 		All       = uint.MaxValue
 	}
 
@@ -180,7 +188,7 @@ namespace AlexTouch.PSPDFKit
 
 	public enum PSPDFHighlightAnnotationType
 	{
-		Unknown = 0,
+		Unknown,
 		Highlight,
 		Underline,
 		StrikeOut
@@ -294,6 +302,7 @@ namespace AlexTouch.PSPDFKit
 		Audio,   // 5
 		Image,   // 6
 		Browser, // 7
+		Control, // 8
 		Custom  /// any annotation format that is not recognized is custom, calling the delegate viewForAnnotation:
 	}
 
@@ -414,7 +423,9 @@ namespace AlexTouch.PSPDFKit
 		Underline,
 		FreeText,
 		Draw,
-		Signature
+		Signature,
+		Stamp,
+		Image
 	}
 
 	//////////////////////////////////////
@@ -557,7 +568,7 @@ namespace AlexTouch.PSPDFKit
 	{
 		Default = 0,
 		Grayscale,
-		Colorfull,
+		Colorful,
 	}
 
 	//////////////////////////////////////////
