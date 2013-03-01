@@ -31,7 +31,7 @@ namespace AlexTouch.PSPDFKit
 	public enum PSPDFLogLevel
 	{
 		Nothing = 0,
-		Error,   
+		Error,
 		Warning,
 		Info,
 		Verbose
@@ -100,8 +100,7 @@ namespace AlexTouch.PSPDFKit
 		SmartBlackHideOnIpad,/// Similar to PSPDFStatusBarSmartBlack, but also hides statusBar on iPad.
 		BlackOpaque,         /// Opaque Black everywhere.
 		Default,             /// Default statusbar (white on iPhone/black on iPad).
-		Disable,             /// Never show status bar.
-		Ignore = 256       /// Causes this class to ignore the statusbar entirely.
+		Disable              /// Never show status bar.
 	}
 
 	public enum PSPDFHUDViewMode
@@ -140,6 +139,13 @@ namespace AlexTouch.PSPDFKit
 		ExternalFile,
 		Embedded,
 		WithExternalFileAsFallback
+	}
+
+	public enum PSPDFTextCheckingType : uint
+	{
+		Link        = 1,  // URLs
+		PhoneNumber = 2,  // Phone numbers
+		All         = uint.MaxValue
 	}
 
 	//////////////////////////////////////////
@@ -183,7 +189,7 @@ namespace AlexTouch.PSPDFKit
 
 	public enum PSPDFHighlightAnnotationType
 	{
-		Unknown = 0,
+		Unknown,
 		Highlight,
 		Underline,
 		StrikeOut
@@ -209,13 +215,13 @@ namespace AlexTouch.PSPDFKit
 	public enum PSTCollectionViewScrollPosition : uint
 	{
 		None                 = 0,
-		
+
 		// The vertical positions are mutually exclusive to each other, but are bitwise or-able with the horizontal scroll positions.
 		// Combining positions from the same grouping (horizontal or vertical) will result in an NSInvalidArgumentException.
 		Top                  = 1,
 		CenteredVertically   = 2,
 		Bottom               = 4,
-		
+
 		// Likewise, the horizontal positions are mutually exclusive to each other.
 		Left                 = 8,
 		CenteredHorizontally = 16,
@@ -226,13 +232,13 @@ namespace AlexTouch.PSPDFKit
 	public enum UICollectionViewScrollPosition : uint
 	{
 		None                 = 0,
-		
+
 		// The vertical positions are mutually exclusive to each other, but are bitwise or-able with the horizontal scroll positions.
 		// Combining positions from the same grouping (horizontal or vertical) will result in an NSInvalidArgumentException.
 		Top                  = 1,
 		CenteredVertically   = 2,
 		Bottom               = 4,
-		
+
 		// Likewise, the horizontal positions are mutually exclusive to each other.
 		Left                 = 8,
 		CenteredHorizontally = 16,
@@ -406,7 +412,7 @@ namespace AlexTouch.PSPDFKit
 	////	PSPDFAnnotationToolbar.h enums	 		//
 	////	Start									//
 	//////////////////////////////////////////////////
-	
+
 	public enum PSPDFAnnotationToolbarMode : uint
 	{
 		None,
@@ -441,8 +447,8 @@ namespace AlexTouch.PSPDFKit
 	public enum PSPDFColorViewBorderStyle
 	{
 		Single = 0,
-		Top, 
-		Middle, 
+		Top,
+		Middle,
 		Bottom
 	}
 
@@ -450,7 +456,7 @@ namespace AlexTouch.PSPDFKit
 	////	PSPDFColorView.h enums 		//
 	////	Start						//
 	//////////////////////////////////////
-	
+
 	public enum PSPDFGradientViewDirection
 	{
 		Horizontal,
@@ -461,7 +467,7 @@ namespace AlexTouch.PSPDFKit
 	////	PSPDFProgressHUD.h enums 		//
 	////	Start							//
 	//////////////////////////////////////////
-	
+
 	public enum PSPDFProgressHUDMaskType : uint
 	{
 		None = 1, // allow user interactions while HUD is displayed
@@ -474,7 +480,7 @@ namespace AlexTouch.PSPDFKit
 	////	PSPDFLabelView.h enums 		//
 	////	Start						//
 	//////////////////////////////////////
-	
+
 	public enum PSPDFLabelStyle : uint
 	{
 		Flat,
@@ -521,7 +527,7 @@ namespace AlexTouch.PSPDFKit
 	////	PSTCollectionViewUpdateItem.h enums 		//
 	////	Start										//
 	//////////////////////////////////////////////////////
-	
+
 	public enum PSTCollectionUpdateAction
 	{
 		Insert,
@@ -530,7 +536,7 @@ namespace AlexTouch.PSPDFKit
 		Move,
 		None
 	}
-	
+
 	//////////////////////////////////////////////////////////
 	////	PSPDFColorSelectionViewController.h	 enums 		//
 	////	Start											//
@@ -549,7 +555,7 @@ namespace AlexTouch.PSPDFKit
 	////	PSPDFBrightnessSlider.h	 enums 		//
 	////	Start								//
 	//////////////////////////////////////////////
-	
+
 	public enum PSPDFThumbImageStyle
 	{
 		Default = 0,
@@ -561,14 +567,14 @@ namespace AlexTouch.PSPDFKit
 	{
 		Default = 0,
 		Grayscale,
-		Colorfull,
+		Colorful,
 	}
 
 	//////////////////////////////////////////
 	////	PSPDFBarButtonItem.h enums 		//
 	////	Start							//
 	//////////////////////////////////////////
-	
+
 	[Flags]
 	public enum PSPDFPrintOptions : uint
 	{
@@ -580,7 +586,7 @@ namespace AlexTouch.PSPDFKit
 	////	PSPDFOpenInBarButtonItem.h enums 		//
 	////	Start									//
 	//////////////////////////////////////////////////
-	
+
 	[Flags]
 	public enum PSPDFOpenInOptions : uint
 	{
