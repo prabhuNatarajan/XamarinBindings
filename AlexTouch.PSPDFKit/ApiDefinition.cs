@@ -963,8 +963,8 @@ namespace AlexTouch.PSPDFKit
 		[Export("annotationsEnabled", ArgumentSemantic.Assign)]
 		bool AnnotationsEnabled { [Bind("isAnnotationsEnabled")] get; set; }
 
-		[Export("editableAnnotationTypes", ArgumentSemantic.Copy)]
-		NSSet EditableAnnotationTypes { get; set; }
+		//[Export("editableAnnotationTypes", ArgumentSemantic.Copy)]
+		//NSOrderedSet EditableAnnotationTypes { [NullAllowed] get; [NullAllowed] set; }
 
 		[Export("canEmbedAnnotations", ArgumentSemantic.Assign)]
 		bool CanEmbedAnnotations { get; }
@@ -3750,8 +3750,8 @@ namespace AlexTouch.PSPDFKit
 		[Export ("lockPDFControllerAnimated:showControls:ensureToStayOnTop:")]
 		void UnlockPDFController (bool animated, bool showControls, bool stayOnTop);
 
-		[Export ("editableAnnotationTypes", ArgumentSemantic.Copy)]
-		NSObject EditableAnnotationTypes { get; [NullAllowed] set; }
+		//[Export ("editableAnnotationTypes", ArgumentSemantic.Copy)]
+		//NSOrderedSet EditableAnnotationTypes { get; [NullAllowed] set; }
 
 		// Constants
 
