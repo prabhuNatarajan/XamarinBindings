@@ -2191,14 +2191,16 @@ namespace AlexTouch.PSPDFKit
 		[Export ("annotation")]
 		PSPDFAnnotation Annotation { get; set; }
 
-		[Export ("zIndex", ArgumentSemantic.Assign)]
-		uint ZIndex { get; set; }
+		// Commented out because of the Xamarin Runtime big with optional protocols.
+		// https://bugzilla.xamarin.com/show_bug.cgi?id=8769
+		//[Export ("zIndex", ArgumentSemantic.Assign)]
+		//uint ZIndex { get; set; }
 
-		[Export ("zoomScale", ArgumentSemantic.Assign)]
-		float ZoomScale { get; set; }
+		//[Export ("zoomScale", ArgumentSemantic.Assign)]
+		//float ZoomScale { get; set; }
 
-		[Export ("PDFScale", ArgumentSemantic.Assign)]
-		float PDFScale { get; set; }
+		//[Export ("PDFScale", ArgumentSemantic.Assign)]
+		//float PDFScale { get; set; }
 		
 		[Export ("willShowPage:"), EventArgs ("PSPDFAnnotationViewWillShowPage")]
 		void WillShowPage (uint page);
