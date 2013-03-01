@@ -5368,8 +5368,10 @@ namespace AlexTouch.PSPDFKit
 		[Export ("hasLoadedAnnotationsForPage:")] 
 		bool HasLoadedAnnotationsForPage (uint page);
 
-		[Export ("annotationViewClassForAnnotation:")] 
-		Class AnnotationViewClassForAnnotation (PSPDFAnnotation annotation);
+		// Comment out because of a bug in the Xamarin runtime.
+		// Once a method is declared here, it will be invoked, even if it's not actually available (that one is @optional in ObjC)
+		//[Export ("annotationViewClassForAnnotation:")] 
+		//Class AnnotationViewClassForAnnotation (PSPDFAnnotation annotation);
 
 		[Export ("addAnnotations:forPage:")] 
 		bool AddAnnotations (PSPDFAnnotation [] annotations, uint page);
