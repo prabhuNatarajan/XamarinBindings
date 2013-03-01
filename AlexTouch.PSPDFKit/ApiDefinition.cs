@@ -5429,8 +5429,8 @@ namespace AlexTouch.PSPDFKit
 		[Export ("clearCache")]
 		void ClearCache ();
 
-		//[Export ("tryLoadAnnotationsFromFileWithError:")]
-		//bool TryLoadAnnotationsFromFileWithError (out NSError error);
+		[Export ("tryLoadAnnotationsFromFileWithError:")]
+		bool _TryLoadAnnotationsFromFileWithError (IntPtr error);
 
 		[Export ("fileTypeTranslationTable", ArgumentSemantic.Copy)]
 		NSDictionary FileTypeTranslationTable { get; set; }
@@ -5447,7 +5447,7 @@ namespace AlexTouch.PSPDFKit
 		PSPDFAnnotation [] ParseAnnotationsForPage_ (uint page, IntPtr /*CGPDFPageRef*/ pageRef);
 
 //		[Bind ("saveAnnotationsWithError:")] // Already inlined
-//		bool SaveAnnotationsWithError (out NSError error);
+//		bool SaveAnnotationsWithError (IntPtr error);
 
 		[Export ("loadAnnotationsWithError:")]
 		NSDictionary LoadAnnotationsWithError (out NSError error);
@@ -5467,6 +5467,24 @@ namespace AlexTouch.PSPDFKit
 		[Export ("updateAnnotationsPageAndDocumentReference:page:")]
 		void UpdateAnnotationsPageAndDocumentReference (PSPDFAnnotation [] annotations, uint page);
 	}
+
+	/*
+	public partial class PSPDFFileAnnotationProvider <_PSPDFFileAnnotationProvider>
+	{
+	public bool TryLoadAnnotationsFromFileWithError (out NSError error)
+	{
+		unsafe {
+			IntPtr val;
+			IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
+			
+			bool ret = _TryLoadAnnotationsFromFileWithError (val_addr);
+			error = (NSError) Runtime.GetNSObject (val);
+			
+			return ret;
+		}
+	}
+	}*/
+
 
 	//////////////////////////////////////////////
 	////		PSPDFResizableView.h			//
