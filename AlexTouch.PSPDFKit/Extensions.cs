@@ -1152,6 +1152,20 @@ namespace AlexTouch.PSPDFKit
 		{
 			return ParseAnnotationsForPage_ (page, pageRef.Handle);
 		}
+
+		public bool TryLoadAnnotationsFromFileWithError (out NSError error)
+		{
+			unsafe 
+			{
+				IntPtr val;
+				IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
+				
+				bool ret = _TryLoadAnnotationsFromFileWithError (val_addr);
+				error = (NSError) Runtime.GetNSObject (val);
+				
+				return ret;
+			}
+		}
 	}
 
 	//////////////////////////////////////////////////
