@@ -5429,8 +5429,8 @@ namespace AlexTouch.PSPDFKit
 		[Export ("clearCache")]
 		void ClearCache ();
 
-		[Export ("tryLoadAnnotationsFromFileWithError:")]
-		bool TryLoadAnnotationsFromFileWithError (out NSError error);
+		//[Export ("tryLoadAnnotationsFromFileWithError:")]
+		//bool TryLoadAnnotationsFromFileWithError (out NSError error);
 
 		[Export ("fileTypeTranslationTable", ArgumentSemantic.Copy)]
 		NSDictionary FileTypeTranslationTable { get; set; }
