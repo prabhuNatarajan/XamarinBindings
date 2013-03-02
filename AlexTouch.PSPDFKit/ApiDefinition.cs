@@ -446,7 +446,7 @@ namespace AlexTouch.PSPDFKit
 		
 		//Extension methods SubclassingHooks
 
-		[Export ("commonInitWithDocument:")]
+		[Export ("commonInitWithDocument:")][NullAllowed]
 		void CommonInitWithDocument (PSPDFDocument document);
 		
 		[Export ("overrideClassNames", ArgumentSemantic.Copy)]
