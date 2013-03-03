@@ -3646,7 +3646,7 @@ namespace AlexTouch.PSPDFKit
 		void ShowToolbarInRect (RectangleF rect, bool animated);
 		
 		[Export("hideToolbarAnimated:completion:")]
-		void ShowToolbarInRect (bool animated, PSPDFAnnotationToolbarCompletionDel completionBlock);
+		void HideToolbar (bool animated, PSPDFAnnotationToolbarCompletionDel completionBlock);
 		
 		[Export("flashToolbar")]
 		void FlashToolbar ();
