@@ -4,7 +4,7 @@ using MonoTouch.ObjCRuntime;
 
 namespace AlexTouch.PSPDFKit
 {
-
+	
 	//////////////////////////////////////////
 	////	PSPDFKitGlobal.h enums			//
 	////	Start 							//
@@ -27,7 +27,7 @@ namespace AlexTouch.PSPDFKit
 		FailedToUpdatePageObject = 850,
 		Unknown = 900
 	}
-
+	
 	public enum PSPDFLogLevel
 	{
 		Nothing = 0,
@@ -36,19 +36,19 @@ namespace AlexTouch.PSPDFKit
 		Info,
 		Verbose
 	}
-
+	
 	public enum PSPDFAnimate
 	{
 		Never,
 		ModernDevices,
 		Everywhere
 	}
-
+	
 	//////////////////////////////////////////
 	////	PSPDFConverter.h enums			//
 	////	Start 							//
 	//////////////////////////////////////////
-
+	
 	public enum PSPDFRectAlignment
 	{
 		Center = 0,
@@ -61,38 +61,38 @@ namespace AlexTouch.PSPDFKit
 		BottomRight,
 		Right
 	}
-
+	
 	//////////////////////////////////////////
 	////	PSPDFViewController.h enums 	//
 	////	Start 							//
 	//////////////////////////////////////////
-
+	
 	public enum PSPDFPageTransition
 	{
 		PerPage,     	    // One scrollView per page.
 		ScrollContinuous,   // Similar to UIWebView. Ignores PSPDFPageModeDouble.
 		Curl                // iBooks
 	}
-
+	
 	public enum PSPDFViewMode
 	{
 		Document,
 		Thumbnails
 	}
-
+	
 	public enum PSPDFPageMode
 	{
 		Single,   // Default on iPhone.
 		Double,
 		Automatic // single in portrait, double in landscape if the document's height > width. Default on iPad.
 	}
-
+	
 	public enum PSPDFScrollDirection
 	{
 		Horizontal, // default
 		Vertical
 	}
-
+	
 	public enum PSPDFStatusBarStyleSetting
 	{
 		Inherit,             /// Don't change status bar style, but show/hide statusbar on HUD events.
@@ -102,7 +102,7 @@ namespace AlexTouch.PSPDFKit
 		Default,             /// Default statusbar (white on iPhone/black on iPad).
 		Disable              /// Never show status bar.
 	}
-
+	
 	public enum PSPDFHUDViewMode
 	{
 		Always,                   /// Always show the HUD.
@@ -110,7 +110,7 @@ namespace AlexTouch.PSPDFKit
 		AutomaticNoFirstLastPage, /// Show HUD on touch.
 		Never                     /// Never show the HUD.
 	}
-
+	
 	public enum PSPDFLinkAction
 	{
 		None,         /// Link actions are ignored.
@@ -118,7 +118,7 @@ namespace AlexTouch.PSPDFKit
 		OpenSafari,   /// Link actions directly open Safari.
 		InlineBrowser /// Link actions open in an inline browser.
 	}
-
+	
 	public enum PSPDFPageRenderingMode
 	{
 		ThumbailThenFullPage, // load cached page async
@@ -127,12 +127,12 @@ namespace AlexTouch.PSPDFKit
 		ThumbnailThenRender,  // don't use cached page but thumb
 		Render                // don't use cached page nor thumb
 	}
-
+	
 	//////////////////////////////////////
 	////	PSPDFDocument.h enums 		//
 	////	Start 						//
 	//////////////////////////////////////
-
+	
 	public enum PSPDFAnnotationSaveMode
 	{
 		Disabled,
@@ -140,19 +140,19 @@ namespace AlexTouch.PSPDFKit
 		Embedded,
 		WithExternalFileAsFallback
 	}
-
+	
 	public enum PSPDFTextCheckingType : uint
 	{
 		Link        = 1,  // URLs
 		PhoneNumber = 2,  // Phone numbers
 		All         = uint.MaxValue
 	}
-
+	
 	//////////////////////////////////////////
 	////	PSPDFAnnotation.h enums 		//
 	////	Start 							//
 	//////////////////////////////////////////
-
+	
 	[Flags]
 	public enum PSPDFAnnotationType : uint
 	{
@@ -170,7 +170,7 @@ namespace AlexTouch.PSPDFKit
 		Screen    = 2048,
 		All       = uint.MaxValue
 	}
-
+	
 	public enum PSPDFAnnotationBorderStyle : uint
 	{
 		None,
@@ -181,12 +181,12 @@ namespace AlexTouch.PSPDFKit
 		Underline,
 		Unknown
 	}
-
+	
 	//////////////////////////////////////////////////
 	////	PSPDFHighlightAnnotation.h enums 		//
 	////	Start 									//
 	//////////////////////////////////////////////////
-
+	
 	public enum PSPDFHighlightAnnotationType
 	{
 		Unknown,
@@ -194,85 +194,85 @@ namespace AlexTouch.PSPDFKit
 		Underline,
 		StrikeOut
 	}
-
+	
 	//////////////////////////////////////////
 	////	PSPDFScrollView.h enums 		//
 	////	Start 							//
 	//////////////////////////////////////////
-
+	
 	public enum PSPDFShadowStyle
 	{
 		Flat,   // flat  shadow style (Default)
 		Curl   // curled shadow style
 	}
-
+	
 	//////////////////////////////////////////////////////////
 	////	PSTCollectionViewScrollPosition.h enums 		//
 	////	Start 											//
 	//////////////////////////////////////////////////////////
-
+	
 	[Flags]
 	public enum PSTCollectionViewScrollPosition : uint
 	{
 		None                 = 0,
-
+		
 		// The vertical positions are mutually exclusive to each other, but are bitwise or-able with the horizontal scroll positions.
 		// Combining positions from the same grouping (horizontal or vertical) will result in an NSInvalidArgumentException.
 		Top                  = 1,
 		CenteredVertically   = 2,
 		Bottom               = 4,
-
+		
 		// Likewise, the horizontal positions are mutually exclusive to each other.
 		Left                 = 8,
 		CenteredHorizontally = 16,
 		Right                = 32
 	}
-
+	
 	[Flags]
 	public enum UICollectionViewScrollPosition : uint
 	{
 		None                 = 0,
-
+		
 		// The vertical positions are mutually exclusive to each other, but are bitwise or-able with the horizontal scroll positions.
 		// Combining positions from the same grouping (horizontal or vertical) will result in an NSInvalidArgumentException.
 		Top                  = 1,
 		CenteredVertically   = 2,
 		Bottom               = 4,
-
+		
 		// Likewise, the horizontal positions are mutually exclusive to each other.
 		Left                 = 8,
 		CenteredHorizontally = 16,
 		Right                = 32
 	}
-
+	
 	//////////////////////////////////////////////////
 	////	PSTCollectionViewLayout.h enums 		//
 	////	Start 									//
 	//////////////////////////////////////////////////
-
+	
 	public enum PSTCollectionViewItemType : uint
 	{
 		Cell,
 		SupplementaryView,
 		DecorationView
 	}
-
+	
 	//////////////////////////////////////////////
 	////	PSPDFSearchOperation.h enums 		//
 	////	Start 								//
 	//////////////////////////////////////////////
-
+	
 	public enum PSPDFSearchMode
 	{
 		Basic,
 		Highlighting
 	}
-
+	
 	//////////////////////////////////////////////
 	////	PSPDFLineAnnotation.h enums 		//
 	////	Start 								//
 	//////////////////////////////////////////////
-
+	
 	public enum PSPDFLineEndType
 	{
 		None,
@@ -286,12 +286,12 @@ namespace AlexTouch.PSPDFKit
 		ReverseClosedArrow,
 		Slash
 	}
-
+	
 	//////////////////////////////////////////////
 	////	PSPDFLinkAnnotation.h enums 		//
 	////	Start 								//
 	//////////////////////////////////////////////
-
+	
 	public enum PSPDFLinkAnnotationType
 	{
 		Page = 0,
@@ -305,24 +305,24 @@ namespace AlexTouch.PSPDFKit
 		Control, // 8
 		Custom  /// any annotation format that is not recognized is custom, calling the delegate viewForAnnotation:
 	}
-
+	
 	//////////////////////////////////////////////
 	////	PSPDFShapeAnnotation.h enums 		//
 	////	Start 								//
 	//////////////////////////////////////////////
-
+	
 	public enum PSPDFShapeAnnotationType
 	{
 		Unknown,
 		Square,
 		Circle
 	}
-
+	
 	//////////////////////////////////////////////
 	////	PSPDFWebViewController.h enums 		//
 	////	Start 								//
 	//////////////////////////////////////////////
-
+	
 	[Flags]
 	public enum PSPDFWebViewControllerAvailableActions : uint
 	{
@@ -336,12 +336,12 @@ namespace AlexTouch.PSPDFKit
 		Forward          = 64,
 		All              = 16777215
 	}
-
+	
 	//////////////////////////////////
 	////	PSPDFCache.h enums 		//
 	////	Start					//
 	//////////////////////////////////
-
+	
 	public enum PSPDFCacheStrategy
 	{
 		Nothing,                    // no files are saved. (slowest)
@@ -349,31 +349,31 @@ namespace AlexTouch.PSPDFKit
 		ThumbnailsAndNearPages,     // only a few files are saved.
 		Opportunistic               // the whole PDF document is converted to images and saved. (fastest)
 	}
-
+	
 	public enum PSPDFSize
 	{
 		Native,     /// single page portrait device screen size
 		Thumbnail,  /// defined as above in kPSPDFThumbnailSize
 		Tiny        /// tiny is memory-only
 	}
-
+	
 	//////////////////////////////////////////////////
 	////	PSCollectionViewFlowLayout.h enums 		//
 	////	Start	 								//
 	//////////////////////////////////////////////////
-
+	
 	public enum PSTCollectionViewScrollDirection
 	{
 		Vertical,
 		Horizontal
 	}
-
+	
 	public enum UICollectionViewScrollDirection
 	{
 		Vertical,
 		Horizontal
 	}
-
+	
 	public enum PSTFlowLayoutHorizontalAlignment
 	{
 		Left,
@@ -381,12 +381,12 @@ namespace AlexTouch.PSPDFKit
 		Right,
 		Justify // 3; default except for the last row
 	}
-
+	
 	//////////////////////////////////////////////////
 	////	PSCollectionViewFlowLayout.h enums 		//
 	////	Start	 								//
 	//////////////////////////////////////////////////
-
+	
 	public enum PSPDFImageResizingMethod
 	{
 		Crop,	// analogous to UIViewContentModeScaleAspectFill, i.e. "best fit" with no space around.
@@ -394,12 +394,12 @@ namespace AlexTouch.PSPDFKit
 		CropEnd,
 		Scale	// analogous to UIViewContentModeScaleAspectFit, i.e. scale down to fit, leaving space around if necessary.
 	}
-
+	
 	//////////////////////////////////////////////////
 	////	PSPDFSearchViewController.h enums 		//
 	////	Start									//
 	//////////////////////////////////////////////////
-
+	
 	public enum PSPDFSearchStatus
 	{
 		Idle,
@@ -407,12 +407,12 @@ namespace AlexTouch.PSPDFKit
 		Finished,
 		Cancelled
 	}
-
+	
 	//////////////////////////////////////////////////
 	////	PSPDFAnnotationToolbar.h enums	 		//
 	////	Start									//
 	//////////////////////////////////////////////////
-
+	
 	public enum PSPDFAnnotationToolbarMode : uint
 	{
 		None,
@@ -426,24 +426,24 @@ namespace AlexTouch.PSPDFKit
 		Stamp,
 		Image
 	}
-
+	
 	//////////////////////////////////////
 	////	PSPDFLoupeView.h enums 		//
 	////	Start						//
 	//////////////////////////////////////
-
+	
 	public enum PSPDFLoupeViewMode
 	{
 		Circular,
 		DetailTop,
 		DetailBottom
 	}
-
+	
 	//////////////////////////////////////
 	////	PSPDFColorView.h enums 		//
 	////	Start						//
 	//////////////////////////////////////
-
+	
 	public enum PSPDFColorViewBorderStyle
 	{
 		Single = 0,
@@ -451,23 +451,23 @@ namespace AlexTouch.PSPDFKit
 		Middle,
 		Bottom
 	}
-
+	
 	//////////////////////////////////////
 	////	PSPDFColorView.h enums 		//
 	////	Start						//
 	//////////////////////////////////////
-
+	
 	public enum PSPDFGradientViewDirection
 	{
 		Horizontal,
 		Vertical
 	}
-
+	
 	//////////////////////////////////////////
 	////	PSPDFProgressHUD.h enums 		//
 	////	Start							//
 	//////////////////////////////////////////
-
+	
 	public enum PSPDFProgressHUDMaskType : uint
 	{
 		None = 1, // allow user interactions while HUD is displayed
@@ -475,23 +475,23 @@ namespace AlexTouch.PSPDFKit
 		Black, // don't allow and dim the UI in the back of the HUD
 		Gradient // don't allow and dim the UI with a a-la-alert-view bg gradient
 	}
-
+	
 	//////////////////////////////////////
 	////	PSPDFLabelView.h enums 		//
 	////	Start						//
 	//////////////////////////////////////
-
+	
 	public enum PSPDFLabelStyle : uint
 	{
 		Flat,
 		Bordered
 	}
-
+	
 	//////////////////////////////////////////////////
 	////	PSPDFEmailBarButtonItem.h enums 		//
 	////	Start									//
 	//////////////////////////////////////////////////
-
+	
 	[Flags]
 	public enum PSPDFEmailSendOptions : uint
 	{
@@ -503,12 +503,12 @@ namespace AlexTouch.PSPDFKit
 		MergedFilesIfNeededFlattened = 32,
 		OriginalDocumentFiles        = 64
 	}
-
+	
 	//////////////////////////////////////////
 	////	PSPDFResizableView.h enums 		//
 	////	Start							//
 	//////////////////////////////////////////
-
+	
 	public enum PSPDFSelectionBorderKnobType : uint
 	{
 		None,
@@ -522,12 +522,12 @@ namespace AlexTouch.PSPDFKit
 		BottomMiddle,
 		BottomRight
 	}
-
+	
 	//////////////////////////////////////////////////////
 	////	PSTCollectionViewUpdateItem.h enums 		//
 	////	Start										//
 	//////////////////////////////////////////////////////
-
+	
 	public enum PSTCollectionUpdateAction
 	{
 		Insert,
@@ -536,12 +536,12 @@ namespace AlexTouch.PSPDFKit
 		Move,
 		None
 	}
-
+	
 	//////////////////////////////////////////////////////////
 	////	PSPDFColorSelectionViewController.h	 enums 		//
 	////	Start											//
 	//////////////////////////////////////////////////////////
-
+	
 	public enum PSPDFColorPickerStyle : uint
 	{
 		Rainbow,
@@ -550,43 +550,43 @@ namespace AlexTouch.PSPDFKit
 		Monochrome,
 		HSVPicker
 	}
-
+	
 	//////////////////////////////////////////////
 	////	PSPDFBrightnessSlider.h	 enums 		//
 	////	Start								//
 	//////////////////////////////////////////////
-
+	
 	public enum PSPDFThumbImageStyle
 	{
 		Default = 0,
 		HourGlass,
 		ArrowLoop,
 	}
-
+	
 	public enum PSPDFSliderBackgroundStyle
 	{
 		Default = 0,
 		Grayscale,
 		Colorful,
 	}
-
+	
 	//////////////////////////////////////////
 	////	PSPDFBarButtonItem.h enums 		//
 	////	Start							//
 	//////////////////////////////////////////
-
+	
 	[Flags]
 	public enum PSPDFPrintOptions : uint
 	{
 		DocumentOnly            = 1,
 		IncludeAnnotations     	= 2
 	}
-
+	
 	//////////////////////////////////////////////////
 	////	PSPDFOpenInBarButtonItem.h enums 		//
 	////	Start									//
 	//////////////////////////////////////////////////
-
+	
 	[Flags]
 	public enum PSPDFOpenInOptions : uint
 	{

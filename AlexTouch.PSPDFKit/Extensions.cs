@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace AlexTouch.PSPDFKit
 {
-
+	
 	//////////////////////////////////////////
 	////		PSPDFKitGlobal.h			//
 	//////////////////////////////////////////
@@ -37,7 +37,7 @@ namespace AlexTouch.PSPDFKit
 				Marshal.WriteInt32(ptr, (int)kPSPDFLogLevel);
 			}
 		}
-
+		
 		private static PSPDFAnimate kPSPDFAnimateOption;
 		
 		public static PSPDFAnimate AnimateOption
@@ -47,7 +47,7 @@ namespace AlexTouch.PSPDFKit
 				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
 				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFAnimateOption");
 				kPSPDFAnimateOption = (PSPDFAnimate) Marshal.ReadInt32(ptr);
-			
+				
 				return kPSPDFAnimateOption;
 			}
 			set 
@@ -59,7 +59,7 @@ namespace AlexTouch.PSPDFKit
 				Marshal.WriteInt32(ptr, (int)kPSPDFAnimateOption);
 			}
 		}
-
+		
 		private static bool kPSPDFLowMemoryMode;
 		
 		public static bool PSPDFLowMemoryMode
@@ -83,7 +83,7 @@ namespace AlexTouch.PSPDFKit
 				Marshal.WriteByte(ptr, Convert.ToByte(kPSPDFLowMemoryMode));
 			}
 		}
-
+		
 		private static float kPSPDFAnimationDuration;
 		
 		public static float AnimationDuration
@@ -100,7 +100,7 @@ namespace AlexTouch.PSPDFKit
 				
 				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
 				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFAnimationDuration");
-
+				
 				unsafe 
 				{
 					float m = kPSPDFAnimationDuration;
@@ -108,11 +108,11 @@ namespace AlexTouch.PSPDFKit
 				}
 			}
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFShouldAnimate")]
 		[return: MarshalAsAttribute(UnmanagedType.Bool)]
 		private static extern bool _ShouldAnimate();
-
+		
 		public static bool ShouldAnimate
 		{
 			get 
@@ -120,56 +120,56 @@ namespace AlexTouch.PSPDFKit
 				return _ShouldAnimate();
 			}
 		}
-
+		
 		//Removed kPSPDFKitDebugScrollViews on version 2.3.1
-//		private static bool kPSPDFKitDebugScrollViews;
-//
-//		public static bool DebugScrollViews
-//		{
-//			get 
-//			{
-//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugScrollViews");
-//
-//				kPSPDFKitDebugScrollViews = Convert.ToBoolean(Marshal.ReadByte(ptr));
-//				
-//				return kPSPDFKitDebugScrollViews;
-//			}
-//			set 
-//			{
-//				kPSPDFKitDebugScrollViews = value;
-//				
-//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugScrollViews");
-//
-//				Marshal.WriteByte(ptr, Convert.ToByte(kPSPDFKitDebugScrollViews));
-//			}
-//		}
-//
-//		private static bool kPSPDFKitDebugMemory;
-//		
-//		public static bool DebugMemory
-//		{
-//			get 
-//			{
-//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugMemory");
-//				
-//				kPSPDFKitDebugMemory = Convert.ToBoolean(Marshal.ReadByte(ptr));
-//				
-//				return kPSPDFKitDebugMemory;
-//			}
-//			set 
-//			{
-//				kPSPDFKitDebugMemory = value;
-//				
-//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugMemory");
-//				
-//				Marshal.WriteByte(ptr, Convert.ToByte(kPSPDFKitDebugMemory));
-//			}
-//		}
-
+		//		private static bool kPSPDFKitDebugScrollViews;
+		//
+		//		public static bool DebugScrollViews
+		//		{
+		//			get 
+		//			{
+		//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+		//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugScrollViews");
+		//
+		//				kPSPDFKitDebugScrollViews = Convert.ToBoolean(Marshal.ReadByte(ptr));
+		//				
+		//				return kPSPDFKitDebugScrollViews;
+		//			}
+		//			set 
+		//			{
+		//				kPSPDFKitDebugScrollViews = value;
+		//				
+		//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+		//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugScrollViews");
+		//
+		//				Marshal.WriteByte(ptr, Convert.ToByte(kPSPDFKitDebugScrollViews));
+		//			}
+		//		}
+		//
+		//		private static bool kPSPDFKitDebugMemory;
+		//		
+		//		public static bool DebugMemory
+		//		{
+		//			get 
+		//			{
+		//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+		//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugMemory");
+		//				
+		//				kPSPDFKitDebugMemory = Convert.ToBoolean(Marshal.ReadByte(ptr));
+		//				
+		//				return kPSPDFKitDebugMemory;
+		//			}
+		//			set 
+		//			{
+		//				kPSPDFKitDebugMemory = value;
+		//				
+		//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+		//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFKitDebugMemory");
+		//				
+		//				Marshal.WriteByte(ptr, Convert.ToByte(kPSPDFKitDebugMemory));
+		//			}
+		//		}
+		
 		private static float kPSPDFInitialAnnotationLoadDelay;
 		
 		public static float InitialAnnotationLoadDelay
@@ -194,7 +194,7 @@ namespace AlexTouch.PSPDFKit
 				}
 			}
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFIsCrappyDevice")]
 		[return: MarshalAsAttribute(UnmanagedType.Bool)]
 		private static extern bool _IsCrappyDevice();
@@ -206,7 +206,7 @@ namespace AlexTouch.PSPDFKit
 				return _IsCrappyDevice();
 			}
 		}
-
+		
 		private static string kPSPDFCacheClassName;
 		
 		public static string CacheClassName
@@ -215,7 +215,7 @@ namespace AlexTouch.PSPDFKit
 			{
 				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
 				kPSPDFCacheClassName = (string) Dlfcn.GetStringConstant (RTLD_MAIN_ONLY, "kPSPDFCacheClassName");
-
+				
 				return kPSPDFCacheClassName;
 			}
 			set 
@@ -224,12 +224,12 @@ namespace AlexTouch.PSPDFKit
 				
 				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
 				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFCacheClassName");
-
+				
 				Marshal.WriteIntPtr(ptr, new NSString(kPSPDFCacheClassName).Handle);
-
+				
 			}
 		}
-
+		
 		private static string kPSPDFIconGeneratorClassName;
 		
 		public static string IconGeneratorClassName
@@ -252,7 +252,7 @@ namespace AlexTouch.PSPDFKit
 				
 			}
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFAppName")]
 		private static extern IntPtr _AppName();
 		
@@ -267,7 +267,7 @@ namespace AlexTouch.PSPDFKit
 				return val;
 			}
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFVersionString")]
 		private static extern IntPtr _VersionString();
 		
@@ -276,13 +276,13 @@ namespace AlexTouch.PSPDFKit
 			get 
 			{
 				IntPtr ptr = _VersionString();
-
+				
 				string val = (string) (NSString) Runtime.GetNSObject(ptr);
-
+				
 				return val;
 			}
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFKitBundle")]
 		private static extern IntPtr _PSPDFKitBundle();
 		
@@ -297,21 +297,21 @@ namespace AlexTouch.PSPDFKit
 				return bundle;
 			}
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFLocalize")]
 		private static extern IntPtr _Localize(IntPtr stringToken);
 		
 		public static string Localize (string stringToken)
 		{
 			var strToken = new NSString(stringToken);
-
+			
 			IntPtr ptr = _Localize(strToken.Handle);
 			
 			string val = (string) (NSString) Runtime.GetNSObject(ptr);
 			
 			return val;
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFSetLocalizationDictionary")]
 		private static extern void _SetLocalizationDictionary(IntPtr localizationDict);
 		
@@ -319,7 +319,7 @@ namespace AlexTouch.PSPDFKit
 		{
 			_SetLocalizationDictionary(localizationDict.Handle);
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFResolvePathNames")]
 		private static extern IntPtr _ResolvePathNames(IntPtr path, IntPtr fallbackPath);
 		
@@ -327,14 +327,14 @@ namespace AlexTouch.PSPDFKit
 		{
 			if(string.IsNullOrEmpty(path))
 				throw new ArgumentNullException(path);
-
+			
 			var argPath = new NSString(path);
-
+			
 			IntPtr ptr;
-
+			
 			if (string.IsNullOrEmpty(fallbackPath)) 
 				ptr = _ResolvePathNames(argPath.Handle, IntPtr.Zero);
-
+			
 			else
 			{
 				var argfallbackPath = new NSString(fallbackPath);
@@ -342,13 +342,13 @@ namespace AlexTouch.PSPDFKit
 			}
 			
 			string val = (string) (NSString) Runtime.GetNSObject(ptr);
-			 
+			
 			return val;
 		}
-
+		
 		// This needs some extra work since NSMutableString is not bound in monotouch due to it is not needed well until now xD
 		//extern BOOL PSPDFResolvePathNamesInMutableString(NSMutableString *mutableString, NSString *fallbackPath, NSString *(^resolveUnknownPathBlock)(NSString *unknownPath));
-
+		
 		private static bool PSPDFResolvePathNamesEnableLegacyBehavior;
 		
 		public static bool ResolvePathNamesEnableLegacyBehavior
@@ -359,7 +359,7 @@ namespace AlexTouch.PSPDFKit
 				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "PSPDFResolvePathNamesEnableLegacyBehavior");
 				
 				PSPDFResolvePathNamesEnableLegacyBehavior = Convert.ToBoolean(Marshal.ReadByte(ptr));
-
+				
 				return PSPDFResolvePathNamesEnableLegacyBehavior;
 			}
 			set 
@@ -372,7 +372,7 @@ namespace AlexTouch.PSPDFKit
 				Marshal.WriteByte(ptr, Convert.ToByte(PSPDFResolvePathNamesEnableLegacyBehavior));
 			}
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFStripPDFFileType")]
 		private static extern IntPtr _StripPDFFileType(IntPtr pdfFileName);
 		
@@ -380,14 +380,14 @@ namespace AlexTouch.PSPDFKit
 		{
 			if (string.IsNullOrEmpty(pdfFileName)) 
 				return string.Empty;
-
+			
 			IntPtr ptr = _StripPDFFileType( new NSString(pdfFileName).Handle );
 			
 			string val = (string) (NSString) Runtime.GetNSObject(ptr);
 			
 			return val;
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFGetViewInsideView")]
 		private static extern IntPtr _GetViewInsideView(IntPtr view, IntPtr classNamePrefix);
 		
@@ -395,10 +395,10 @@ namespace AlexTouch.PSPDFKit
 		{
 			if (string.IsNullOrEmpty(classNamePrefix)) 
 				throw new ArgumentException("Agument classNamePrefix cannot be null or Empty");
-
+			
 			if(view == null)
 				throw new ArgumentNullException("view");
-
+			
 			
 			IntPtr ptr = _GetViewInsideView(view.Handle, new NSString(classNamePrefix).Handle );
 			
@@ -406,7 +406,7 @@ namespace AlexTouch.PSPDFKit
 			
 			return val;
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFSimulatorAnimationDragCoefficient")]
 		private static extern IntPtr _SimulatorAnimationDragCoefficient();
 		
@@ -415,15 +415,15 @@ namespace AlexTouch.PSPDFKit
 			get 
 			{
 				IntPtr intPtr = _SimulatorAnimationDragCoefficient();
-
+				
 				unsafe {
 					float* ptr = (float*)((void*)intPtr);
 					return *ptr;
 				}
-
+				
 			}
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFFadeTransition")]
 		private static extern IntPtr _FadeTransition();
 		
@@ -434,11 +434,11 @@ namespace AlexTouch.PSPDFKit
 				IntPtr intPtr = _SimulatorAnimationDragCoefficient();
 				
 				CATransition t = (CATransition) Runtime.GetNSObject(intPtr);
-
+				
 				return t;
 			}
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFFadeTransitionWithDuration")]
 		private static extern IntPtr _FadeTransitionWithDuration(IntPtr duration);
 		
@@ -448,12 +448,12 @@ namespace AlexTouch.PSPDFKit
 			{
 				float m = duration;
 				IntPtr intPtr = _FadeTransitionWithDuration(*(IntPtr*)&m);
-
+				
 				CATransition t = (CATransition) Runtime.GetNSObject(intPtr);
 				return t;
 			}
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDPFActionSheetStyleForBarButtonStyle")]
 		private static extern int _ActionSheetStyleForBarButtonStyle(int barStyle, byte translucent);
 		
@@ -461,13 +461,13 @@ namespace AlexTouch.PSPDFKit
 		{
 			return (UIActionSheetStyle) _ActionSheetStyleForBarButtonStyle((int) barStyle, Convert.ToByte(translucent));
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFToolbarHeightForOrientation")]
 		private static extern IntPtr _ToolbarHeightForOrientation(int orientation);
 		
 		public static float ToolbarHeightForOrientation(UIInterfaceOrientation orientation)
 		{
-
+			
 			IntPtr intPtr = _ToolbarHeightForOrientation((int)orientation);
 			
 			unsafe {
@@ -475,7 +475,7 @@ namespace AlexTouch.PSPDFKit
 				return *ptr;
 			}
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFToolbarHeight")]
 		private static extern IntPtr _ToolbarHeight(byte isSmall);
 		
@@ -489,7 +489,7 @@ namespace AlexTouch.PSPDFKit
 				return *ptr;
 			}
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "psrangef")]
 		private static extern IntPtr _psrangef(IntPtr minRange, IntPtr value, IntPtr maxRange);
 		
@@ -501,14 +501,14 @@ namespace AlexTouch.PSPDFKit
 				float _minRange = minRange;
 				float _value = value;
 				float _maxRange = maxRange;
-
+				
 				IntPtr pointer = _psrangef(*(IntPtr*)&_minRange, *(IntPtr*)&_value, *(IntPtr*)&_maxRange);
-
+				
 				float* ptr = (float*)((void*)pointer);
 				return *ptr;
 			}
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFTrimString")]
 		private static extern IntPtr _TrimString(IntPtr theString);
 		
@@ -523,8 +523,8 @@ namespace AlexTouch.PSPDFKit
 			
 			return val;
 		}
-
-
+		
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFIsControllerClassInPopoverAndVisible")]
 		private static extern IntPtr _IsControllerClassInPopoverAndVisible(IntPtr popoverController, IntPtr controllerClass);
 		
@@ -533,22 +533,22 @@ namespace AlexTouch.PSPDFKit
 			IntPtr ptr = _IsControllerClassInPopoverAndVisible(popoverController.Handle, controllerClass.Handle);
 			return Convert.ToBoolean(Marshal.ReadByte(ptr));
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFIndexSetFromArray")]
 		private static extern IntPtr _IndexSetFromArray(IntPtr array);
 		
 		public static NSIndexSet IndexSetFromArray(NSNumber [] array)
 		{
 			List<NSObject> obj = new List<NSObject>();
-
+			
 			foreach (var item in array)
 				obj.Add(item);
-
+			
 			NSArray arr = NSArray.FromNSObjects(obj.ToArray());
-
+			
 			return new NSIndexSet(_IndexSetFromArray(arr.Handle));
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFCacheKeyboard")]
 		private static extern void _CacheKeyboard();
 		
@@ -556,11 +556,11 @@ namespace AlexTouch.PSPDFKit
 		{
 			_CacheKeyboard();
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFIsRotationLocked")]
 		[return: MarshalAsAttribute(UnmanagedType.Bool)]
 		private static extern bool _IsRotationLocked();
-
+		
 		[Since(6,0)]
 		public static bool IsRotationLocked
 		{
@@ -569,16 +569,16 @@ namespace AlexTouch.PSPDFKit
 				return _IsRotationLocked();
 			}
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFLockRotation")]
 		private static extern void _LockRotation();
-
+		
 		[Since(6,0)]
 		public static void LockRotation()
 		{
 			_LockRotation();
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFUnlockRotation")]
 		private static extern void _UnlockRotation();
 		
@@ -587,7 +587,7 @@ namespace AlexTouch.PSPDFKit
 		{
 			_UnlockRotation();
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFTempFileURLWithPathExtension")]
 		private static extern IntPtr PSPDFTempFileURLWithPathExtension(IntPtr prefix, IntPtr pathExtension);
 		
@@ -595,22 +595,22 @@ namespace AlexTouch.PSPDFKit
 		{
 			NSString pref = new NSString(prefix);
 			NSString path = new NSString(pathExtension);
-
+			
 			NSUrl url = new NSUrl(PSPDFTempFileURLWithPathExtension(pref.Handle, path.Handle));
 			
 			return url;
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFEqualObjects")]
 		[return: MarshalAsAttribute(UnmanagedType.Bool)]
 		private static extern bool _EqualObjects(IntPtr obj1, IntPtr obj2);
-
+		
 		public static bool EqualObjects (NSObject obj1, NSObject obj2)
 		{
 			return _EqualObjects (obj1.Handle, obj2.Handle);
 		}
 	}
-
+	
 	//////////////////////////////////////////
 	////		PSPDFGlobalLock.h			//
 	//////////////////////////////////////////
@@ -621,19 +621,19 @@ namespace AlexTouch.PSPDFKit
 			IntPtr ptr = TryLockWithDocumentPageError_ (document, page, out error);
 			return new CGPDFPage(ptr);
 		}
-
+		
 		public CGPDFPage LockWithDocumentPageError (PSPDFDocument document, uint page, out NSError error)
 		{
 			IntPtr ptr = LockWithDocumentPageError_ (document, page, out error);
 			return new CGPDFPage(ptr);
 		}
-
+		
 		public void FreeWithPDFPageRef (CGPDFPage pdfPage)
 		{
 			_FreeWithPDFPageRef(pdfPage.Handle, true);
 		}
 	}
-
+	
 	//////////////////////////////////////
 	////		PSPDFGlyph.h			//
 	//////////////////////////////////////
@@ -645,14 +645,14 @@ namespace AlexTouch.PSPDFKit
 		public static RectangleF [] RectsFromGlyphs(PSPDFGlyph [] glyphs, CGAffineTransform t, RectangleF boundingBox)
 		{
 			var objs = new List<NSObject>();
-
+			
 			foreach (var glyph in glyphs)
 				objs.Add(glyph);
-
+			
 			NSArray arry = NSArray.FromNSObjects(objs.ToArray());
 			return _RectsFromGlyphs(arry.Handle, t, boundingBox);
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFBoundingBoxFromGlyphs")]
 		private static extern RectangleF _BoundingBoxFromGlyphs(IntPtr glyphs, CGAffineTransform t);
 		
@@ -666,7 +666,7 @@ namespace AlexTouch.PSPDFKit
 			NSArray arry = NSArray.FromNSObjects(objs.ToArray());
 			return _BoundingBoxFromGlyphs(arry.Handle, t);
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFReduceGlyphsToColumn")]
 		private static extern IntPtr _ReduceGlyphsToColumn(IntPtr glyphs);
 		
@@ -680,9 +680,9 @@ namespace AlexTouch.PSPDFKit
 			NSArray arry = NSArray.FromNSObjects(objs.ToArray());
 			return new NSArray(_ReduceGlyphsToColumn(arry.Handle));
 		}
-	
+		
 	}
-
+	
 	//////////////////////////////////////////
 	////		PSPDFAnnotation.h			//
 	//////////////////////////////////////////
@@ -707,7 +707,7 @@ namespace AlexTouch.PSPDFKit
 		{
 			return RectsFromQuadPointsInArray_(quadPointsArray.Handle);
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFTypeStringFromAnnotationType")]
 		private static extern IntPtr _StringFromAnnotationType(PSPDFAnnotationType annotationType);
 		
@@ -730,35 +730,35 @@ namespace AlexTouch.PSPDFKit
 		public PSPDFTextParser (CGPDFPage pageRef, uint page, PSPDFDocument document, NSMutableDictionary fontCache, bool hideGlyphsOutsidePageRect, CGPDFBox PDFBox) : this(pageRef.Handle, page, document, fontCache, hideGlyphsOutsidePageRect, PDFBox)
 		{
 		}
-
+		
 		public PSPDFTextParser (CGPDFStream stream) : this (stream.Handle, true)
 		{
 		}
-
+		
 		//Removed on version 2.3.1
-//		private static bool kPSPDFTextParserDebugLogEnabled;
-//		
-//		public static bool DebugLogEnabled
-//		{
-//			get 
-//			{
-//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFTextParserDebugLogEnabled");
-//				
-//				kPSPDFTextParserDebugLogEnabled = Convert.ToBoolean(Marshal.ReadByte(ptr));
-//				
-//				return kPSPDFTextParserDebugLogEnabled;
-//			}
-//			set 
-//			{
-//				kPSPDFTextParserDebugLogEnabled = value;
-//				
-//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
-//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFTextParserDebugLogEnabled");
-//				
-//				Marshal.WriteByte(ptr, Convert.ToByte(kPSPDFTextParserDebugLogEnabled));
-//			}
-//		}
+		//		private static bool kPSPDFTextParserDebugLogEnabled;
+		//		
+		//		public static bool DebugLogEnabled
+		//		{
+		//			get 
+		//			{
+		//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+		//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFTextParserDebugLogEnabled");
+		//				
+		//				kPSPDFTextParserDebugLogEnabled = Convert.ToBoolean(Marshal.ReadByte(ptr));
+		//				
+		//				return kPSPDFTextParserDebugLogEnabled;
+		//			}
+		//			set 
+		//			{
+		//				kPSPDFTextParserDebugLogEnabled = value;
+		//				
+		//				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+		//				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFTextParserDebugLogEnabled");
+		//				
+		//				Marshal.WriteByte(ptr, Convert.ToByte(kPSPDFTextParserDebugLogEnabled));
+		//			}
+		//		}
 	}
 	
 	//////////////////////////////////////////////
@@ -774,7 +774,7 @@ namespace AlexTouch.PSPDFKit
 		{
 			return new NSArray(_PSPDFBezierPathGetPoints(path.Handle));
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFBoundingBoxFromLines")]
 		private static extern  RectangleF _BoundingBoxFromLines(IntPtr lines, float lineWidth);
 		
@@ -782,7 +782,7 @@ namespace AlexTouch.PSPDFKit
 		{
 			return _BoundingBoxFromLines(lines.Handle, lineWidth);
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFConvertViewLinesToPDFLines")]
 		private static extern  IntPtr _ConvertViewLinesToPDFLines(IntPtr lines, RectangleF cropBox, uint rotation, RectangleF bounds);
 		
@@ -790,7 +790,7 @@ namespace AlexTouch.PSPDFKit
 		{
 			return new NSArray(_ConvertViewLinesToPDFLines(lines.Handle, cropBox, rotation, bounds));
 		}
-
+		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFConvertPDFLinesToViewLines")]
 		private static extern  IntPtr _ConvertPDFLinesToViewLines(IntPtr lines, RectangleF cropBox, uint rotation, RectangleF bounds);
 		
@@ -806,7 +806,7 @@ namespace AlexTouch.PSPDFKit
 	
 	public partial class PSPDFHighlightAnnotation : PSPDFAnnotation
 	{
-
+		
 	}
 	
 	//////////////////////////////////////////////////
@@ -846,7 +846,7 @@ namespace AlexTouch.PSPDFKit
 		{
 			RenderPage_ (page, context.Handle, fullSize, clipRect, annotations, options);
 		}
-
+		
 		public CGDataProvider DataProvider
 		{
 			get 
@@ -882,19 +882,19 @@ namespace AlexTouch.PSPDFKit
 		{
 			ReleasePageRef_ (pageRef.Handle);
 		}
-
+		
 		public CGPDFPage RequestPageRefForPageNumber (uint page, out NSError error)
 		{
 			IntPtr ptr = RequestPageRefForPageNumber_ (page, out error);
 			return new CGPDFPage(ptr);
 		}	
-
+		
 		public CGPDFPage RequestPageRefForPageNumber (uint page)
 		{
 			IntPtr ptr = RequestPageRefForPageNumber_ (page);
 			return new CGPDFPage(ptr);
 		}	
-
+		
 		public CGDataProvider DataProvider
 		{
 			get 
@@ -903,7 +903,7 @@ namespace AlexTouch.PSPDFKit
 				return new CGDataProvider(ptr);
 			}
 		}
-
+		
 		PSPDFPageInfo PageInfoForPage (uint page, CGPDFPage pageRef)
 		{
 			return PageInfoForPage_ (page, pageRef.Handle);
@@ -957,7 +957,7 @@ namespace AlexTouch.PSPDFKit
 			set 
 			{
 				kPSPDFNoteAnnotationViewFixedSize = value;
-
+				
 				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
 				IntPtr ptr = Dlfcn.dlsym(RTLD_MAIN_ONLY, "kPSPDFNoteAnnotationViewFixedSize");
 				Marshal.StructureToPtr((object) kPSPDFNoteAnnotationViewFixedSize, ptr, true);
@@ -975,7 +975,7 @@ namespace AlexTouch.PSPDFKit
 		{
 			return CachedImageForDocument_ (document, page, size, pdfPage.Handle);
 		}
-
+		
 		private static string kPSPDFCachedRenderRequest;
 		
 		public static string CachedRenderRequest
@@ -998,7 +998,7 @@ namespace AlexTouch.PSPDFKit
 			}
 		}
 	}
-
+	
 	//////////////////////////////////////////
 	////		PSPDFRenderQueue.h			//
 	//////////////////////////////////////////
@@ -1034,12 +1034,12 @@ namespace AlexTouch.PSPDFKit
 	
 	public partial class PSPDFPageRenderer : NSObject
 	{
-
+		
 		public static void SetupGraphicsContext (CGContext context, RectangleF displayRectangle, PSPDFPageInfo pageInfo)
 		{
 			SetupGraphicsContext_ (context.Handle, displayRectangle, pageInfo);
 		}
-
+		
 		public static RectangleF RenderPage (CGPDFPage page, CGContext context, RectangleF rectangle, PSPDFPageInfo pageInfo, PSPDFAnnotation[] annotations, NSDictionary options)
 		{
 			return RenderPage_ (page.Handle, context.Handle, rectangle, pageInfo, annotations, options);
@@ -1049,13 +1049,13 @@ namespace AlexTouch.PSPDFKit
 		{
 			return RenderPage_ (page.Handle, context.Handle, point, zoom, pageInfo, annotations, options);
 		}
-
+		
 		public static bool RenderAppearanceStream (PSPDFAnnotation annotation, CGContext context)
 		{
 			return RenderAppearanceStream_ (annotation, context.Handle);
 		}
 	}
-
+	
 	//////////////////////////////////////////////////
 	////		PSPDFWebViewController.h			//
 	//////////////////////////////////////////////////
@@ -1086,7 +1086,7 @@ namespace AlexTouch.PSPDFKit
 			}
 		}	
 	}
-
+	
 	//////////////////////////////////////////////////
 	////		PSPDFSearchViewController.h			//
 	//////////////////////////////////////////////////
@@ -1102,13 +1102,13 @@ namespace AlexTouch.PSPDFKit
 				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
 				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFMinimumSearchLength");
 				kPSPDFMinimumSearchLength = (uint)Marshal.PtrToStructure(ptr, typeof(uint));
-
+				
 				return kPSPDFMinimumSearchLength;
 			}
 			set 
 			{
 				kPSPDFMinimumSearchLength = value;
-
+				
 				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
 				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "kPSPDFMinimumSearchLength");
 				byte [] data = BitConverter.GetBytes(kPSPDFMinimumSearchLength);
@@ -1116,7 +1116,7 @@ namespace AlexTouch.PSPDFKit
 			}
 		}
 	}
-
+	
 	//////////////////////////////////////////////////////
 	////		PSPDFAESCryptoDataProvider.h			//
 	//////////////////////////////////////////////////////
@@ -1129,30 +1129,30 @@ namespace AlexTouch.PSPDFKit
 				return new CGDataProvider(DataProviderRef_());
 			}
 		}
-
+		
 		public bool isAESCryptoDataProvider (CGDataProvider dataProvider)
 		{
 			return IsAESCryptoDataProvider_ (dataProvider.Handle);
 		}
 	}
-
+	
 	//////////////////////////////////////////////////////
 	////		PSPDFFileAnnotationProvider.h			//
 	//////////////////////////////////////////////////////
 	
 	public partial class PSPDFFileAnnotationProvider : NSObject
 	{		
-
+		
 		public virtual PSPDFAnnotation [] AnnotationsForPage (uint page, CGPDFPage pageRef)
 		{
 			return AnnotationsForPage_ (page, pageRef.Handle);
 		}
-
+		
 		public virtual PSPDFAnnotation [] ParseAnnotationsForPage (uint page, CGPDFPage pageRef)
 		{
 			return ParseAnnotationsForPage_ (page, pageRef.Handle);
 		}
-
+		
 		public bool TryLoadAnnotationsFromFileWithError (out NSError error)
 		{
 			unsafe 
@@ -1167,7 +1167,7 @@ namespace AlexTouch.PSPDFKit
 			}
 		}
 	}
-
+	
 	//////////////////////////////////////////////////
 	////		PSPDFOpenInBarButtonItem.h			//
 	//////////////////////////////////////////////////
@@ -1198,7 +1198,7 @@ namespace AlexTouch.PSPDFKit
 			}
 		}	
 	}
-
+	
 	//////////////////////////////////////
 	////		PSPDFMenuItem.h			//
 	//////////////////////////////////////
@@ -1229,7 +1229,7 @@ namespace AlexTouch.PSPDFKit
 			}
 		}	
 	}
-
+	
 	//////////////////////////////////////////
 	////		UIImage+PSPDFKitAdditions	//
 	//////////////////////////////////////////
@@ -1259,6 +1259,6 @@ namespace AlexTouch.PSPDFKit
 			return (UIImage) imgExt;
 		}	
 	}
-
+	
 }
 

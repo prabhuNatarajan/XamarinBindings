@@ -12,6 +12,3 @@ namespace AlexTouch.PSPDFKit
 		public static readonly uint MinimumSearchLength = 2;	
 	}
 }
-
-
-
