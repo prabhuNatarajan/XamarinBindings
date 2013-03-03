@@ -108,7 +108,15 @@ namespace AlexTouch.PSPDFKit
 				}
 			}
 		}
+
+		[DllImportAttribute("__Internal", EntryPoint = "PSPDFFixNavigationBarForNavigationControllerAnimated")]
+		private static extern void _PSPDFFixNavigationBarForNavigationControllerAnimated(IntPtr navController, byte animated);
 		
+		public static void PSPDFFixNavigationBarForNavigationControllerAnimated(UINavigationController navController, bool animated)
+		{
+			_PSPDFFixNavigationBarForNavigationControllerAnimated (navController.Handle, Convert.ToByte (animated));
+		}
+
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFShouldAnimate")]
 		[return: MarshalAsAttribute(UnmanagedType.Bool)]
 		private static extern bool _ShouldAnimate();
@@ -680,7 +688,6 @@ namespace AlexTouch.PSPDFKit
 			NSArray arry = NSArray.FromNSObjects(objs.ToArray());
 			return new NSArray(_ReduceGlyphsToColumn(arry.Handle));
 		}
-		
 	}
 	
 	//////////////////////////////////////////
