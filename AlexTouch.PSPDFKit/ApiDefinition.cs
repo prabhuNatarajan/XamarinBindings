@@ -2339,7 +2339,7 @@ namespace AlexTouch.PSPDFKit
 		[Export ("rotation", ArgumentSemantic.Assign)]
 		uint Rotation { get; set; }
 		
-		[Export ("rects", ArgumentSemantic.Copy)]
+		[Export ("rects", ArgumentSemantic.Copy)][NullAllowed]
 		NSObject [] Rects { get; set; }
 		
 		[Export ("user", ArgumentSemantic.Copy)]
@@ -2366,7 +2366,7 @@ namespace AlexTouch.PSPDFKit
 		[Export ("hasAppearanceStream", ArgumentSemantic.Assign)]
 		bool HasAppearanceStream { get; }
 		
-		[Export ("userInfo", ArgumentSemantic.Copy)]
+		[Export ("userInfo", ArgumentSemantic.Copy)][NullAllowed]
 		NSDictionary UserInfo { get; set; }
 		
 		[Export ("isEqualToAnnotation:")]
@@ -3546,7 +3546,7 @@ namespace AlexTouch.PSPDFKit
 		[Export ("wordSelectionColor")]
 		UIColor WordSelectionColor { get; set; }
 		
-		[Export ("rects")]
+		[Export ("rects")][NullAllowed]
 		NSArray Rects { get; set; }
 		
 		[Export ("setRawRects:count:")]
