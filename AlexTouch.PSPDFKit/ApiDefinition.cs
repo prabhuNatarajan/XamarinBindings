@@ -67,7 +67,7 @@ namespace AlexTouch.PSPDFKit
 	interface PSPDFViewController
 	{
 		[Export ("initWithDocument:")]
-		IntPtr Constructor (PSPDFDocument document);
+		IntPtr Constructor ([NullAllowed] PSPDFDocument document);
 		
 		[Export ("page", ArgumentSemantic.Assign)]
 		uint Page { get; set; }
@@ -446,8 +446,8 @@ namespace AlexTouch.PSPDFKit
 		
 		//Extension methods SubclassingHooks
 		
-		[Export ("commonInitWithDocument:")][NullAllowed]
-		void CommonInitWithDocument (PSPDFDocument document);
+		[Export ("commonInitWithDocument:")]
+		void CommonInitWithDocument ([NullAllowed] PSPDFDocument document);
 		
 		[Export ("overrideClassNames", ArgumentSemantic.Copy)]
 		NSDictionary OverrideClassNames { get; set; }
@@ -1293,16 +1293,16 @@ namespace AlexTouch.PSPDFKit
 		[Export("bookmarkForPage:")]
 		PSPDFBookmark BookmarkForPage (uint page);
 		
-		[Bind("cachePath")]
+		[Export("cachePath")]
 		string CachePath ();
 		
-		[Bind("bookmarkPath")]
+		[Export("bookmarkPath")]
 		string BookmarkPath ();
 		
-		[Bind("loadBookmarksWithError:")]
+		[Export("loadBookmarksWithError:")]
 		PSPDFBookmark [] LoadBookmarksWithError (out NSError error);
 		
-		[Bind("saveBookmarksWithError:")]
+		[Export("saveBookmarksWithError:")]
 		bool SaveBookmarksWithError (out NSError error);
 	}
 	
@@ -1629,7 +1629,7 @@ namespace AlexTouch.PSPDFKit
 		IntPtr Constructor ([NullAllowed] PSPDFDocumentProvider documentProvider);
 		
 		[Export("annotationProviders", ArgumentSemantic.Copy)]
-		PSPDFFileAnnotationProvider [] AnnotationProviders { get; set; }
+		NSObject [] AnnotationProviders { get; set; }
 		
 		[Export("fileAnnotationProvider")]
 		PSPDFFileAnnotationProvider FileAnnotationProvider { get; }
@@ -2339,7 +2339,7 @@ namespace AlexTouch.PSPDFKit
 		[Export ("rotation", ArgumentSemantic.Assign)]
 		uint Rotation { get; set; }
 		
-		[Export ("rects", ArgumentSemantic.Copy)]
+		[Export ("rects", ArgumentSemantic.Copy)][NullAllowed]
 		NSObject [] Rects { get; set; }
 		
 		[Export ("user", ArgumentSemantic.Copy)]
@@ -2366,7 +2366,7 @@ namespace AlexTouch.PSPDFKit
 		[Export ("hasAppearanceStream", ArgumentSemantic.Assign)]
 		bool HasAppearanceStream { get; }
 		
-		[Export ("userInfo", ArgumentSemantic.Copy)]
+		[Export ("userInfo", ArgumentSemantic.Copy)][NullAllowed]
 		NSDictionary UserInfo { get; set; }
 		
 		[Export ("isEqualToAnnotation:")]
@@ -3546,7 +3546,7 @@ namespace AlexTouch.PSPDFKit
 		[Export ("wordSelectionColor")]
 		UIColor WordSelectionColor { get; set; }
 		
-		[Export ("rects")]
+		[Export ("rects")][NullAllowed]
 		NSArray Rects { get; set; }
 		
 		[Export ("setRawRects:count:")]
