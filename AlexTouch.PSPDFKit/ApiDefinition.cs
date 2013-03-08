@@ -171,7 +171,7 @@ namespace AlexTouch.PSPDFKit
 		[Export ("delegate", ArgumentSemantic.Assign)][NullAllowed]
 		NSObject WeakDelegate { get; set; }
 		
-		[Export ("document")]
+		[Export ("document")][NullAllowed]
 		PSPDFDocument Document { get; set; }
 		
 		[Export ("margin", ArgumentSemantic.Assign)]
@@ -5602,9 +5602,10 @@ namespace AlexTouch.PSPDFKit
 	{
 		[Export ("isAvailableBlocking")]
 		bool IsAvailableBlocking ();
-		
+
+		// The result of this call can actually be a UIToolbar or a UINavigationBar.
 		[Export ("targetToolbarForBarButtonItem:")]
-		UIToolbar TargetToolbarForBarButtonItem (UIBarButtonItem barButtonItem);
+		UIView TargetToolbarForBarButtonItem (UIBarButtonItem barButtonItem);
 		
 		[Export ("annotationToolbar")]
 		PSPDFAnnotationToolbar AnnotationToolbar { get; }
