@@ -3632,7 +3632,7 @@ namespace AlexTouch.PSPDFKit
 		void DidChangeMode (PSPDFAnnotationToolbar annotationToolbar, PSPDFAnnotationToolbarMode newMode);
 	}
 	
-	delegate void PSPDFAnnotationToolbarCompletionDel();
+	//delegate void PSPDFAnnotationToolbarCompletionDel();
 	
 	[BaseType (typeof (UIToolbar),
 	           Delegates=new string [] {"WeakDelegate"},
@@ -3645,8 +3645,11 @@ namespace AlexTouch.PSPDFKit
 		[Export("showToolbarInRect:animated:")]
 		void ShowToolbarInRect (RectangleF rect, bool animated);
 		
+		//[Export("hideToolbarAnimated:completion:")]
+		//void HideToolbar (bool animated, PSPDFAnnotationToolbarCompletionDel completionBlock);
+		
 		[Export("hideToolbarAnimated:completion:")]
-		void HideToolbar (bool animated, PSPDFAnnotationToolbarCompletionDel completionBlock);
+		void HideToolbar (bool animated, [NullAllowed] NSAction completionHandler);
 		
 		[Export("flashToolbar")]
 		void FlashToolbar ();
