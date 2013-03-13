@@ -1,0 +1,46 @@
+diff --git a/AlexTouch.PSPDFKit/ApiDefinition.cs b/AlexTouch.PSPDFKit/ApiDefinition.cs
+index 7bd001d..62fe41d 100644
+--- a/AlexTouch.PSPDFKit/ApiDefinition.cs
++++ b/AlexTouch.PSPDFKit/ApiDefinition.cs
+@@ -3645,8 +3645,8 @@ namespace AlexTouch.PSPDFKit
+ 		[Export("showToolbarInRect:animated:")]
+ 		void ShowToolbarInRect (RectangleF rect, bool animated);
+ 		
+-		[Export("hideToolbarAnimated:completion:")]
+-		void HideToolbar (bool animated, PSPDFAnnotationToolbarCompletionDel completionBlock);
++		[Export("DummyhideToolbarAnimated:completion:")] [Internal]
++		void DummyHideToolbar (bool animated, PSPDFAnnotationToolbarCompletionDel completionBlock);
+ 		
+ 		[Export("flashToolbar")]
+ 		void FlashToolbar ();
+diff --git a/AlexTouch.PSPDFKit/Extensions.cs b/AlexTouch.PSPDFKit/Extensions.cs
+index f78bcb1..c1bcf63 100644
+--- a/AlexTouch.PSPDFKit/Extensions.cs
++++ b/AlexTouch.PSPDFKit/Extensions.cs
+@@ -929,7 +929,25 @@ namespace AlexTouch.PSPDFKit
+ 		}
+ 		
+ 	}
+-	
++
++	public partial class PSPDFAnnotationToolbar
++	{
++		public unsafe virtual void HideToolbar (bool animated, PSPDFAnnotationToolbarCompletionDel completionBlock)
++		{
++			if (completionBlock == null)
++				throw new ArgumentNullException ("completionBlock");
++			BlockLiteral *block_ptr_completionBlock;
++			BlockLiteral block_completionBlock;
++			block_completionBlock = new BlockLiteral ();
++			block_ptr_completionBlock = &block_completionBlock;
++			block_completionBlock.SetupBlock (MonoTouch.Trampolines.SDPSPDFAnnotationToolbarCompletionDel.Handler, completionBlock);
++
++			MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_bool_IntPtr (this.Handle, Selector.GetHandle ("hideToolbarAnimated:completion:"), animated, (IntPtr) block_ptr_completionBlock);
++			block_ptr_completionBlock->CleanupBlock ();
++			
++		}
++	}
++
+ 	//////////////////////////////////////////////
+ 	////		PSPDFAnnotationParser.h			//
+ 	//////////////////////////////////////////////
