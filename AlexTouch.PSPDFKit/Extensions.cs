@@ -929,6 +929,33 @@ namespace AlexTouch.PSPDFKit
 		}
 		
 	}
+
+
+	//////////////////////////////////////////////
+	////		PSPDFAnnotationToolbar.h			//
+	//////////////////////////////////////////////
+
+
+	public partial class PSPDFAnnotationToolbar
+	{
+		public unsafe virtual void HideToolbar (bool animated, PSPDFAnnotationToolbarCompletionDel completionBlock)
+		{
+			if (completionBlock == null)
+			{
+				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_bool_IntPtr (this.Handle, Selector.GetHandle ("hideToolbarAnimated:completion:"), animated, IntPtr.Zero );
+				return;
+			}
+				
+			BlockLiteral *block_ptr_completionBlock;
+			BlockLiteral block_completionBlock;
+			block_completionBlock = new BlockLiteral ();
+			block_ptr_completionBlock = &block_completionBlock;
+			block_completionBlock.SetupBlock (static_InnerPSPDFAnnotationToolbarCompletionDel, completionBlock);
+
+			MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_bool_IntPtr (this.Handle, Selector.GetHandle ("hideToolbarAnimated:completion:"), animated, (IntPtr) block_ptr_completionBlock);
+			block_ptr_completionBlock->CleanupBlock ();
+		}
+	}
 	
 	//////////////////////////////////////////////
 	////		PSPDFAnnotationParser.h			//

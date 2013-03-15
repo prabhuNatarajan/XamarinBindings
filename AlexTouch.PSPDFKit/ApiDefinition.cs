@@ -3620,7 +3620,6 @@ namespace AlexTouch.PSPDFKit
 	//////////////////////////////////////////////////
 	////		PSPDFAnnotationToolbar.h			//
 	//////////////////////////////////////////////////
-	
 	[BaseType (typeof (NSObject))]
 	[Model]
 	interface PSPDFAnnotationToolbarDelegate 
@@ -3632,7 +3631,7 @@ namespace AlexTouch.PSPDFKit
 		void DidChangeMode (PSPDFAnnotationToolbar annotationToolbar, PSPDFAnnotationToolbarMode newMode);
 	}
 	
-	//delegate void PSPDFAnnotationToolbarCompletionDel();
+	delegate void PSPDFAnnotationToolbarCompletionDel();
 	
 	[BaseType (typeof (UIToolbar),
 	           Delegates=new string [] {"WeakDelegate"},
@@ -3645,11 +3644,11 @@ namespace AlexTouch.PSPDFKit
 		[Export("showToolbarInRect:animated:")]
 		void ShowToolbarInRect (RectangleF rect, bool animated);
 		
-		//[Export("hideToolbarAnimated:completion:")]
-		//void HideToolbar (bool animated, PSPDFAnnotationToolbarCompletionDel completionBlock);
-		
-		[Export("hideToolbarAnimated:completion:")]
-		void HideToolbar (bool animated, [NullAllowed] NSAction completionHandler);
+//		[Export("hideToolbarAnimated:completion:")]
+//		void HideToolbar (bool animated, PSPDFAnnotationToolbarCompletionDel completionBlock);
+
+		[Export("DummyhideToolbarAnimated:completion:")] [Internal]
+		void DummyHideToolbar (bool animated, PSPDFAnnotationToolbarCompletionDel completionBlock);
 		
 		[Export("flashToolbar")]
 		void FlashToolbar ();
@@ -3684,34 +3683,34 @@ namespace AlexTouch.PSPDFKit
 		// PSPDFSubclassing
 		
 		[Export ("noteButtonPressed:")]
-		void NoteButtonPressed (NSObject sender);
+		void NoteButtonPressed ([NullAllowed]NSObject sender);
 		
 		[Export ("highlightButtonPressed:")]
-		void HighlightButtonPressed (NSObject sender);
+		void HighlightButtonPressed ([NullAllowed]NSObject sender);
 		
 		[Export ("strikeOutButtonPressed:")]
-		void StrikeOutButtonPressed (NSObject sender);
+		void StrikeOutButtonPressed ([NullAllowed]NSObject sender);
 		
 		[Export ("underlineButtonPressed:")]
-		void UnderlineButtonPressed (NSObject sender);
+		void UnderlineButtonPressed ([NullAllowed]NSObject sender);
 		
 		[Export ("drawButtonPressed:")]
-		void DrawButtonPressed (NSObject sender);
+		void DrawButtonPressed ([NullAllowed] NSObject sender);
 		
 		[Export ("freeTextButtonPressed:")]
-		void FreeTextButtonPressed (NSObject sender);
+		void FreeTextButtonPressed ([NullAllowed]NSObject sender);
 		
 		[Export ("signatureButtonPressed:")]
-		void SignatureButtonPressed (NSObject sender);
+		void SignatureButtonPressed ([NullAllowed]NSObject sender);
 		
 		[Export ("stampButtonPressed:")]
-		void StampButtonPressed (NSObject sender);
+		void StampButtonPressed ([NullAllowed]NSObject sender);
 		
 		[Export ("imageButtonPressed:")]
-		void ImageButtonPressed (NSObject sender);
+		void ImageButtonPressed ([NullAllowed]NSObject sender);
 		
 		[Export ("doneButtonPressed:")]
-		void DoneButtonPressed (NSObject sender);
+		void DoneButtonPressed ([NullAllowed]NSObject sender);
 		
 		[Export ("cancelDrawingAnimated:")]
 		void CancelDrawingAnimated (bool animated);
@@ -3720,13 +3719,13 @@ namespace AlexTouch.PSPDFKit
 		void DoneDrawingAnimated (bool animated);
 		
 		[Export ("selectStrokeColor:")]
-		void SelectStrokeColor (NSObject sender);
+		void SelectStrokeColor ([NullAllowed]NSObject sender);
 		
 		[Export ("undoDrawing:")]
-		void UndoDrawing (NSObject sender);
+		void UndoDrawing ([NullAllowed]NSObject sender);
 		
 		[Export ("redoDrawing:")]
-		void RedoDrawing (NSObject sender);
+		void RedoDrawing ([NullAllowed]NSObject sender);
 		
 		[Export ("updateDrawingToolbar")]
 		void UpdateDrawingToolbar ();
@@ -3752,7 +3751,7 @@ namespace AlexTouch.PSPDFKit
 		[Export ("lockPDFControllerAnimated:")]
 		void LockPDFController (bool animated);
 		
-		[Export ("lockPDFControllerAnimated:showControls:ensureToStayOnTop:")]
+		[Export ("unlockPDFControllerAnimated:showControls:ensureToStayOnTop:")]
 		void UnlockPDFController (bool animated, bool showControls, bool stayOnTop);
 		
 		//[Export ("editableAnnotationTypes", ArgumentSemantic.Copy)]
