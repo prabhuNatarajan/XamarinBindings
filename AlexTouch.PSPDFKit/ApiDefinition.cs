@@ -3926,7 +3926,7 @@ namespace AlexTouch.PSPDFKit
 	[Model]
 	interface PSPDFOutlineViewControllerDelegate 
 	{		
-		[Export ("outlineController:didTapAtElement:"), DelegateName ("PSPDFOutlineViewControllerDidTapAtElement"), DefaultValue (true)] [Abstract]
+		[Export ("outlineController:didTapAtElement:"), DelegateName ("PSPDFOutlineViewControllerDidTapAtElement"), DefaultValue (false)] [Abstract]
 		bool DidTapAtElement (PSPDFOutlineViewController outlineController, PSPDFOutlineElement outlineElement);
 	}
 	
@@ -3936,7 +3936,11 @@ namespace AlexTouch.PSPDFKit
 	interface PSPDFOutlineViewController
 	{
 		[Export("initWithDocument:delegate:")]
-		IntPtr Constructor (PSPDFDocument document, PSPDFOutlineViewControllerDelegate Delegate);
+		IntPtr Constructor (PSPDFDocument document, [NullAllowed] PSPDFOutlineViewControllerDelegate Delegate);
+
+		// Use this c'tor to use a specific class as the delegate.
+		[Export("initWithDocument:delegate:")]
+		IntPtr Constructor (PSPDFDocument document, [NullAllowed] IntPtr Delegate);
 		
 		[Export("allowCopy", ArgumentSemantic.Assign)]
 		bool AllowCopy { get; set; }
