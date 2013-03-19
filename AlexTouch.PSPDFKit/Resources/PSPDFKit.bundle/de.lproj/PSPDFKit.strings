@@ -34,8 +34,9 @@
 "No Applications found" = "Es konnten keine kompatiblen Apps gefunden werden.";
 "Print" = "Drucken";
 "Annotations" = "Annotationen";
-"Add Bookmark" = "Bookmark hinzufügen";
-"Remove Bookmark" = "Bookmark entfernen";
+"Add Bookmark" = "Lesezeichen hinzufügen";
+"Remove Bookmark" = "Lesezeichen entfernen";
+"Bookmarked" = "Lesezeichen gesetzt";
 "Brightness" = "Helligkeit";
 "Share..." = "Teilen…";
 "Preparing..." = "Vorbereiten…";
