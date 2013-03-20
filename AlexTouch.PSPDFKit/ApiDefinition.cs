@@ -3937,6 +3937,9 @@ namespace AlexTouch.PSPDFKit
 	{
 		[Export("initWithDocument:delegate:")]
 		IntPtr Constructor (PSPDFDocument document, PSPDFOutlineViewControllerDelegate Delegate);
+
+		[Export("initWithDocument:delegate:")] [Internal]
+		IntPtr Constructor (PSPDFDocument document, IntPtr Delegate);
 		
 		[Export("allowCopy", ArgumentSemantic.Assign)]
 		bool AllowCopy { get; set; }

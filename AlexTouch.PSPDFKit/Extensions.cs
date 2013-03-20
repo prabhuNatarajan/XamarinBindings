@@ -1263,6 +1263,19 @@ namespace AlexTouch.PSPDFKit
 			}
 		}	
 	}
+
+	//////////////////////////////////////////////////////
+	////		PSPDFOutlineViewController.h			//
+	//////////////////////////////////////////////////////
+	
+	public partial class PSPDFOutlineViewController : UITableViewController
+	{
+		public PSPDFOutlineViewController (PSPDFViewController controller) : this (controller.Document, controller.Handle)
+		{
+			
+		}
+	}
+
 	
 	//////////////////////////////////////////
 	////		UIImage+PSPDFKitAdditions	//
