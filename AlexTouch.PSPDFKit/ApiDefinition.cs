@@ -1301,9 +1301,9 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export("loadBookmarksWithError:")]
 		PSPDFBookmark [] LoadBookmarksWithError (out NSError error);
-		
+
 		[Export("saveBookmarksWithError:")]
-		bool SaveBookmarksWithError (out NSError error);
+		bool SaveBookmarksWithError (IntPtr error);
 	}
 	
 	//////////////////////////////////////////
