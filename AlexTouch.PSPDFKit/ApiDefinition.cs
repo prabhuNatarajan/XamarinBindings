@@ -963,8 +963,10 @@ namespace AlexTouch.PSPDFKit
 		[Export("annotationsEnabled", ArgumentSemantic.Assign)]
 		bool AnnotationsEnabled { [Bind("isAnnotationsEnabled")] get; set; }
 		
-		//[Export("editableAnnotationTypes", ArgumentSemantic.Copy)]
+		// NSOrderedSet is unbound. Use IntPtr for now.
+		[Export("editableAnnotationTypes", ArgumentSemantic.Copy)]
 		//NSOrderedSet EditableAnnotationTypes { [NullAllowed] get; [NullAllowed] set; }
+		IntPtr EditableAnnotationTypes { [NullAllowed] get; [NullAllowed] set; }
 		
 		[Export("canEmbedAnnotations", ArgumentSemantic.Assign)]
 		bool CanEmbedAnnotations { get; }
