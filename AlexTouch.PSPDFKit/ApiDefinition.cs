@@ -963,8 +963,10 @@ namespace AlexTouch.PSPDFKit
 		[Export("annotationsEnabled", ArgumentSemantic.Assign)]
 		bool AnnotationsEnabled { [Bind("isAnnotationsEnabled")] get; set; }
 		
-		//[Export("editableAnnotationTypes", ArgumentSemantic.Copy)]
+		// NSOrderedSet is unbound. Use IntPtr for now.
+		[Export("editableAnnotationTypes", ArgumentSemantic.Copy)]
 		//NSOrderedSet EditableAnnotationTypes { [NullAllowed] get; [NullAllowed] set; }
+		IntPtr EditableAnnotationTypes { [NullAllowed] get; [NullAllowed] set; }
 		
 		[Export("canEmbedAnnotations", ArgumentSemantic.Assign)]
 		bool CanEmbedAnnotations { get; }
@@ -1301,9 +1303,9 @@ namespace AlexTouch.PSPDFKit
 		
 		[Export("loadBookmarksWithError:")]
 		PSPDFBookmark [] LoadBookmarksWithError (out NSError error);
-		
+
 		[Export("saveBookmarksWithError:")]
-		bool SaveBookmarksWithError (out NSError error);
+		bool SaveBookmarksWithError (IntPtr error);
 	}
 	
 	//////////////////////////////////////////
@@ -3926,7 +3928,7 @@ namespace AlexTouch.PSPDFKit
 	[Model]
 	interface PSPDFOutlineViewControllerDelegate 
 	{		
-		[Export ("outlineController:didTapAtElement:"), DelegateName ("PSPDFOutlineViewControllerDidTapAtElement"), DefaultValue (true)] [Abstract]
+		[Export ("outlineController:didTapAtElement:"), DelegateName ("PSPDFOutlineViewControllerDidTapAtElement"), DefaultValue (false)] [Abstract]
 		bool DidTapAtElement (PSPDFOutlineViewController outlineController, PSPDFOutlineElement outlineElement);
 	}
 	
@@ -3936,10 +3938,11 @@ namespace AlexTouch.PSPDFKit
 	interface PSPDFOutlineViewController
 	{
 		[Export("initWithDocument:delegate:")]
-		IntPtr Constructor (PSPDFDocument document, PSPDFOutlineViewControllerDelegate Delegate);
+		IntPtr Constructor (PSPDFDocument document, [NullAllowed] PSPDFOutlineViewControllerDelegate Delegate);
 
-		[Export("initWithDocument:delegate:")] [Internal]
-		IntPtr Constructor (PSPDFDocument document, IntPtr Delegate);
+		// Use this c'tor to use a specific class as the delegate.
+		[Export("initWithDocument:delegate:")]
+		IntPtr Constructor (PSPDFDocument document, [NullAllowed] IntPtr Delegate);
 		
 		[Export("allowCopy", ArgumentSemantic.Assign)]
 		bool AllowCopy { get; set; }

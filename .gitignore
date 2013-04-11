@@ -2,6 +2,7 @@ bin/
 obj/
 .DS_Store
 .DS_Store
+FULL_PSPDFKit.a
 
 AlexTouch.PSPDFKit/obj/.DS_Store
 

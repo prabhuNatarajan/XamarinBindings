@@ -93,10 +93,6 @@
     <BundleResource Include="Resources\PSPDFKit.bundle\Key%402x.png" />
     <BundleResource Include="Resources\PSPDFKit.bundle\LessBright.png" />
     <BundleResource Include="Resources\PSPDFKit.bundle\LessBright%402x.png" />
-    <BundleResource Include="Resources\PSPDFKit.bundle\Loupe.png" />
-    <BundleResource Include="Resources\PSPDFKit.bundle\Loupe%402x.png" />
-    <BundleResource Include="Resources\PSPDFKit.bundle\LoupeDetail.png" />
-    <BundleResource Include="Resources\PSPDFKit.bundle\LoupeDetail%402x.png" />
     <BundleResource Include="Resources\PSPDFKit.bundle\MoreBright.png" />
     <BundleResource Include="Resources\PSPDFKit.bundle\MoreBright%402x.png" />
     <BundleResource Include="Resources\PSPDFKit.bundle\NewParagraph.png" />
@@ -167,5 +163,19 @@
     <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\KSCms-UHC-UCS2" />
     <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\KSCpc-EUC-UCS2" />
     <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\KSCpc-EUC-UCS2C" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-hi.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-hi%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-lo.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-lo%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-mask.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-mask%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-hi.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-hi%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-lo.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-lo%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-lo-stemless.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-lo-stemless%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-mask.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-mask%402x.png" />
   </ItemGroup>
 </Project>
