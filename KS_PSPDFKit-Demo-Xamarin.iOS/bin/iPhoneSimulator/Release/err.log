@@ -1,6 +1,0 @@
-2013-05-02 09:38:03.669 PSPDFKitDemoXamariniOS[10247:c07] -----------------------------------------------------------------------------
-2013-05-02 09:38:03.670 PSPDFKitDemoXamariniOS[10247:c07] Welcome to the demo version of PSPDFKit 2.12.11 (6432).
-2013-05-02 09:38:03.671 PSPDFKitDemoXamariniOS[10247:c07] Check out the API documentation at http://pspdfkit.com/documentation/
-2013-05-02 09:38:03.671 PSPDFKitDemoXamariniOS[10247:c07] For licensing and/or technical questions, contact peter@pspdfkit.com
-2013-05-02 09:38:03.671 PSPDFKitDemoXamariniOS[10247:c07] -----------------------------------------------------------------------------
-2013-05-02 09:38:14.461 PSPDFKitDemoXamariniOS[10247:c07] -[PSPDFFileAnnotationProvider saveAnnotationsWithError:]/423 Removed 0 deleted annotations.
