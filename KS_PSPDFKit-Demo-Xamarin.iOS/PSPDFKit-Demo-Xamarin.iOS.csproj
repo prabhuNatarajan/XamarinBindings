@@ -100,7 +100,6 @@
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="LICENSE.md" />
-    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />

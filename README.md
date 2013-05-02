@@ -1,8 +1,13 @@
-Xamarin.iOS Bindings for PSPDFKit v2.12.11
-==========================================
+## PSPDFKit - The definitive framework for displaying and annotating PDFs in your iOS apps.
 
-This project provides bindings for use in Xamarin.iOS (MonoTouch) for iOS 5.0 and above for the PSPDFKit PDF Library (www.pspdfkit.com).
-The bindings are provided for version 2.12.11 of PSPDFKit (but future versions generally work as well).
+This is a sample project for the Xamarin.iOS bindings of PSPDFKit (v2.12.11).
 
-You can find examples written in C# at http://github.com/Krumelur/PSPDFKit-Demo-Xamarin.iOS
+### You can purchase a license and the full source code at http://pspdfkit.com.
+[![PSPDFKit](http://pspdfkit.com/images/header-small.jpg)](http://pspdfkit.com)
 
+
+Licensing
+---------
+This is the example project including a DEMO version of the PSPDFKit framework.
+[The code is bound to the PSPDFKit Evaluation License.](http://pspdfkit.com/documentation.html#license)
+PSPDFKit also uses 3rd-party code, see [ACKNOWLEDGEMENTS](https://github.com/PSPDFKit/PSPDFKit-Demo/blob/master/ACKNOWLEDGEMENTS) for the list of contributions.
