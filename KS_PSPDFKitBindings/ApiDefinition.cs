@@ -13,17 +13,6 @@ using MonoTouch.CoreFoundation;
 namespace KS_PSPDFKitBindings
 {	
 	//////////////////////////////
-	////	PSPDFKitGlobal.h	//
-	//////////////////////////////
-	
-	[BaseType (typeof (NSObject))]
-	interface PSPDFHangDetector 
-	{
-		[Static, Export ("startHangDetector")]
-		void StartHangDetector ();
-	}
-	
-	//////////////////////////////
 	////	PSPDFGlobalLock.h	//
 	//////////////////////////////
 	
@@ -36,9 +25,9 @@ namespace KS_PSPDFKitBindings
 		// Methods not bound.
 	}
 
-	/// PSPDFEmptyTableViewController.h
+	/// PSPDFStatefulTableViewController.h
 	[BaseType(typeof(UITableViewController))]
-	interface PSPDFEmptyTableViewController
+	interface PSPDFStatefulTableViewController
 	{
 	}
 
@@ -533,9 +522,6 @@ namespace KS_PSPDFKitBindings
 		IntPtr Constructor (RectangleF wordFrame);
 		
 		[Export("stringValue")]
-		string StringValue ();
-		
-		[Export("stringValue")]
 		string Text { get; }
 		
 		[Export ("frame", ArgumentSemantic.Assign)]
@@ -762,9 +748,6 @@ namespace KS_PSPDFKitBindings
 		PSPDFDocument DocumentWithDataProvider_ (IntPtr /*CGDataProvider*/ dataProvider);
 		
 		[Static][Export("documentWithBaseURL:files:")]
-		PSPDFDocument DocumentWithBaseURL (NSUrl baseURL, NSArray files);
-		
-		[Static][Export("documentWithBaseURL:files:")]
 		PSPDFDocument DocumentWithBaseURL (NSUrl baseURL, NSObject [] files);
 		
 		[Static][Export("PDFDocumentWithBaseURL:fileTemplate:startPage:endPage:")]
@@ -775,18 +758,12 @@ namespace KS_PSPDFKitBindings
 		
 		[Export("initWithData:")]
 		IntPtr Constructor (NSData data);
-		
-		[Export("initWithDataArray:")]
-		IntPtr Constructor (NSArray data);
-		
+
 		[Export("initWithDataArray:")]
 		IntPtr Constructor (NSObject [] data);
 		
 		[Export("initWithDataProvider:")][Internal]
 		PSPDFDocument InitWithDataProvider_ (IntPtr /*CGDataProvider*/ dataProvider);
-		
-		[Export("initWithBaseURL:files:")]
-		IntPtr Constructor (NSUrl basePath, NSArray files);
 		
 		[Export("initWithBaseURL:files:")]
 		IntPtr Constructor (NSUrl basePath, NSObject [] files);
@@ -1545,20 +1522,21 @@ namespace KS_PSPDFKitBindings
 		[Export("hasLoadedAnnotationsForPage:")]
 		bool HasLoadedAnnotationsForPage (uint page);
 		
-		[Export("annotationClassForAnnotation:")][NullAllowed]
-		Class AnnotationClassForAnnotation (PSPDFAnnotation annotation);
+		//[Export("defaultAnnotationViewClassForAnnotation:")]
+		//Class DefaultAnnotationViewClassForAnnotation ([NullAllowed] PSPDFAnnotation annotation);
 		
-		[Export("addAnnotations:forPage:")]
-		void AddAnnotations (PSPDFAnnotation [] annotation, uint page);
+		//[Export("addAnnotations:forPage:")]
+		//void AddAnnotations ([NullAllowed] PSPDFAnnotation [] annotation, uint page);
 		
-		[Export("didChangeAnnotation:originalAnnotation:keyPaths:options:")]
-		void DidChangeAnnotation (PSPDFAnnotation annotation, PSPDFAnnotation originalAnnotation, NSObject [] keyPaths, NSDictionary options);
+		//[Export("didChangeAnnotation:originalAnnotation:keyPaths:options:")]
+		//void DidChangeAnnotation ([NullAllowed] PSPDFAnnotation annotation, [NullAllowed] PSPDFAnnotation originalAnnotation, [NullAllowed] NSArray keyPaths, [NullAllowed] NSDictionary options);
 		
 		[Export("saveAnnotationsWithError:")]
-		bool SaveAnnotationsWithError (out NSError error);
-		
-		[Export("updateAnnotations:originalAnnotations:animated:")]
-		void UpdateAnnotations (PSPDFAnnotation [] annotations, [NullAllowed] PSPDFAnnotation [] originalAnnotations, bool animated);
+		bool SaveAnnotationsWithError (IntPtr error);
+
+		// TODO: crashes if we add this, in a list conversion error (but argument is nil?)
+		//[Export("updateAnnotations:originalAnnotations:animated:")]
+		//void UpdateAnnotations ([NullAllowed] PSPDFAnnotation [] annotations, [NullAllowed] PSPDFAnnotation [] originalAnnotations, bool animated);
 		
 		[Export("documentProvider")]
 		PSPDFDocumentProvider DocumentProvider { get; }
@@ -2221,7 +2199,7 @@ namespace KS_PSPDFKitBindings
 		[Export ("dirty", ArgumentSemantic.Assign)]
 		bool Dirty { [Bind ("isDirty")] get; set; }
 		
-		[Export ("documentProvider")]
+		[Export ("documentProvider", ArgumentSemantic.Assign)]
 		PSPDFDocumentProvider DocumentProvider { get; [NullAllowed]set; }
 		
 		[Export ("document", ArgumentSemantic.Assign)]
@@ -3232,15 +3210,12 @@ namespace KS_PSPDFKitBindings
 		bool DidTapAtElement (PSPDFOutlineViewController outlineController, PSPDFOutlineElement outlineElement);
 	}
 	
-	[BaseType (typeof (PSPDFEmptyTableViewController),
+	[BaseType (typeof (PSPDFStatefulTableViewController),
 	           Delegates=new string [] {"WeakDelegate"},
 	Events=new Type [] { typeof (PSPDFOutlineViewControllerDelegate) })]
 	interface PSPDFOutlineViewController
 	{
-		[Export("initWithDocument:delegate:")]
-		IntPtr Constructor (PSPDFDocument document, [NullAllowed] PSPDFOutlineViewControllerDelegate Delegate);
-		
-		// Use this c'tor to use a specific class as the delegate.
+		// Use this c'tor to use a specific class as the delegate (default: PSPDFOutlineViewControllerDelegate)
 		[Export("initWithDocument:delegate:")]
 		IntPtr Constructor (PSPDFDocument document, [NullAllowed] IntPtr Delegate);
 		
@@ -4472,14 +4447,12 @@ namespace KS_PSPDFKitBindings
 		[Export ("dirtyAnnotations")] 
 		NSDictionary DirtyAnnotations ();
 		
-		[Export ("didChangeAnnotation:originalAnnotation:keyPaths:options:")] 
-		void DidChangeAnnotation (PSPDFAnnotation annotation, PSPDFAnnotation originalAnnotation, NSArray keyPaths, NSDictionary options);
-		
-		[Wrap ("WeakProviderDelegate")]
+		[Export ("didChangeAnnotation:originalAnnotation:keyPaths:options:")]
+		void DidChangeAnnotation ([NullAllowed] PSPDFAnnotation annotation, [NullAllowed] PSPDFAnnotation originalAnnotation, [NullAllowed] NSArray keyPaths, [NullAllowed] NSDictionary options);
+
+		// Needs to be implemented, since this is a weak delegate proper
+		[Export ("providerDelegate", ArgumentSemantic.Assign)]
 		PSPDFAnnotationProviderChangeNotifier ProviderDelegate { get; set; }
-		
-		[Export ("providerDelegate", ArgumentSemantic.Assign)][NullAllowed]
-		NSObject WeakProviderDelegate { get; set; }
 	}
 	
 	[BaseType (typeof (NSObject))]
@@ -4487,10 +4460,10 @@ namespace KS_PSPDFKitBindings
 	interface PSPDFAnnotationProviderChangeNotifier 
 	{
 		[Export ("updateAnnotations:originalAnnotations:animated:")] [Abstract]
-		void UpdateAnnotations (PSPDFAnnotation [] annotations, PSPDFAnnotation [] originalAnnotations, bool animated);
+		void UpdateAnnotations (PSPDFAnnotation [] annotations, [NullAllowed] PSPDFAnnotation [] originalAnnotations, bool animated);
 		
-		[Export ("parentDocumentProvider")] [Abstract]
-		PSPDFDocumentProvider ParentDocumentProvider ();
+		[Export ("parentDocumentProvider")]
+		PSPDFDocumentProvider ParentDocumentProvider {get; }
 	}
 	
 	//////////////////////////////////////////////////////

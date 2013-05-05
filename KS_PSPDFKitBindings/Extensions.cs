@@ -621,35 +621,13 @@ namespace KS_PSPDFKitBindings
 	//////////////////////////////////////////
 	public partial class PSPDFAnnotation : PSPDFModel
 	{
-		public PSPDFAnnotation (CGPDFDictionary annotDict, CGPDFArray annotsArray) : this (annotDict.Handle, annotsArray.Handle)
-		{
-			
-		}
-		
-		public PSPDFAnnotation (CGPDFDictionary annotDict, CGPDFArray annotsArray, PSPDFAnnotationType annotationType) : this(annotDict.Handle, annotsArray.Handle, annotationType)
-		{
-			
-		}
-		
-		public RectangleF RectFromPDFArray (CGPDFArray array)
-		{
-			return RectFromPDFArray_(this.Handle);
-		}
-		
-		public NSArray RectsFromQuadPointsInArray (CGPDFArray quadPointsArray)
-		{
-			return RectsFromQuadPointsInArray_(quadPointsArray.Handle);
-		}
-		
 		[DllImportAttribute("__Internal", EntryPoint = "PSPDFTypeStringFromAnnotationType")]
 		private static extern IntPtr _StringFromAnnotationType(PSPDFAnnotationType annotationType);
 		
 		public static string StringFromAnnotationType(PSPDFAnnotationType annotationType)
 		{			
 			IntPtr ptr = _StringFromAnnotationType(annotationType);
-			
 			string val = (string) (NSString) Runtime.GetNSObject(ptr);
-			
 			return val;
 		}
 	}
@@ -835,7 +813,8 @@ namespace KS_PSPDFKitBindings
 				MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_bool_IntPtr (this.Handle, Selector.GetHandle ("hideToolbarAnimated:completion:"), animated, IntPtr.Zero );
 				return;
 			}
-				
+
+			/*
 			BlockLiteral *block_ptr_completionBlock;
 			BlockLiteral block_completionBlock;
 			block_completionBlock = new BlockLiteral ();
@@ -844,6 +823,7 @@ namespace KS_PSPDFKitBindings
 
 			MonoTouch.ObjCRuntime.Messaging.void_objc_msgSend_bool_IntPtr (this.Handle, Selector.GetHandle ("hideToolbarAnimated:completion:"), animated, (IntPtr) block_ptr_completionBlock);
 			block_ptr_completionBlock->CleanupBlock ();
+			*/
 		}
 	}
 	
@@ -1075,7 +1055,7 @@ namespace KS_PSPDFKitBindings
 	////		PSPDFOutlineViewController.h			//
 	//////////////////////////////////////////////////////
 	
-	public partial class PSPDFOutlineViewController : PSPDFEmptyTableViewController
+	public partial class PSPDFOutlineViewController : PSPDFStatefulTableViewController
 	{
 		public PSPDFOutlineViewController (PSPDFViewController controller) : this (controller.Document, controller.Handle)
 		{

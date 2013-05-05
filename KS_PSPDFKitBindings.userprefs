@@ -1,12 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad.6.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="KS_PSPDFKitBindings/ApiDefinition.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad.6.1" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="KS_PSPDFKitBindings/Extensions.cs">
     <Files>
       <File FileName="KS_PSPDFKitBindings/StructsAndEnums.cs" Line="1" Column="1" />
       <File FileName="KS_PSPDFKitBindings/ApiDefinition.cs" Line="3165" Column="46" />
-      <File FileName="KS_PSPDFKitBindings/Extensions.cs" Line="1" Column="1" />
+      <File FileName="KS_PSPDFKitBindings/Extensions.cs" Line="618" Column="2" />
       <File FileName="KS_PSPDFKitBindings/libarclite.linkwith.cs" Line="1" Column="1" />
       <File FileName="KS_PSPDFKitBindings/PSPDFKit.linkwith.cs" Line="1" Column="1" />
+      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/AppDelegate.cs" Line="7" Column="7" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -17,7 +18,9 @@
             <Node name="libarclite.a" expanded="True" />
             <Node name="PSPDFKit.a" expanded="True" />
           </Node>
-          <Node name="PSPDFKit-Demo-Xamarin.iOS" expanded="True" selected="True" />
+          <Node name="PSPDFKit-Demo-Xamarin.iOS" expanded="True">
+            <Node name="References" expanded="True" selected="True" />
+          </Node>
         </State>
       </Pad>
     </Pads>

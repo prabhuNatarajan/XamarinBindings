@@ -151,10 +151,10 @@ namespace KS_PSPDFKitBindings
 	[Flags]
 	public enum PSPDFDocumentMenuAction : uint
 	{
-		Search  = 1 <<0,
-		Define = 1 << 1,
+		Search              = 1 << 0,
+		Define              = 1 << 1,
 		WikipediaAsFallback = 1 << 2,
-		All = uint.MaxValue
+		All                 = uint.MaxValue
 	}
 	
 	//////////////////////////////////////////
@@ -178,6 +178,7 @@ namespace KS_PSPDFKitBindings
 		Caret 	  = 1 << 9,
 		RichMedia = 1 << 10,
 		Screen    = 1 << 11,
+		Widget    = 1 << 12,
 		All       = uint.MaxValue
 	}
 	
