@@ -1167,18 +1167,15 @@ namespace KS_PSPDFKitBindings
 		PSPDFDocument Document { get; set; }
 
 		[Export("addBookmarkForPage:")] 
-		// PSPDFKIt 2.12.11: I have to remove this, otherwise we're crashing!
-		//[PostGet("Bookmarks")]
+		[PostGet("Bookmarks")]
 		bool AddBookmarkForPage (uint page);
 
 		[Export("removeBookmarkForPage:")]
-		// PSPDFKIt 2.12.11: I have to remove this, otherwise we're crashing!
-		//[PostGet("Bookmarks")]
+		[PostGet("Bookmarks")]
 		bool RemoveBookmarkForPage (uint page);
 
 		[Export("clearAllBookmarksWithError:")]
-//		// PSPDFKIt 2.12.11: I have to remove this, otherwise we're crashing!
-//		// [PostGet("Bookmarks")]
+		[PostGet("Bookmarks")]
 		// Have to make the "error" and IntPtr, otherwise it's crashing. Collision with "out" parameters. These cannot be NULL in C# but can in ObjC.
 		bool ClearAllBookmarksWithError (IntPtr error);
 

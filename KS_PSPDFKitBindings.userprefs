@@ -1,20 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad.6.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="KS_PSPDFKit-Demo-Xamarin.iOS/KSCatalogViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="KS_PSPDFKitBindings/ApiDefinition.cs">
     <Files>
       <File FileName="KS_PSPDFKitBindings/StructsAndEnums.cs" Line="1" Column="1" />
-      <File FileName="KS_PSPDFKitBindings/ApiDefinition.cs" Line="1177" Column="16" />
+      <File FileName="KS_PSPDFKitBindings/ApiDefinition.cs" Line="1182" Column="64" />
       <File FileName="KS_PSPDFKitBindings/Extensions.cs" Line="1" Column="1" />
       <File FileName="KS_PSPDFKitBindings/libarclite.linkwith.cs" Line="1" Column="1" />
       <File FileName="KS_PSPDFKitBindings/PSPDFKit.linkwith.cs" Line="1" Column="1" />
       <File FileName="README.md" Line="1" Column="1" />
-      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/Subclassing/KSBookmarkParser.cs" Line="29" Column="24" />
+      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/Subclassing/KSBookmarkParser.cs" Line="14" Column="1" />
       <File FileName="KS_PSPDFKitBindings/Constants.cs" Line="1" Column="1" />
       <File FileName="KS_PSPDFKitBindings/Headers/2.12.11/PSPDFAnnotation.h" Line="1" Column="1" />
-      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/KSCatalogViewController.cs" Line="31" Column="29" />
       <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/Customizing/CombinedTabBarController/KSCombinedTabBarController.cs" Line="1" Column="1" />
-      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/Kiosk/KSKioskViewController.cs" Line="18" Column="3" />
+      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/Kiosk/KSKioskViewController.cs" Line="1" Column="1" />
       <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/Main.cs" Line="1" Column="1" />
+      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/AppDelegate.cs" Line="7" Column="7" />
+      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/KSCatalogViewController.cs" Line="115" Column="9" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -25,8 +26,10 @@
             <Node name="PSPDFKit.a" expanded="True" />
           </Node>
           <Node name="PSPDFKit-Demo-Xamarin.iOS" expanded="True">
+            <Node name="References" expanded="True" />
             <Node name="Kiosk" expanded="True" />
             <Node name="Samples" expanded="True" />
+            <Node name="Subclassing" expanded="True" />
           </Node>
         </State>
       </Pad>
@@ -36,10 +39,7 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/rene/Documents/Develop/PSPDFKit/KS_PSPDFKit_Bindings/KS_PSPDFKit-Demo-Xamarin.iOS/Subclassing/KSBookmarkParser.cs" line="26" column="50" />
-      <Breakpoint file="/Users/rene/Documents/Develop/PSPDFKit/KS_PSPDFKit_Bindings/KS_PSPDFKit-Demo-Xamarin.iOS/Subclassing/KSBookmarkParser.cs" line="12" column="53" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
