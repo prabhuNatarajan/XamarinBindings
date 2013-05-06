@@ -20,6 +20,7 @@ namespace PSPDFKitDemoXamarin.iOS
 		const string AnnotTestExample = "Annotation Test.pdf";
 
 		public bool clearCacheNeeded;
+
 	
 		public KSCatalogViewController () : base (UITableViewStyle.Grouped, null)
 		{

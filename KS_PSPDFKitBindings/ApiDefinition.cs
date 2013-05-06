@@ -1152,35 +1152,49 @@ namespace KS_PSPDFKitBindings
 		NSString PSPDFBookmarksChangedNotification { get; }
 		
 		[Export("initWithDocument:")]
-		IntPtr Constructor (PSPDFDocument document);
+		IntPtr Constructor ([NullAllowed]PSPDFDocument document);
 		
 		[Export("bookmarks", ArgumentSemantic.Copy)]
-		PSPDFBookmark [] Bookmarks { get; set; }
-		
+		PSPDFBookmark [] Bookmarks
+		{
+			[NullAllowed]
+			get;
+			[NullAllowed]
+			set;
+		}
+
 		[Export("document")]
 		PSPDFDocument Document { get; set; }
-		
-		[Export("addBookmarkForPage:")] [PostGet("Bookmarks")]
+
+		[Export("addBookmarkForPage:")] 
+		// PSPDFKIt 2.12.11: I have to remove this, otherwise we're crashing!
+		//[PostGet("Bookmarks")]
 		bool AddBookmarkForPage (uint page);
-		
-		[Export("removeBookmarkForPage:")] [PostGet("Bookmarks")]
+
+		[Export("removeBookmarkForPage:")]
+		// PSPDFKIt 2.12.11: I have to remove this, otherwise we're crashing!
+		//[PostGet("Bookmarks")]
 		bool RemoveBookmarkForPage (uint page);
-		
-		[Export("clearAllBookmarksWithError:")] [PostGet("Bookmarks")]
-		bool ClearAllBookmarksWithError (out NSError error);
-		
+
+		[Export("clearAllBookmarksWithError:")]
+//		// PSPDFKIt 2.12.11: I have to remove this, otherwise we're crashing!
+//		// [PostGet("Bookmarks")]
+		// Have to make the "error" and IntPtr, otherwise it's crashing. Collision with "out" parameters. These cannot be NULL in C# but can in ObjC.
+		bool ClearAllBookmarksWithError (IntPtr error);
+
 		[Export("bookmarkForPage:")]
 		PSPDFBookmark BookmarkForPage (uint page);
-		
+
 		[Export("cachePath")]
 		string CachePath ();
-		
+
 		[Export("bookmarkPath")]
 		string BookmarkPath ();
-		
+
 		[Export("loadBookmarksWithError:")]
-		PSPDFBookmark [] LoadBookmarksWithError (out NSError error);
-		
+		// Have to make the "error" and IntPtr, otherwise it's crashing. Collision with "out" parameters. These cannot be NULL in C# but can in ObjC.
+		PSPDFBookmark [] LoadBookmarksWithError (IntPtr error);
+
 		[Export("saveBookmarksWithError:")]
 		bool SaveBookmarksWithError (IntPtr error);
 	}
