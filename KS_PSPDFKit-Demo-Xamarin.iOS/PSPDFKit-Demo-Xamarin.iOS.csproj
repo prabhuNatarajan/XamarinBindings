@@ -53,6 +53,7 @@
     <MtouchI18n />
     <MtouchArch>ARMv7</MtouchArch>
     <OptimizePNGs>false</OptimizePNGs>
+    <IpaPackageName />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -93,6 +94,9 @@
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
     <Reference Include="MonoTouch.Dialog-1" />
+    <Reference Include="KS_PSPDFKitBindings">
+      <HintPath>..\KS_PSPDFKitBindings\bin\KS_PSPDFKitBindings.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -220,11 +224,5 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="ResourceData\EmbeddedExample\EmbeddedNib.xib" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KS_PSPDFKitBindings\KS_PSPDFKitBindings.csproj">
-      <Project>{3A4F7921-1637-4246-9499-04C1DAECA5E4}</Project>
-      <Name>KS_PSPDFKitBindings</Name>
-    </ProjectReference>
   </ItemGroup>
 </Project>

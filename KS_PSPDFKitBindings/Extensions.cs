@@ -654,37 +654,37 @@ namespace KS_PSPDFKitBindings
 	
 	public partial class PSPDFInkAnnotation : PSPDFAnnotation
 	{
-		[DllImportAttribute("__Internal", EntryPoint = "PSPDFBezierPathGetPoints")]
-		private static extern  IntPtr _PSPDFBezierPathGetPoints(IntPtr path);
-		
-		public static NSArray PSPDFBezierPathGetPoints(UIBezierPath path)
-		{
-			return new NSArray(_PSPDFBezierPathGetPoints(path.Handle));
-		}
-		
-		[DllImportAttribute("__Internal", EntryPoint = "PSPDFBoundingBoxFromLines")]
-		private static extern  RectangleF _BoundingBoxFromLines(IntPtr lines, float lineWidth);
-		
-		public static RectangleF BoundingBoxFromLines(NSArray lines, float lineWidth)
-		{
-			return _BoundingBoxFromLines(lines.Handle, lineWidth);
-		}
-		
-		[DllImportAttribute("__Internal", EntryPoint = "PSPDFConvertViewLinesToPDFLines")]
-		private static extern  IntPtr _ConvertViewLinesToPDFLines(IntPtr lines, RectangleF cropBox, uint rotation, RectangleF bounds);
-		
-		public static NSArray ConvertViewLinesToPDFLines(NSArray lines, RectangleF cropBox, uint rotation, RectangleF bounds)
-		{
-			return new NSArray(_ConvertViewLinesToPDFLines(lines.Handle, cropBox, rotation, bounds));
-		}
-		
-		[DllImportAttribute("__Internal", EntryPoint = "PSPDFConvertPDFLinesToViewLines")]
-		private static extern  IntPtr _ConvertPDFLinesToViewLines(IntPtr lines, RectangleF cropBox, uint rotation, RectangleF bounds);
-		
-		public static NSArray ConvertPDFLinesToViewLines(NSArray lines, RectangleF cropBox, uint rotation, RectangleF bounds)
-		{
-			return new NSArray(_ConvertPDFLinesToViewLines(lines.Handle, cropBox, rotation, bounds));
-		}
+//		[DllImportAttribute("__Internal", EntryPoint = "PSPDFBezierPathGetPoints")]
+//		private static extern  IntPtr _PSPDFBezierPathGetPoints(IntPtr path);
+//		
+//		public static NSArray PSPDFBezierPathGetPoints(UIBezierPath path)
+//		{
+//			return new NSArray(_PSPDFBezierPathGetPoints(path.Handle));
+//		}
+//		
+//		[DllImportAttribute("__Internal", EntryPoint = "PSPDFBoundingBoxFromLines")]
+//		private static extern  RectangleF _BoundingBoxFromLines(IntPtr lines, float lineWidth);
+//		
+//		public static RectangleF BoundingBoxFromLines(NSArray lines, float lineWidth)
+//		{
+//			return _BoundingBoxFromLines(lines.Handle, lineWidth);
+//		}
+//		
+//		[DllImportAttribute("__Internal", EntryPoint = "PSPDFConvertViewLinesToPDFLines")]
+//		private static extern  IntPtr _ConvertViewLinesToPDFLines(IntPtr lines, RectangleF cropBox, uint rotation, RectangleF bounds);
+//		
+//		public static NSArray ConvertViewLinesToPDFLines(NSArray lines, RectangleF cropBox, uint rotation, RectangleF bounds)
+//		{
+//			return new NSArray(_ConvertViewLinesToPDFLines(lines.Handle, cropBox, rotation, bounds));
+//		}
+//		
+//		[DllImportAttribute("__Internal", EntryPoint = "PSPDFConvertPDFLinesToViewLines")]
+//		private static extern  IntPtr _ConvertPDFLinesToViewLines(IntPtr lines, RectangleF cropBox, uint rotation, RectangleF bounds);
+//		
+//		public static NSArray ConvertPDFLinesToViewLines(NSArray lines, RectangleF cropBox, uint rotation, RectangleF bounds)
+//		{
+//			return new NSArray(_ConvertPDFLinesToViewLines(lines.Handle, cropBox, rotation, bounds));
+//		}
 	}
 	
 	//////////////////////////////////////////////////

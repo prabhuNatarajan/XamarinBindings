@@ -1,32 +1,46 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad.6.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="KS_PSPDFKitBindings/Extensions.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="KS_PSPDFKit-Demo-Xamarin.iOS/KSCatalogViewController.cs">
     <Files>
-      <File FileName="KS_PSPDFKitBindings/StructsAndEnums.cs" Line="1" Column="1" />
-      <File FileName="KS_PSPDFKitBindings/ApiDefinition.cs" Line="3165" Column="46" />
-      <File FileName="KS_PSPDFKitBindings/Extensions.cs" Line="618" Column="2" />
+      <File FileName="KS_PSPDFKitBindings/StructsAndEnums.cs" Line="83" Column="29" />
+      <File FileName="KS_PSPDFKitBindings/ApiDefinition.cs" Line="3152" Column="58" />
+      <File FileName="KS_PSPDFKitBindings/Extensions.cs" Line="680" Column="5" />
       <File FileName="KS_PSPDFKitBindings/libarclite.linkwith.cs" Line="1" Column="1" />
       <File FileName="KS_PSPDFKitBindings/PSPDFKit.linkwith.cs" Line="1" Column="1" />
-      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/AppDelegate.cs" Line="7" Column="7" />
+      <File FileName="README.md" Line="1" Column="1" />
+      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/Subclassing/KSBookmarkParser.cs" Line="25" Column="1" />
+      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/Main.cs" Line="21" Column="1" />
+      <File FileName="KS_PSPDFKitBindings/Constants.cs" Line="5" Column="2" />
+      <File FileName="KS_PSPDFKitBindings/Headers/2.12.11/PSPDFAnnotation.h" Line="311" Column="23" />
+      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/KSCatalogViewController.cs" Line="53" Column="9" />
+      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/Customizing/CombinedTabBarController/KSCombinedTabBarController.cs" Line="21" Column="20" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Option id="ShowAllFiles" value="True" />
           <Node name="KS_PSPDFKitBindings" expanded="True">
-            <Node name="Resources" expanded="True" />
             <Node name="libarclite.a" expanded="True" />
             <Node name="PSPDFKit.a" expanded="True" />
           </Node>
           <Node name="PSPDFKit-Demo-Xamarin.iOS" expanded="True">
-            <Node name="References" expanded="True" selected="True" />
+            <Node name="References" expanded="True">
+              <Node name="System, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" selected="True" />
+            </Node>
+            <Node name="Customizing" expanded="True">
+              <Node name="CombinedTabBarController" expanded="True" />
+            </Node>
+            <Node name="Subclassing" expanded="True" />
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/rene/Documents/Develop/PSPDFKit/KS_PSPDFKit_Bindings/KS_PSPDFKit-Demo-Xamarin.iOS/Customizing/CombinedTabBarController/KSCombinedTabBarController.cs" line="35" column="3" />
+      <Breakpoint file="/Users/rene/Documents/Develop/PSPDFKit/KS_PSPDFKit_Bindings/KS_PSPDFKit-Demo-Xamarin.iOS/Customizing/CombinedTabBarController/KSCombinedTabBarController.cs" line="21" column="20" />
+      <Breakpoint file="/Users/rene/Documents/Develop/PSPDFKit/KS_PSPDFKit_Bindings/KS_PSPDFKit-Demo-Xamarin.iOS/Customizing/CombinedTabBarController/KSCombinedTabBarController.cs" line="14" column="4" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

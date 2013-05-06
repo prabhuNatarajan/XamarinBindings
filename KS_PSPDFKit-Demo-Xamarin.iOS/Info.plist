@@ -21,7 +21,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>5.0</string>
+	<string>6.1</string>
 	<key>CFBundleDisplayName</key>
 	<string>PSPDF.Xamarin.iOS</string>
 	<key>CFBundleIdentifier</key>
