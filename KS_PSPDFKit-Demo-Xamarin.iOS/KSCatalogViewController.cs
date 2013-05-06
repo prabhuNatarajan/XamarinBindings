@@ -20,8 +20,7 @@ namespace PSPDFKitDemoXamarin.iOS
 		const string AnnotTestExample = "Annotation Test.pdf";
 
 		public bool clearCacheNeeded;
-		static KSKioskViewController kioskController;
-
+	
 		public KSCatalogViewController () : base (UITableViewStyle.Grouped, null)
 		{
 			PSPDFKitGlobal.LogLevel = PSPDFLogLevel.Info;
@@ -39,7 +38,7 @@ namespace PSPDFKitDemoXamarin.iOS
 					new StringElement ("PSPDFViewController playground", () =>
 					{
 						var doc = new PSPDFDocument(hackerMagURL);
-						kioskController = new KSKioskViewController(doc);
+						var kioskController = new KSKioskViewController(doc);
 
 						kioskController.StatusBarStyleSetting = PSPDFStatusBarStyleSetting.Default;
 						this.NavigationController.PushViewController(kioskController, true);
