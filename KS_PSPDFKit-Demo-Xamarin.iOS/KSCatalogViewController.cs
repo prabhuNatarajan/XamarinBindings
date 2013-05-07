@@ -24,6 +24,9 @@ namespace PSPDFKitDemoXamarin.iOS
 	
 		public KSCatalogViewController () : base (UITableViewStyle.Grouped, null)
 		{
+			var oPdfCache = PSPDFCache.SharedCache;
+			oPdfCache.ClearCache ( );
+
 			PSPDFKitGlobal.LogLevel = PSPDFLogLevel.Info;
 
 			NSUrl samplesURL = NSBundle.MainBundle.ResourceUrl.Append ("Samples", true);

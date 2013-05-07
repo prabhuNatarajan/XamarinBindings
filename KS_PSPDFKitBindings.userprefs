@@ -1,27 +1,26 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad.6.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="KS_PSPDFKitBindings/ApiDefinition.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="KS_PSPDFKit-Demo-Xamarin.iOS/KSCatalogViewController.cs">
     <Files>
-      <File FileName="KS_PSPDFKitBindings/StructsAndEnums.cs" Line="1" Column="1" />
-      <File FileName="KS_PSPDFKitBindings/ApiDefinition.cs" Line="1182" Column="64" />
+      <File FileName="KS_PSPDFKitBindings/StructsAndEnums.cs" Line="24" Column="34" />
       <File FileName="KS_PSPDFKitBindings/Extensions.cs" Line="1" Column="1" />
       <File FileName="KS_PSPDFKitBindings/libarclite.linkwith.cs" Line="1" Column="1" />
       <File FileName="KS_PSPDFKitBindings/PSPDFKit.linkwith.cs" Line="1" Column="1" />
       <File FileName="README.md" Line="1" Column="1" />
-      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/Subclassing/KSBookmarkParser.cs" Line="14" Column="1" />
+      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/Subclassing/KSBookmarkParser.cs" Line="1" Column="1" />
       <File FileName="KS_PSPDFKitBindings/Constants.cs" Line="1" Column="1" />
       <File FileName="KS_PSPDFKitBindings/Headers/2.12.11/PSPDFAnnotation.h" Line="1" Column="1" />
       <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/Customizing/CombinedTabBarController/KSCombinedTabBarController.cs" Line="1" Column="1" />
       <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/Kiosk/KSKioskViewController.cs" Line="1" Column="1" />
       <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/Main.cs" Line="1" Column="1" />
-      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/AppDelegate.cs" Line="7" Column="7" />
-      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/KSCatalogViewController.cs" Line="115" Column="9" />
+      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/AppDelegate.cs" Line="1" Column="1" />
+      <File FileName="KS_PSPDFKit-Demo-Xamarin.iOS/KSCatalogViewController.cs" Line="11" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Option id="ShowAllFiles" value="True" />
-          <Node name="KS_PSPDFKitBindings" expanded="True" selected="True">
+          <Node name="KS_PSPDFKitBindings" expanded="True">
             <Node name="libarclite.a" expanded="True" />
             <Node name="PSPDFKit.a" expanded="True" />
           </Node>
@@ -30,6 +29,7 @@
             <Node name="Kiosk" expanded="True" />
             <Node name="Samples" expanded="True" />
             <Node name="Subclassing" expanded="True" />
+            <Node name="KSCatalogViewController.cs" selected="True" />
           </Node>
         </State>
       </Pad>
