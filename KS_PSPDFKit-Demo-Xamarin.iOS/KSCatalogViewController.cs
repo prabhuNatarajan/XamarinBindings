@@ -8,6 +8,7 @@ using MonoTouch.UIKit;
 using MonoTouch.Dialog;
 using KS_PSPDFKitBindings;
 using MonoTouch.ObjCRuntime;
+using System.Collections.Specialized;
 
 namespace PSPDFKitDemoXamarin.iOS
 {
@@ -21,9 +22,16 @@ namespace PSPDFKitDemoXamarin.iOS
 
 		public bool clearCacheNeeded;
 
-	
 		public KSCatalogViewController () : base (UITableViewStyle.Grouped, null)
 		{
+			// Add some custom localization to ensure the bindings work.
+			PSPDFKitGlobal.Localize("en", new NameValueCollection
+			{
+				{"Outline", "File Content"},
+				{"Bookmarks", "Remember"}
+			});
+
+			// Call cache method to ensure the bindings for the cache work.
 			var oPdfCache = PSPDFCache.SharedCache;
 			oPdfCache.ClearCache ( );
 

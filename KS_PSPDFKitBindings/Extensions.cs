@@ -7,6 +7,7 @@ using MonoTouch.UIKit;
 using System.Runtime.InteropServices;
 using MonoTouch.CoreAnimation;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 
 namespace KS_PSPDFKitBindings
 {
@@ -16,6 +17,38 @@ namespace KS_PSPDFKitBindings
 	//////////////////////////////////////////
 	public partial class PSPDFKitGlobal
 	{
+		/// <summary>
+		/// Helper to allow adjusting locale strings in PSPDFKit.
+		/// <example>
+		/// The following example replaces the English locale constants &quot;Outline&quot; with &quot;File Contents&quot; and the &quot;Bookmarks&quot; constant with &quot;Remember&quot;
+		/// <code>
+		/// Localize("en", new NameValueCollection
+		/// {
+		/// 	{"Outline", "File Content"},
+		/// 	{"Bookmarks", "Remember"}
+		/// });
+		/// </code>
+		/// </example>
+		/// </summary>
+		/// <param name="languageIdentifier">Language identifier.</param>
+		/// <param name="constantValuePairs">Constant value pairs.</param>
+		public static void Localize(string languageIdentifier, NameValueCollection constantValuePairs)
+		{
+			var localeDic = new NSMutableDictionary();
+			var customLanguageDic = new NSMutableDictionary();
+			
+			foreach (var key in constantValuePairs.AllKeys)
+			{
+				string constantValue = constantValuePairs[key];
+				customLanguageDic.Add(new NSString(key), new NSString(constantValue));
+			}
+			
+			localeDic.Add(new NSString(languageIdentifier), customLanguageDic);
+			
+			// Set the dictionary in PSPDFKit.
+			PSPDFKitGlobal.SetLocalizationDictionary(localeDic);
+		}
+
 		private static PSPDFLogLevel kPSPDFLogLevel;
 		
 		public static PSPDFLogLevel LogLevel
