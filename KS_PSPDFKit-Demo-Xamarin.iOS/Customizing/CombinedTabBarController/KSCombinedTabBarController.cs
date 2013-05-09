@@ -57,6 +57,14 @@ namespace PSPDFKitDemoXamarin.iOS
 			}, false);
 
 		}
+
+		public override void ViewDidDisappear (bool animated)
+		{
+			base.ViewDidDisappear (animated);
+			this.controller = null;
+			this.document = null;
+		}
+
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();

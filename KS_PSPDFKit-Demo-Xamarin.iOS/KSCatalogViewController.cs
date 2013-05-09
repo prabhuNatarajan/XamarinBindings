@@ -63,7 +63,15 @@ namespace PSPDFKitDemoXamarin.iOS
 					new StringElement("Combine search, TOC and bookmarks", () =>
 					{
 						var doc = new PSPDFDocument(hackerMagURL);
-						var controller = new PSPDFViewController(doc);
+
+						// Don't use PSPDFVieController directly but a subclass that allows attaching to ViewDidDisappear in order to clear
+						// the RightBarButtonItems property. Otherwise the tabBarBtn would keep a reference to the PSPDFViewController and the instances
+						// would never be freed.
+
+						//var controller = new PSPDFViewController(doc);
+						var controller = new KSKioskViewController(doc);
+						controller.ViewDisappeared += (sender, args) => controller.RightBarButtonItems = new PSPDFBarButtonItem[0];
+
 						var tabBarController = new KSCombinedTabBarController(controller, doc);
 
 						var tabBarBtn = new KSBarButtonItem(controller)
@@ -80,7 +88,6 @@ namespace PSPDFKitDemoXamarin.iOS
 						classDic.LowlevelSetObject( new Class(typeof(KSNoteAnnotation)).Handle, new Class(typeof(PSPDFNoteAnnotation)).Handle);
 						classDic.LowlevelSetObject( new Class(typeof(KSHighlightAnnotation)).Handle, new Class(typeof(PSPDFHighlightAnnotation)).Handle);
 						doc.OverrideClassNames = classDic;
-
 
 						this.NavigationController.PushViewController(controller, true);
 					}),
