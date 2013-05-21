@@ -72,7 +72,7 @@ namespace PSPDFKitDemoXamarin.iOS
 			UIView.Animate(0.3f, () => { this.verticalToolbar.Alpha = 1f; });
 
 			// Show scrobble bar.
-			this.SetScrobbleBarEnabled (true, true);
+			this.ThumbnailBarMode = PSPDFThumbnailBarMode.PSPDFThumbnailBarModeScrobbleBar;
 
 			var toolbar = this.AnnotationButtonItem.AnnotationToolbar;
 			if(toolbar.ToolbarMode == PSPDFAnnotationToolbarMode.Draw)
@@ -101,7 +101,7 @@ namespace PSPDFKitDemoXamarin.iOS
 		/// <param name="index">Index.</param>
 		private void HandleAnnotationToolbarItemSelected (string id, int index)
 		{
-			this.SetScrobbleBarEnabled (false, true);
+			this.ThumbnailBarMode = PSPDFThumbnailBarMode.PSPDFThumbnailBarModeNone;
 			// Show annotations toolbar.
 			UIView.Animate(0.3f, () => { this.verticalToolbar.Alpha = 0f; });
 

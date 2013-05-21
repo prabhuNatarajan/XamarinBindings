@@ -17,6 +17,7 @@
 // toolbar
 "Outline" = "Outline";
 "No Outline" = "No Outline";
+"Search Outline" = "Search Outline";
 "Search" = "Search";
 "Email" = "Email";
 "Email document" = "Email document";
@@ -36,6 +37,8 @@
 "Print" = "Print";
 "Annotations" = "Annotations";
 "No Annotations" = "No Annotations";
+"%d Annotation" = "%d Annotation";
+"%d Annotations" = "%d Annotations";
 "Bookmarks" = "Bookmarks";
 "No Bookmarks" = "No Bookmarks";
 "Add Bookmark" = "Add Bookmark";
@@ -44,6 +47,7 @@
 "Brightness" = "Brightness";
 "Share..." = "Share…";
 "Preparing..." = "Preparing…";
+"Loading..." = "Loading…";
 
 // thumbnails
 "Bookmarked" = "Bookmarked";
@@ -92,19 +96,22 @@
 "Type..." = "Type…";
 "Font..." = "Font…";
 "Size..." = "Size…";
-"Choose Font" = "Choose Font";
-"Choose Font Style" = "Choose Font Style";
+"Font" = "Font";
+"Regular" = "Regular";
 "Choose Color" = "Choose Color";
 "Rainbow" = "Rainbow";
 "Monochrome" = "Monochrome";
+"Color" = "Color";
 "Color..." = "Color…";
 "Border..." = "Border…";
 "Fill Color..." = "Fill Color…";
+"Opacity" = "Opacity";
 "Opacity..." = "Opacity…";
 "Custom..." = "Custom…";
 "Thickness..." = "Thickness…";
+"Thickness" = "Thickness";
 "%@ pt" = "%@ pt";
-"Text..." = "Text…";
+"Note..." = "Note…";
 "Yellow" = "Yellow";
 "Green" = "Green";
 "Red" = "Red";
@@ -149,8 +156,8 @@
 "Medium Quality" = "Medium Quality";
 "High Quality" = "High Quality";
 "Clear All" = "Clear All";
-"Appearance" = "Appearance";
-"Appearance..." = "Appearance…";
+"Style" = "Style";
+"Style..." = "Style…";
 "Link" = "Link";
 "Ink" = "Ink";
 "FreeText" = "Free Text";
@@ -160,6 +167,9 @@
 "Center" = "Center";
 "Right" = "Right";
 "Alignment..." = "Alignment…";
+"Preview File" = "Preview File";
+"Copy" = "Copy";
+"Paste" = "Paste";
 
 // named actions
 "NextPage" = "Next Page";

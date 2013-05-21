@@ -38,7 +38,7 @@ namespace PSPDFKitDemoXamarin.iOS
 			var tocController = new PSPDFOutlineViewController (document, controller.Handle);
 			tocController.Title = "TOC";
 			
-			var searchController = new PSPDFSearchViewController (document, controller);
+			var searchController = new PSPDFSearchViewController (document, IntPtr.Zero);
 			searchController.Title = "Search";
 			
 			var bookmarksController = new PSPDFBookmarkViewController (document, null);
@@ -56,13 +56,6 @@ namespace PSPDFKitDemoXamarin.iOS
 				annotsController
 			}, false);
 
-		}
-
-		public override void ViewDidDisappear (bool animated)
-		{
-			base.ViewDidDisappear (animated);
-			this.controller = null;
-			this.document = null;
 		}
 
 		public override void ViewDidLoad ()

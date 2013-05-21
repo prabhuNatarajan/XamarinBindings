@@ -11,7 +11,7 @@
     <RootNamespace>PSPDFKitDemoXamarin.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>PSPDFKitDemoXamariniOS</AssemblyName>
-    <ReleaseVersion>2.12.11</ReleaseVersion>
+    <ReleaseVersion>2.14.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>True</DebugSymbols>

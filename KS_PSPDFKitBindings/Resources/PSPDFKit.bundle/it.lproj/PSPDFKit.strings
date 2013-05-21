@@ -17,6 +17,7 @@
 // toolbar
 "Outline" = "Indice";
 "No Outline" = "Non Indice";
+"Search Outline" = "Cerca nel Índice";
 "Search" = "Ricerca";
 "Email" = "Email";
 "Email document" = "Invia il documento per email";
@@ -36,6 +37,8 @@
 "Print" = "Stampa";
 "Annotations" = "Annotazioni";
 "No Annotations" = "Non Annotazioni";
+"%d Annotation" = "%d Annotazioni";
+"%d Annotations" = "%d Annotazioni";
 "Bookmarks" = "Segnalibro";
 "No Bookmarks" = "Non Segnalibro";
 "Add Bookmark" = "Aggiungi segnalibro";
@@ -44,6 +47,7 @@
 "Brightness" = "Luminosità";
 "Share..." = "Spartire…";
 "Preparing..." = "Preparando…";
+"Loading..." = "Loading…";
 
 // thumbnails
 "Bookmarked" = "Marcate";
@@ -92,19 +96,22 @@
 "Type..." = "Tipo…";
 "Font..." = "Tipografia…";
 "Size..." = "Taglia…";
-"Choose Font" = "Scegli la tipografia";
-"Choose Font Style" = "Scegli il stile della tipografia";
+"Font" = "Tipografia";
+"Regular" = "Regular";
 "Choose Color" = "Scegli il colore";
 "Rainbow" = "Arcobaleno";
 "Monochrome" = "Monocromatico";
 "Color..." = "Colore…";
+"Color" = "Colore";
 "Border..." = "Bordo…";
 "Fill Color..." = "Colore Di Riempimento…";
 "Opacity..." = "Opacità…";
+"Opacity" = "Opacità";
 "Custom..." = "Personalizzata…";
 "Thickness..." = "Spessore…";
+"Thickness" = "Spessore";
 "%@ pt" = "%@ pt";
-"Text..." = "Testo…";
+"Note..." = "Testo…";
 "Yellow" = "Giallo";
 "Green" = "Verde";
 "Red" = "Rosso";
@@ -149,8 +156,8 @@
 "Medium Quality" = "Qualità Media";
 "High Quality" = "Qualità Alta";
 "Clear All" = "Clear All";
-"Appearance" = "Appearance";
-"Appearance..." = "Appearance…";
+"Style" = "Style";
+"Style..." = "Style…";
 "Link" = "Link";
 "Ink" = "Ink";
 "FreeText" = "Free Text";
@@ -160,6 +167,9 @@
 "Center" = "Center";
 "Right" = "Right";
 "Alignment..." = "Alignment…";
+"Preview File" = "Preview File";
+"Copy" = "Copy";
+"Paste" = "Paste";
 
 // named actions
 "NextPage" = "Next Page";

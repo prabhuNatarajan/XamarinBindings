@@ -4,6 +4,13 @@ using MonoTouch.ObjCRuntime;
 
 namespace KS_PSPDFKitBindings
 {
+	public enum PSPDFThumbnailBarMode
+	{
+		PSPDFThumbnailBarModeNone,            // Don't show thumbnail bottom bar.
+		PSPDFThumbnailBarModeScrobbleBar,     // Show scrobble bar (like iBooks, PSPDFScrobbleBar)
+		PSPDFThumbnailBarModeScrollable,      // Show scrollable thumbnail bar (PSPDFThumbnailBar)
+	};
+
 	/// PSPDFOutlineBarButtonItem options
 	public enum PSPDFOutlineBarButtonItemOption : uint
 	{

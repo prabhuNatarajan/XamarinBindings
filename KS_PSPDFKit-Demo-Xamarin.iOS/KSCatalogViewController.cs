@@ -24,6 +24,8 @@ namespace PSPDFKitDemoXamarin.iOS
 
 		public KSCatalogViewController () : base (UITableViewStyle.Grouped, null)
 		{
+			PSPDFKitGlobal.LogLevel = PSPDFLogLevel.Verbose;
+
 			// Add some custom localization to ensure the bindings work.
 			PSPDFKitGlobal.Localize("en", new NameValueCollection
 			{
@@ -70,7 +72,7 @@ namespace PSPDFKitDemoXamarin.iOS
 
 						//var controller = new PSPDFViewController(doc);
 						var controller = new KSKioskViewController(doc);
-						controller.ViewDisappeared += (sender, args) => controller.RightBarButtonItems = new PSPDFBarButtonItem[0];
+						//controller.ViewDisappeared += (sender, args) => controller.RightBarButtonItems = new PSPDFBarButtonItem[0];
 
 						var tabBarController = new KSCombinedTabBarController(controller, doc);
 

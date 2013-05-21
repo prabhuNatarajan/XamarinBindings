@@ -46,11 +46,12 @@ namespace KS_PSPDFKitBindings
 	[BaseType (typeof (PSPDFBaseViewController),
 	           Delegates=new string [] {"WeakDelegate"},
 	Events=new Type [] { typeof (PSPDFViewControllerDelegate) })]
+	[DisableDefaultCtor]
 	interface PSPDFViewController
 	{
 		[Export ("initWithDocument:")]
-		IntPtr Constructor ([NullAllowed] PSPDFDocument document);
-		
+		IntPtr Constructor ([NullAllowed]PSPDFDocument document);
+
 		[Export ("page", ArgumentSemantic.Assign)]
 		uint Page { get; set; }
 		
@@ -173,12 +174,13 @@ namespace KS_PSPDFKitBindings
 		
 		[Export ("allowToolbarTitleChange", ArgumentSemantic.Assign)]
 		bool AllowToolbarTitleChange { get; set; }
-		
-		[Export ("scrobbleBarEnabled", ArgumentSemantic.Assign)]
-		bool ScrobbleBarEnabled { [Bind ("isScrobbleBarEnabled")] get; set; }
-		
-		[Export ("setScrobbleBarEnabled:animated:")]
-		void SetScrobbleBarEnabled (bool scrobbleBarEnabled, bool animated);
+
+		[Export ("thumbnailBarMode", ArgumentSemantic.Assign)]
+		PSPDFThumbnailBarMode ThumbnailBarMode
+		{
+			get;
+			set;
+		}
 		
 		[Export ("pageLabelEnabled", ArgumentSemantic.Assign)]
 		bool PageLabelEnabled { [Bind ("isPageLabelEnabled")] get; set; }
@@ -357,8 +359,8 @@ namespace KS_PSPDFKitBindings
 		[Export ("thumbnailMargin", ArgumentSemantic.Assign)]
 		UIEdgeInsets ThumbnailMargin { get; set; }
 		
-		[Export ("presentModalViewController:embeddedInNavigationController:withCloseButton:animated:")]
-		void PresentModalViewController (UIViewController controller, bool embedded, bool closeButton, bool animated);
+		[Export ("presentModalViewController:embeddedInNavigationController:withCloseButton:animated:options:")]
+		void PresentModalViewController (UIViewController controller, bool embedded, bool closeButton, bool animated, NSDictionary options);
 		
 		[Field ("PSPDFPresentOptionRect", "__Internal")]
 		NSString PSPDFPresentOptionRect { get; }
@@ -472,8 +474,6 @@ namespace KS_PSPDFKitBindings
 	[Model]
 	interface PSPDFStatusBarStyleHint 
 	{
-		[Export ("preferredStatusBarStyle")]
-		UIStatusBarStyle PreferredStatusBarStyle ();
 	}
 	
 	//////////////////////////////////////////
@@ -917,11 +917,11 @@ namespace KS_PSPDFKitBindings
 		[Export("fillPageInfoCache")]
 		void FillPageInfoCache ();
 		
-		[Export("cacheDirectory", ArgumentSemantic.Copy)]
-		string CacheDirectory { get; set; }
+		[Export("dataDirectory", ArgumentSemantic.Copy)]
+		string DataDirectory { get; set; }
 		
-		[Export("ensureCacheDirectoryExistsWithError:")]
-		bool EnsureCacheDirectoryExistsWithError (out NSError error);
+		[Export("ensureDataDirectoryExistsWithError:")]
+		bool EnsureDataDirectoryExistsWithError (out NSError error);
 		
 		[Export("cacheStrategy", ArgumentSemantic.Assign)]
 		PSPDFDiskCacheStrategy DiskCacheStrategy { get; set; }
@@ -1345,7 +1345,7 @@ namespace KS_PSPDFKitBindings
 		[Export("data")][NullAllowed]
 		NSData Data { get; }
 		
-		[Export("dataProvider", ArgumentSemantic.Assign)] [Internal]
+		[Export("dataProvider")] [Internal]
 		IntPtr /*CGDataProviderRef*/ DataProvider_ { get; }
 		
 		[Export("dataRepresentationWithError:")]
@@ -1390,13 +1390,13 @@ namespace KS_PSPDFKitBindings
 		[Export("pageInfoForPage:")]
 		PSPDFPageInfo PageInfoForPage (uint page);
 		
-		[Export("pageCount", ArgumentSemantic.Assign)]
+		[Export("pageCount")]
 		uint PageCount { get; }
 		
-		[Export("pageCountUnfiltered", ArgumentSemantic.Assign)]
+		[Export("pageCountUnfiltered")]
 		uint PageCountUnfiltered { get; }
 		
-		[Export("firstPageIndex", ArgumentSemantic.Assign)]
+		[Export("firstPageIndex")]
 		uint FirstPageIndex { get; }
 		
 		[Export("pageRange", ArgumentSemantic.Copy)]
@@ -1426,7 +1426,7 @@ namespace KS_PSPDFKitBindings
 		[Export("encryptionFilter", ArgumentSemantic.Copy)]
 		string EncryptionFilter { get; }
 		
-		[Export("isLocked", ArgumentSemantic.Assign)]
+		[Export("isLocked")]
 		bool IsLocked { get; }
 		
 		[Export("canEmbedAnnotations", ArgumentSemantic.Assign)]
@@ -1441,7 +1441,7 @@ namespace KS_PSPDFKitBindings
 		[Export("metadataLoaded", ArgumentSemantic.Assign)]
 		bool MetadataLoaded { [Bind("isMetadataLoaded")] get; }
 		
-		[Export("title", ArgumentSemantic.Copy)]
+		[Export("title")]
 		string Title { get; }
 		
 		[Export("textParserForPage:")]
@@ -1467,7 +1467,7 @@ namespace KS_PSPDFKitBindings
 		
 		// EXTENSIONS
 		
-		[Export("hasOpenDocumentRef", ArgumentSemantic.Assign)]
+		[Export("hasOpenDocumentRef")]
 		bool HasOpenDocumentRef { get; }
 		
 		[Export("pageInfoForPageNoFetching:")]
@@ -2094,10 +2094,10 @@ namespace KS_PSPDFKitBindings
 		IntPtr Constructor (PSPDFAnnotationType annotationType);
 		
 		[Export ("initWithAnnotationDictionary:inAnnotsArray:")][Internal]
-		IntPtr Constructor (IntPtr /*CGPDFDictionary*/ annotDict, IntPtr /*CGPDFArray*/ annotsArray);
+		IntPtr Constructor (IntPtr /*CGPDFDictionary*/ annotDict, IntPtr /*CGPDFArray*/ annotsArray, /*CGPDFDocumentRef*/ IntPtr documentRef);
 		
 		[Export ("initWithAnnotationDictionary:inAnnotsArray:type:")][Internal]
-		IntPtr Constructor (IntPtr /*CGPDFDictionary*/ annotDict, IntPtr /*CGPDFArray*/ annotsArray, PSPDFAnnotationType annotationType);
+		IntPtr Constructor (IntPtr /*CGPDFDictionary*/ annotDict, IntPtr /*CGPDFArray*/ annotsArray, /*CGPDFDocumentRef*/ IntPtr documentRef, PSPDFAnnotationType annotationType);
 		
 		[Export ("hitTest:")]
 		bool HitTest (PointF point);
@@ -2216,8 +2216,8 @@ namespace KS_PSPDFKitBindings
 		[Export ("document", ArgumentSemantic.Assign)]
 		PSPDFDocument Document { get; }
 		
-		[Export ("pageRotation", ArgumentSemantic.Assign)]
-		int PageRotation { get; set; }
+		[Export ("pageRotation:")]
+		int PageRotation();
 		
 		[Export ("hasAppearanceStream", ArgumentSemantic.Assign)]
 		bool HasAppearanceStream { get; }
@@ -2339,9 +2339,6 @@ namespace KS_PSPDFKitBindings
 		
 		[Export ("trimmedSelectedText", ArgumentSemantic.Copy)]
 		string TrimmedSelectedText { get; }
-		
-		[Export ("pageView")]
-		PSPDFPageView PageView { get; set; }
 		
 		[Export ("firstLineRect", ArgumentSemantic.Assign)]
 		RectangleF FirstLineRect { get; }
@@ -3079,9 +3076,6 @@ namespace KS_PSPDFKitBindings
 		
 		// PSPDFSubclassing
 		
-		[Export("setupWithMode:")]
-		void SetupWithMode(PSPDFAnnotationToolbarMode mode);
-		
 		[Export ("noteButtonPressed:")]
 		void NoteButtonPressed ([NullAllowed]NSObject sender);
 		
@@ -3399,8 +3393,8 @@ namespace KS_PSPDFKitBindings
 	[BaseType (typeof (UITableViewController))]
 	interface PSPDFSearchViewController : UISearchDisplayDelegateProtocol, UISearchBarDelegateProtocol, PSPDFCacheDelegate, PSPDFTextSearchDelegate, PSPDFStatusBarStyleHint
 	{
-		[Export ("initWithDocument:pdfController:")]
-		IntPtr Constructor (PSPDFDocument document, PSPDFViewController pdfController);
+		[Export ("initWithDocument:delegate:")]
+		IntPtr Constructor (PSPDFDocument document, IntPtr /*PSPDFSearchViewControllerDelegate*/ searchDelegate);
 		
 		[Export ("searchText", ArgumentSemantic.Copy)]
 		string SearchText { get; set; }
@@ -3425,13 +3419,7 @@ namespace KS_PSPDFKitBindings
 		
 		[Export ("textSearch")]
 		PSPDFTextSearch TextSearch { get; }
-		
-		[Export ("pdfController")]
-		PSPDFViewController PdfController { get; }
-		
-		[Export ("updateResultCell:searchResult:")]
-		void UpdateResultCell (UITableViewCell cell, PSPDFSearchResult searchResult);
-		
+
 		// Extensions
 		
 		[Bind ("filterContentForSearchText:scope:")]
@@ -3439,9 +3427,6 @@ namespace KS_PSPDFKitBindings
 		
 		[Bind ("setSearchStatus:updateTable:")]
 		void SetSearchStatus (PSPDFSearchStatus searchStatus, bool updateTable);
-		
-		[Bind ("searchResultsForIndexPath:")]
-		PSPDFSearchResult SearchResultsForIndexPath (NSIndexPath indexPath);
 	}
 	
 	//////////////////////////////////////////
@@ -4156,32 +4141,6 @@ namespace KS_PSPDFKitBindings
 	[BaseType (typeof (UIPopoverBackgroundView))]
 	interface PSPDFPopoverBackgroundView
 	{
-		[Export ("arrowOffset", ArgumentSemantic.Assign)]
-		float ArrowOffset { get; set; }
-		
-		[Export ("arrowDirection", ArgumentSemantic.Assign)]
-		UIPopoverArrowDirection ArrowDirection { get; set; }
-		
-		[Export ("setContentInset:")] [Static]
-		void SetContentInset (float contentInset);
-		
-		[Export ("setTintColor:")] [Static]
-		void SetTintColor ([NullAllowed] UIColor tintColor);
-		
-		[Export ("setShadowEnabled:")] [Static]
-		void SetShadowEnabled (bool shadowEnabled);
-		
-		[Export ("setArrowBase:")] [Static]
-		void SetArrowBase (float arrowBase);
-		
-		[Export ("setArrowHeight:")] [Static]
-		void SetArrowHeight (float arrowHeight);
-		
-		[Export ("setBackgroundImage:top:right:bottom:left:")] [Static]
-		void SetBackgroundImage (UIImage background, UIImage top, UIImage right, UIImage bottom, UIImage left);
-		
-		[Export ("rebuildArrowImages")] [Static]
-		void RebuildArrowImages ();
 	}
 	
 	//////////////////////////////////////////
@@ -4906,7 +4865,7 @@ namespace KS_PSPDFKitBindings
 	interface PSPDFNoteAnnotationView 
 	{
 		[Export("initWithAnnotation:")]
-		IntPtr Constructor (PSPDFNoteAnnotation noteAnnotation);
+		IntPtr Constructor (PSPDFAnnotation noteAnnotation);
 		
 		[Export("annotationImageView")]
 		UIImageView AnnotationImageView { get; set; }
@@ -5389,7 +5348,7 @@ namespace KS_PSPDFKitBindings
 	interface PSPDFFreeTextAnnotationView 
 	{
 		[Export ("initWithAnnotation:")]
-		IntPtr Constructor (PSPDFFreeTextAnnotation freeTextAnnotation);
+		IntPtr Constructor (PSPDFAnnotation freeTextAnnotation);
 		
 		[Export ("beginEditing")]
 		void BeginEditing ();
@@ -5398,7 +5357,7 @@ namespace KS_PSPDFKitBindings
 		void EndEditing ();
 		
 		[Export ("textView")]
-		UITextView TextView { get; set; }
+		UITextView TextView { get; }
 		
 		[Export ("resizableView")]
 		PSPDFResizableView ResizableView { get; set; }
@@ -5496,12 +5455,6 @@ namespace KS_PSPDFKitBindings
 		
 		[Export ("mergeValuesForKeysFromModel:")]
 		void MergeValuesForKeysFromModel (PSPDFModel model);
-		
-		[Export ("hash")]
-		uint Hash { get; }
-		
-		[Export ("isEqual:")]
-		bool IsEqual (PSPDFModel model);
 	}
 	
 	//////////////////////////////////////////////////////////

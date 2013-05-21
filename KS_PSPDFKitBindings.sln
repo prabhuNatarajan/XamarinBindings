@@ -56,6 +56,6 @@ Global
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = None
 		$1.ResourceNamePolicy = FileFormatDefault
-		version = 2.12.11
+		version = 2.14.2
 	EndGlobalSection
 EndGlobal

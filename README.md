@@ -1,6 +1,6 @@
 ## PSPDFKit - The definitive framework for displaying and annotating PDFs in your iOS apps.
 
-This is a sample project for the Xamarin.iOS bindings of PSPDFKit (v2.13.0).
+This is a sample project for the Xamarin.iOS bindings of PSPDFKit (v2.14.2).
 
 ### You can purchase a license and the full source code at http://pspdfkit.com.
 [![PSPDFKit](http://pspdfkit.com/images/header-small.jpg)](http://pspdfkit.com)

@@ -12,6 +12,11 @@ namespace PSPDFKitDemoXamarin.iOS
 		{
 		}
 
+ 		public KSNoDocumentPDFViewController(IntPtr handle) : base()
+		{
+			Console.WriteLine ("KSNoDocumentPDFViewController(IntPtr)");
+		}
+
 		public override void ViewDidAppear (bool animated)
 		{
 			base.ViewDidAppear (animated);
