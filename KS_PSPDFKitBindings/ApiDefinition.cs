@@ -111,9 +111,14 @@ namespace KS_PSPDFKitBindings
 		
 		[Export ("viewLockEnabled", ArgumentSemantic.Assign)]
 		bool ViewLockEnabled { [Bind ("isViewLockEnabled")] get; set; }
-		
+
+
+		/*
+		 * This gets called from dealloc() in the unmanaged world and causes the managed PSPDFViewController instance to be resurrected.
+		 * See: http://forums.xamarin.com/discussion/4337/how-to-find-out-why-some-native-code-is-constantly-calling-the-intptr-constructor#latest
 		[Export ("rotationLockEnabled", ArgumentSemantic.Assign)]
 		bool RotationLockEnabled { [Bind ("isRotationLockEnabled")] get; set; }
+		*/
 		
 		[Export ("scrollOnTapPageEndEnabled", ArgumentSemantic.Assign)]
 		bool ScrollOnTapPageEndEnabled { [Bind ("isScrollOnTapPageEndEnabled")] get; set; }
