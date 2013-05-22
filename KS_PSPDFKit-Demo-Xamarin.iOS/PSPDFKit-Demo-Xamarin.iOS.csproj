@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0F68187C-3412-47E3-89ED-563FF77A93BE}</ProjectGuid>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>PSPDFKitDemoXamarin.iOS</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>PSPDFKitDemoXamariniOS</AssemblyName>
+    <ReleaseVersion>2.14.2</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+    <MtouchDebug>True</MtouchDebug>
+    <MtouchI18n />
+    <MtouchArch>ARMv7</MtouchArch>
+    <OptimizePNGs>false</OptimizePNGs>
+    <MtouchProfiling>true</MtouchProfiling>
+    <MtouchUseSGen>true</MtouchUseSGen>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+    <MtouchI18n />
+    <MtouchArch>ARMv7</MtouchArch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <MtouchDebug>True</MtouchDebug>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchI18n />
+    <MtouchArch>ARMv7</MtouchArch>
+    <OptimizePNGs>false</OptimizePNGs>
+    <IpaPackageName />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchI18n />
+    <MtouchArch>ARMv7</MtouchArch>
+    <MtouchExtraArgs>--nosymbolstrip</MtouchExtraArgs>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <BuildIpa>True</BuildIpa>
+    <ConsolePause>False</ConsolePause>
+    <CodesignProvision>Automatic:AdHoc</CodesignProvision>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhone\AppStore</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignProvision>Automatic:AppStore</CodesignProvision>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+    <Reference Include="MonoTouch.Dialog-1" />
+    <Reference Include="KS_PSPDFKitBindings">
+      <HintPath>..\KS_PSPDFKitBindings\bin\KS_PSPDFKitBindings.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+    <None Include="LICENSE.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="KSCatalogViewController.cs" />
+    <Compile Include="Subclassing\KSExampleAnnotationViewController.cs" />
+    <Compile Include="Subclassing\KSNoDocumentPDFViewController.cs" />
+    <Compile Include="Subclassing\KSBookmarkParser.cs" />
+    <Compile Include="Subclassing\KSCustomAnnotationProvider.cs" />
+    <Compile Include="Kiosk\KSKioskViewController.cs" />
+    <Compile Include="Subclassing\KSFileAnnotationProvider.cs" />
+    <Compile Include="Subclassing\AnnotationTypes\KSInkAnnotation.cs" />
+    <Compile Include="Subclassing\AnnotationTypes\KSNoteAnnotation.cs" />
+    <Compile Include="Subclassing\AnnotationTypes\IKSAnnotation.cs" />
+    <Compile Include="Subclassing\AnnotationTypes\KSNoteAnnotationController.cs" />
+    <Compile Include="Subclassing\KSPDFDocument.cs" />
+    <Compile Include="Subclassing\KSAnnotationToolbar.cs" />
+    <Compile Include="KSBarButtonItem.cs" />
+    <Compile Include="KSStapleMenu\KSMenuItemHostView.cs" />
+    <Compile Include="KSStapleMenu\KSStapleMenu.cs" />
+    <Compile Include="KSStapleMenu\KSStapleMenuItem.cs" />
+    <Compile Include="Subclassing\KSVerticalAnnotationToolbarDelegate.cs" />
+    <Compile Include="Subclassing\AnnotationTypes\KSHighlightAnnotation.cs" />
+    <Compile Include="Customizing\CombinedTabBarController\KSCombinedTabBarController.cs" />
+    <Compile Include="Customizing\CombinedTabBarController\KSOutlineViewControllerDelegate.cs" />
+    <Compile Include="Customizing\CombinedTabBarController\KSAnnotationElement.cs" />
+    <Compile Include="Customizing\CombinedTabBarController\KSKSAnnotationsListController.cs" />
+    <Compile Include="Customizing\CatchTappingLinks\KSCatchTappingLinkDelegate.cs" />
+    <Compile Include="KSExtensions.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Content Include="Samples\A.pdf" />
+    <Content Include="Samples\aes-encrypted.pdf.aes" />
+    <Content Include="Samples\amazon-dynamo-sosp2007.pdf" />
+    <Content Include="Samples\Annotation Test.pdf" />
+    <Content Include="Samples\B.pdf" />
+    <Content Include="Samples\C.pdf" />
+    <Content Include="Samples\D.pdf" />
+    <Content Include="Samples\DevelopersGuide.pdf" />
+    <Content Include="Samples\hackermonthly12.pdf" />
+    <Content Include="Samples\multimedia.pdf" />
+    <Content Include="Samples\one.pdf" />
+    <Content Include="Samples\protected.pdf" />
+    <Content Include="Samples\PSPDFKit.pdf" />
+    <Content Include="Samples\two.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="ResourceData\big_buck_bunny.mp4" />
+    <BundleResource Include="ResourceData\closebox.png" />
+    <BundleResource Include="ResourceData\closebox%402x.png" />
+    <BundleResource Include="ResourceData\Default-568h%402x.png" />
+    <BundleResource Include="ResourceData\exampleimage.jpg" />
+    <BundleResource Include="ResourceData\Icon.png" />
+    <BundleResource Include="ResourceData\Icon%402x.png" />
+    <BundleResource Include="ResourceData\Icon-72.png" />
+    <BundleResource Include="ResourceData\Icon-72%402x.png" />
+    <BundleResource Include="ResourceData\Icon-Small.png" />
+    <BundleResource Include="ResourceData\Icon-Small%402x.png" />
+    <BundleResource Include="ResourceData\Icon-Small-50.png" />
+    <BundleResource Include="ResourceData\Icon-Small-50%402x.png" />
+    <BundleResource Include="ResourceData\mas_audio_b41570.gif" />
+    <BundleResource Include="ResourceData\NightOwl.m4a" />
+    <BundleResource Include="ResourceData\RotationLocked.png" />
+    <BundleResource Include="ResourceData\RotationLocked%402x.png" />
+    <BundleResource Include="ResourceData\RotationUnlocked.png" />
+    <BundleResource Include="ResourceData\RotationUnlocked%402x.png" />
+    <BundleResource Include="ResourceData\Book\book-left.jpg" />
+    <BundleResource Include="ResourceData\Book\book-right.jpg" />
+    <BundleResource Include="ResourceData\EmbeddedExample\balloon.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\balloon%402x.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\eye.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\eye%402x.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\eye-deactivate.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\eye-deactivate%402x.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\lock.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\lock%402x.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\medical.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\medical%402x.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\movie.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\movie%402x.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\shoebox.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\shoebox%402x.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\star.png" />
+    <BundleResource Include="ResourceData\Kiosk\de.lproj\Localizable.strings" />
+    <BundleResource Include="ResourceData\Kiosk\en.lproj\Localizable.strings" />
+    <BundleResource Include="ResourceData\Kiosk\fr.lproj\Localizable.strings" />
+    <BundleResource Include="ResourceData\Kiosk\badge.png" />
+    <BundleResource Include="ResourceData\Kiosk\badge%402x.png" />
+    <BundleResource Include="ResourceData\Kiosk\delete.png" />
+    <BundleResource Include="ResourceData\Kiosk\delete%402x.png" />
+    <BundleResource Include="ResourceData\Kiosk\Icon.png" />
+    <BundleResource Include="ResourceData\Kiosk\Icon-Newsstand.png" />
+    <BundleResource Include="ResourceData\Kiosk\linen_texture_dark.png" />
+    <BundleResource Include="ResourceData\Kiosk\linen_texture_dark%402x.png" />
+    <BundleResource Include="ResourceData\Kiosk\settings.png" />
+    <BundleResource Include="ResourceData\Kiosk\settings%402x.png" />
+    <BundleResource Include="ResourceData\Kiosk\settings_landscape.png" />
+    <BundleResource Include="ResourceData\Kiosk\settings_landscape%402x.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-comment.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-freetext.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-highlight-0.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-highlight-1.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-highlight-2.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-highlight-3.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-ink-0.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-ink-1.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-ink-2.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-ink-3.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-note.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Subclassing\" />
+    <Folder Include="Kiosk\" />
+    <Folder Include="Subclassing\AnnotationTypes\" />
+    <Folder Include="Customizing\" />
+    <Folder Include="ResourceData\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Customizing\CombinedTabBarController\" />
+    <Folder Include="Customizing\CatchTappingLinks\" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="ResourceData\EmbeddedExample\EmbeddedNib.xib" />
+  </ItemGroup>
+</Project>

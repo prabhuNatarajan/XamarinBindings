@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KS_PSPDFKitBindings", "KS_PSPDFKitBindings\KS_PSPDFKitBindings.csproj", "{3A4F7921-1637-4246-9499-04C1DAECA5E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSPDFKit-Demo-Xamarin.iOS", "KS_PSPDFKit-Demo-Xamarin.iOS\PSPDFKit-Demo-Xamarin.iOS.csproj", "{0F68187C-3412-47E3-89ED-563FF77A93BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+		Release|iPhone = Release|iPhone
+		Ad-Hoc|iPhone = Ad-Hoc|iPhone
+		AppStore|iPhone = AppStore|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.Debug|iPhone.Build.0 = Debug|iPhone
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.Release|Any CPU.ActiveCfg = Release|iPhoneSimulator
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.Release|Any CPU.Build.0 = Release|iPhoneSimulator
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.Release|iPhone.ActiveCfg = Release|iPhone
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.Release|iPhone.Build.0 = Release|iPhone
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{0F68187C-3412-47E3-89ED-563FF77A93BE}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.AppStore|iPhone.Build.0 = Debug|Any CPU
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.Release|iPhone.Build.0 = Release|Any CPU
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{3A4F7921-1637-4246-9499-04C1DAECA5E4}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = KS_PSPDFKit-Demo-Xamarin.iOS\PSPDFKit-Demo-Xamarin.iOS.csproj
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = None
+		$1.ResourceNamePolicy = FileFormatDefault
+		version = 2.14.2
+	EndGlobalSection
+EndGlobal

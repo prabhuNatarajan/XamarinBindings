@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3A4F7921-1637-4246-9499-04C1DAECA5E4}</ProjectGuid>
+    <ProjectTypeGuids>{F5B4F3BC-B597-4E2B-B552-EF5D8A32436F};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>KS_PSPDFKitBindings</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>KS_PSPDFKitBindings</AssemblyName>
+    <ReleaseVersion>2.14.2</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="monotouch" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Xamarin.ObjcBinding.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="libarclite.linkwith.cs" />
+    <Compile Include="TEMPLATE.PSPDFKit.linkwith.cs" />
+    <Compile Include="libarclite.linkwith.cs">
+      <DependentUpon>libarclite.a</DependentUpon>
+    </Compile>
+    <Compile Include="PSPDFKit.linkwith.cs">
+      <DependentUpon>PSPDFKit.a</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ObjcBindingNativeLibrary Include="libarclite.a" />
+    <ObjcBindingNativeLibrary Include="PSPDFKit.a" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Headers\2.12.11\NSDate+PSPDFKitAdditions.h" />
+    <None Include="Headers\2.12.11\NSIndexPath+PSTCollectionViewAdditions.h" />
+    <None Include="Headers\2.12.11\NSValueTransformer+PSPDFPredefinedTransformerAdditions.h" />
+    <None Include="Headers\2.12.11\PSPDFAction.h" />
+    <None Include="Headers\2.12.11\PSPDFActionGoTo.h" />
+    <None Include="Headers\2.12.11\PSPDFActionJavaScript.h" />
+    <None Include="Headers\2.12.11\PSPDFActionNamed.h" />
+    <None Include="Headers\2.12.11\PSPDFActionRemoteGoTo.h" />
+    <None Include="Headers\2.12.11\PSPDFActionSheet.h" />
+    <None Include="Headers\2.12.11\PSPDFActionURL.h" />
+    <None Include="Headers\2.12.11\PSPDFActivityBarButtonItem.h" />
+    <None Include="Headers\2.12.11\PSPDFAESCryptoDataProvider.h" />
+    <None Include="Headers\2.12.11\PSPDFAlertView.h" />
+    <None Include="Headers\2.12.11\PSPDFAnnotation.h" />
+    <None Include="Headers\2.12.11\PSPDFAnnotationBarButtonItem.h" />
+    <None Include="Headers\2.12.11\PSPDFAnnotationCell.h" />
+    <None Include="Headers\2.12.11\PSPDFAnnotationParser.h" />
+    <None Include="Headers\2.12.11\PSPDFAnnotationProvider.h" />
+    <None Include="Headers\2.12.11\PSPDFAnnotationStyleViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFAnnotationTableViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFAnnotationToolbar.h" />
+    <None Include="Headers\2.12.11\PSPDFAnnotationViewCache.h" />
+    <None Include="Headers\2.12.11\PSPDFAnnotationViewProtocol.h" />
+    <None Include="Headers\2.12.11\PSPDFAttributedLabel.h" />
+    <None Include="Headers\2.12.11\PSPDFBarButtonItem.h" />
+    <None Include="Headers\2.12.11\PSPDFBaseViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFBookmark.h" />
+    <None Include="Headers\2.12.11\PSPDFBookmarkBarButtonItem.h" />
+    <None Include="Headers\2.12.11\PSPDFBookmarkParser.h" />
+    <None Include="Headers\2.12.11\PSPDFBookmarkTableViewCell.h" />
+    <None Include="Headers\2.12.11\PSPDFBookmarkViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFBrightnessBarButtonItem.h" />
+    <None Include="Headers\2.12.11\PSPDFBrightnessSlider.h" />
+    <None Include="Headers\2.12.11\PSPDFBrightnessViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFCache.h" />
+    <None Include="Headers\2.12.11\PSPDFCacheInfo.h" />
+    <None Include="Headers\2.12.11\PSPDFCaretAnnotation.h" />
+    <None Include="Headers\2.12.11\PSPDFCloseBarButtonItem.h" />
+    <None Include="Headers\2.12.11\PSPDFColorButton.h" />
+    <None Include="Headers\2.12.11\PSPDFColorPickerView.h" />
+    <None Include="Headers\2.12.11\PSPDFColorSelectionViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFColorView.h" />
+    <None Include="Headers\2.12.11\PSPDFContentScrollView.h" />
+    <None Include="Headers\2.12.11\PSPDFContinuousScrollViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFConverter.h" />
+    <None Include="Headers\2.12.11\PSPDFDiskCache.h" />
+    <None Include="Headers\2.12.11\PSPDFDocument.h" />
+    <None Include="Headers\2.12.11\PSPDFDocumentDelegate.h" />
+    <None Include="Headers\2.12.11\PSPDFDocumentLabelView.h" />
+    <None Include="Headers\2.12.11\PSPDFDocumentParser.h" />
+    <None Include="Headers\2.12.11\PSPDFDocumentProvider.h" />
+    <None Include="Headers\2.12.11\PSPDFDrawView.h" />
+    <None Include="Headers\2.12.11\PSPDFEmailBarButtonItem.h" />
+    <None Include="Headers\2.12.11\PSPDFEmptyTableViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFExtendedPopoverController.h" />
+    <None Include="Headers\2.12.11\PSPDFFileAnnotationProvider.h" />
+    <None Include="Headers\2.12.11\PSPDFFontInfo.h" />
+    <None Include="Headers\2.12.11\PSPDFFontSelectorViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFFontStyleViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFFreeTextAnnotation.h" />
+    <None Include="Headers\2.12.11\PSPDFFreeTextAnnotationView.h" />
+    <None Include="Headers\2.12.11\PSPDFGenericAnnotationView.h" />
+    <None Include="Headers\2.12.11\PSPDFGlobalLock.h" />
+    <None Include="Headers\2.12.11\PSPDFGlyph.h" />
+    <None Include="Headers\2.12.11\PSPDFGradientView.h" />
+    <None Include="Headers\2.12.11\PSPDFGraphicsState.h" />
+    <None Include="Headers\2.12.11\PSPDFHighlightAnnotation.h" />
+    <None Include="Headers\2.12.11\PSPDFHighlightAnnotationView.h" />
+    <None Include="Headers\2.12.11\PSPDFHostingAnnotationView.h" />
+    <None Include="Headers\2.12.11\PSPDFHSVColorPickerController.h" />
+    <None Include="Headers\2.12.11\PSPDFHUDView.h" />
+    <None Include="Headers\2.12.11\PSPDFIconGenerator.h" />
+    <None Include="Headers\2.12.11\PSPDFImageAnnotationView.h" />
+    <None Include="Headers\2.12.11\PSPDFImageInfo.h" />
+    <None Include="Headers\2.12.11\PSPDFInkAnnotation.h" />
+    <None Include="Headers\2.12.11\PSPDFKeyboardAvoidingScrollView.h" />
+    <None Include="Headers\2.12.11\PSPDFKit.h" />
+    <None Include="Headers\2.12.11\PSPDFKitGlobal.h" />
+    <None Include="Headers\2.12.11\PSPDFLabelParser.h" />
+    <None Include="Headers\2.12.11\PSPDFLabelView.h" />
+    <None Include="Headers\2.12.11\PSPDFLineAnnotation.h" />
+    <None Include="Headers\2.12.11\PSPDFLinkAnnotation.h" />
+    <None Include="Headers\2.12.11\PSPDFLinkAnnotationBaseView.h" />
+    <None Include="Headers\2.12.11\PSPDFLinkAnnotationView.h" />
+    <None Include="Headers\2.12.11\PSPDFLongPressGestureRecognizer.h" />
+    <None Include="Headers\2.12.11\PSPDFLoupeView.h" />
+    <None Include="Headers\2.12.11\PSPDFMemoryCache.h" />
+    <None Include="Headers\2.12.11\PSPDFMenuItem.h" />
+    <None Include="Headers\2.12.11\PSPDFModel.h" />
+    <None Include="Headers\2.12.11\PSPDFMoreBarButtonItem.h" />
+    <None Include="Headers\2.12.11\PSPDFMultiDocumentThumbnailViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFMultiDocumentViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFNavigationAppearanceSnapshot.h" />
+    <None Include="Headers\2.12.11\PSPDFNavigationController.h" />
+    <None Include="Headers\2.12.11\PSPDFNoteAnnotation.h" />
+    <None Include="Headers\2.12.11\PSPDFNoteAnnotationController.h" />
+    <None Include="Headers\2.12.11\PSPDFNoteAnnotationView.h" />
+    <None Include="Headers\2.12.11\PSPDFOpenInBarButtonItem.h" />
+    <None Include="Headers\2.12.11\PSPDFOrderedDictionary.h" />
+    <None Include="Headers\2.12.11\PSPDFOutlineBarButtonItem.h" />
+    <None Include="Headers\2.12.11\PSPDFOutlineCell.h" />
+    <None Include="Headers\2.12.11\PSPDFOutlineElement.h" />
+    <None Include="Headers\2.12.11\PSPDFOutlineParser.h" />
+    <None Include="Headers\2.12.11\PSPDFOutlineViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFPageInfo.h" />
+    <None Include="Headers\2.12.11\PSPDFPageLabelView.h" />
+    <None Include="Headers\2.12.11\PSPDFPageRenderer.h" />
+    <None Include="Headers\2.12.11\PSPDFPageScrollViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFPageView.h" />
+    <None Include="Headers\2.12.11\PSPDFPageViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFPasswordView.h" />
+    <None Include="Headers\2.12.11\PSPDFPopoverBackgroundView.h" />
+    <None Include="Headers\2.12.11\PSPDFPopoverController.h" />
+    <None Include="Headers\2.12.11\PSPDFPrintBarButtonItem.h" />
+    <None Include="Headers\2.12.11\PSPDFProcessor.h" />
+    <None Include="Headers\2.12.11\PSPDFProgressHUD.h" />
+    <None Include="Headers\2.12.11\PSPDFRenderQueue.h" />
+    <None Include="Headers\2.12.11\PSPDFResizableView.h" />
+    <None Include="Headers\2.12.11\PSPDFRichMediaAnnotation.h" />
+    <None Include="Headers\2.12.11\PSPDFRoundedLabel.h" />
+    <None Include="Headers\2.12.11\PSPDFScreenAnnotation.h" />
+    <None Include="Headers\2.12.11\PSPDFScrobbleBar.h" />
+    <None Include="Headers\2.12.11\PSPDFScrollView.h" />
+    <None Include="Headers\2.12.11\PSPDFSearchBarButtonItem.h" />
+    <None Include="Headers\2.12.11\PSPDFSearchHighlightView.h" />
+    <None Include="Headers\2.12.11\PSPDFSearchOperation.h" />
+    <None Include="Headers\2.12.11\PSPDFSearchResult.h" />
+    <None Include="Headers\2.12.11\PSPDFSearchResultCell.h" />
+    <None Include="Headers\2.12.11\PSPDFSearchStatusCell.h" />
+    <None Include="Headers\2.12.11\PSPDFSearchViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFSegmentedControl.h" />
+    <None Include="Headers\2.12.11\PSPDFSelectionView.h" />
+    <None Include="Headers\2.12.11\PSPDFShapeAnnotation.h" />
+    <None Include="Headers\2.12.11\PSPDFSignatureViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFSimplePageViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFSinglePageViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFStampAnnotation.h" />
+    <None Include="Headers\2.12.11\PSPDFStampViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFStaticTableViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFStream.h" />
+    <None Include="Headers\2.12.11\PSPDFStyleable.h" />
+    <None Include="Headers\2.12.11\PSPDFTabBarButton.h" />
+    <None Include="Headers\2.12.11\PSPDFTabBarView.h" />
+    <None Include="Headers\2.12.11\PSPDFTabbedViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFTextBlock.h" />
+    <None Include="Headers\2.12.11\PSPDFTextLine.h" />
+    <None Include="Headers\2.12.11\PSPDFTextParser.h" />
+    <None Include="Headers\2.12.11\PSPDFTextSearch.h" />
+    <None Include="Headers\2.12.11\PSPDFTextSelectionView.h" />
+    <None Include="Headers\2.12.11\PSPDFTextStampViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFThumbnailGridViewCell.h" />
+    <None Include="Headers\2.12.11\PSPDFThumbnailViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFTransitionHelper.h" />
+    <None Include="Headers\2.12.11\PSPDFTransitionProtocol.h" />
+    <None Include="Headers\2.12.11\PSPDFTransparentToolbar.h" />
+    <None Include="Headers\2.12.11\PSPDFValueTransformer.h" />
+    <None Include="Headers\2.12.11\PSPDFVideoAnnotationView.h" />
+    <None Include="Headers\2.12.11\PSPDFViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFViewController+Delegates.h" />
+    <None Include="Headers\2.12.11\PSPDFViewControllerDelegate.h" />
+    <None Include="Headers\2.12.11\PSPDFViewModeBarButtonItem.h" />
+    <None Include="Headers\2.12.11\PSPDFViewState.h" />
+    <None Include="Headers\2.12.11\PSPDFWebAnnotationView.h" />
+    <None Include="Headers\2.12.11\PSPDFWebViewController.h" />
+    <None Include="Headers\2.12.11\PSPDFWord.h" />
+    <None Include="Headers\2.12.11\PSPDFYouTubeAnnotationView.h" />
+    <None Include="Headers\2.12.11\PSTCollectionView.h" />
+    <None Include="Headers\2.12.11\PSTCollectionViewCell.h" />
+    <None Include="Headers\2.12.11\PSTCollectionViewCommon.h" />
+    <None Include="Headers\2.12.11\PSTCollectionViewController.h" />
+    <None Include="Headers\2.12.11\PSTCollectionViewFlowLayout.h" />
+    <None Include="Headers\2.12.11\PSTCollectionViewLayout.h" />
+    <None Include="Headers\2.12.11\PSTCollectionViewUpdateItem.h" />
+    <None Include="Headers\2.12.11\UIColor+PSPDFKitAdditions.h" />
+    <None Include="Headers\2.12.11\UIImage+PSPDFKitAdditions.h" />
+    <None Include="Headers\.DS_Store" />
+    <None Include="Headers\2.14.2\NSDate+PSPDFKitAdditions.h" />
+    <None Include="Headers\2.14.2\NSIndexPath+PSTCollectionViewAdditions.h" />
+    <None Include="Headers\2.14.2\NSValueTransformer+PSPDFPredefinedTransformerAdditions.h" />
+    <None Include="Headers\2.14.2\PSPDFAction.h" />
+    <None Include="Headers\2.14.2\PSPDFActionGoTo.h" />
+    <None Include="Headers\2.14.2\PSPDFActionJavaScript.h" />
+    <None Include="Headers\2.14.2\PSPDFActionNamed.h" />
+    <None Include="Headers\2.14.2\PSPDFActionRemoteGoTo.h" />
+    <None Include="Headers\2.14.2\PSPDFActionRendition.h" />
+    <None Include="Headers\2.14.2\PSPDFActionRichMediaExecute.h" />
+    <None Include="Headers\2.14.2\PSPDFActionSheet.h" />
+    <None Include="Headers\2.14.2\PSPDFActionURL.h" />
+    <None Include="Headers\2.14.2\PSPDFActivityBarButtonItem.h" />
+    <None Include="Headers\2.14.2\PSPDFAESCryptoDataProvider.h" />
+    <None Include="Headers\2.14.2\PSPDFAlertView.h" />
+    <None Include="Headers\2.14.2\PSPDFAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFAnnotationBarButtonItem.h" />
+    <None Include="Headers\2.14.2\PSPDFAnnotationCell.h" />
+    <None Include="Headers\2.14.2\PSPDFAnnotationParser.h" />
+    <None Include="Headers\2.14.2\PSPDFAnnotationProvider.h" />
+    <None Include="Headers\2.14.2\PSPDFAnnotationStyle.h" />
+    <None Include="Headers\2.14.2\PSPDFAnnotationStyleViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFAnnotationTableViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFAnnotationToolbar.h" />
+    <None Include="Headers\2.14.2\PSPDFAnnotationViewCache.h" />
+    <None Include="Headers\2.14.2\PSPDFAnnotationViewProtocol.h" />
+    <None Include="Headers\2.14.2\PSPDFAttributedLabel.h" />
+    <None Include="Headers\2.14.2\PSPDFBarButtonItem.h" />
+    <None Include="Headers\2.14.2\PSPDFBaseViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFBookmark.h" />
+    <None Include="Headers\2.14.2\PSPDFBookmarkBarButtonItem.h" />
+    <None Include="Headers\2.14.2\PSPDFBookmarkParser.h" />
+    <None Include="Headers\2.14.2\PSPDFBookmarkTableViewCell.h" />
+    <None Include="Headers\2.14.2\PSPDFBookmarkViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFBrightnessBarButtonItem.h" />
+    <None Include="Headers\2.14.2\PSPDFBrightnessSlider.h" />
+    <None Include="Headers\2.14.2\PSPDFBrightnessViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFCache.h" />
+    <None Include="Headers\2.14.2\PSPDFCacheInfo.h" />
+    <None Include="Headers\2.14.2\PSPDFCaretAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFCloseBarButtonItem.h" />
+    <None Include="Headers\2.14.2\PSPDFColorButton.h" />
+    <None Include="Headers\2.14.2\PSPDFColorPickerView.h" />
+    <None Include="Headers\2.14.2\PSPDFColorSelectionViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFColorView.h" />
+    <None Include="Headers\2.14.2\PSPDFContentScrollView.h" />
+    <None Include="Headers\2.14.2\PSPDFContinuousScrollViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFConverter.h" />
+    <None Include="Headers\2.14.2\PSPDFDiskCache.h" />
+    <None Include="Headers\2.14.2\PSPDFDocument.h" />
+    <None Include="Headers\2.14.2\PSPDFDocumentDelegate.h" />
+    <None Include="Headers\2.14.2\PSPDFDocumentLabelView.h" />
+    <None Include="Headers\2.14.2\PSPDFDocumentParser.h" />
+    <None Include="Headers\2.14.2\PSPDFDocumentProvider.h" />
+    <None Include="Headers\2.14.2\PSPDFDrawView.h" />
+    <None Include="Headers\2.14.2\PSPDFEmailBarButtonItem.h" />
+    <None Include="Headers\2.14.2\PSPDFExtendedPopoverController.h" />
+    <None Include="Headers\2.14.2\PSPDFFileAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFFileAnnotationProvider.h" />
+    <None Include="Headers\2.14.2\PSPDFFilePreviewController.h" />
+    <None Include="Headers\2.14.2\PSPDFFontInfo.h" />
+    <None Include="Headers\2.14.2\PSPDFFontSelectorViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFFontStyleViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFFreeTextAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFFreeTextAnnotationView.h" />
+    <None Include="Headers\2.14.2\PSPDFGenericAnnotationView.h" />
+    <None Include="Headers\2.14.2\PSPDFGeometry.h" />
+    <None Include="Headers\2.14.2\PSPDFGlobalLock.h" />
+    <None Include="Headers\2.14.2\PSPDFGlyph.h" />
+    <None Include="Headers\2.14.2\PSPDFGradientView.h" />
+    <None Include="Headers\2.14.2\PSPDFGraphicsState.h" />
+    <None Include="Headers\2.14.2\PSPDFHighlightAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFHighlightAnnotationView.h" />
+    <None Include="Headers\2.14.2\PSPDFHostingAnnotationView.h" />
+    <None Include="Headers\2.14.2\PSPDFHSVColorPickerController.h" />
+    <None Include="Headers\2.14.2\PSPDFHUDView.h" />
+    <None Include="Headers\2.14.2\PSPDFIconGenerator.h" />
+    <None Include="Headers\2.14.2\PSPDFImageAnnotationView.h" />
+    <None Include="Headers\2.14.2\PSPDFImageInfo.h" />
+    <None Include="Headers\2.14.2\PSPDFInkAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFKeyboardAvoidingScrollView.h" />
+    <None Include="Headers\2.14.2\PSPDFKit.h" />
+    <None Include="Headers\2.14.2\PSPDFKitGlobal.h" />
+    <None Include="Headers\2.14.2\PSPDFLabelParser.h" />
+    <None Include="Headers\2.14.2\PSPDFLabelView.h" />
+    <None Include="Headers\2.14.2\PSPDFLineAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFLineHelper.h" />
+    <None Include="Headers\2.14.2\PSPDFLinkAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFLinkAnnotationBaseView.h" />
+    <None Include="Headers\2.14.2\PSPDFLinkAnnotationView.h" />
+    <None Include="Headers\2.14.2\PSPDFLongPressGestureRecognizer.h" />
+    <None Include="Headers\2.14.2\PSPDFLoupeView.h" />
+    <None Include="Headers\2.14.2\PSPDFMemoryCache.h" />
+    <None Include="Headers\2.14.2\PSPDFMenuItem.h" />
+    <None Include="Headers\2.14.2\PSPDFModel.h" />
+    <None Include="Headers\2.14.2\PSPDFMoreBarButtonItem.h" />
+    <None Include="Headers\2.14.2\PSPDFMultiDocumentThumbnailViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFMultiDocumentViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFNavigationAppearanceSnapshot.h" />
+    <None Include="Headers\2.14.2\PSPDFNavigationController.h" />
+    <None Include="Headers\2.14.2\PSPDFNoteAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFNoteAnnotationController.h" />
+    <None Include="Headers\2.14.2\PSPDFNoteAnnotationView.h" />
+    <None Include="Headers\2.14.2\PSPDFOpenInBarButtonItem.h" />
+    <None Include="Headers\2.14.2\PSPDFOrderedDictionary.h" />
+    <None Include="Headers\2.14.2\PSPDFOutlineBarButtonItem.h" />
+    <None Include="Headers\2.14.2\PSPDFOutlineCell.h" />
+    <None Include="Headers\2.14.2\PSPDFOutlineElement.h" />
+    <None Include="Headers\2.14.2\PSPDFOutlineParser.h" />
+    <None Include="Headers\2.14.2\PSPDFOutlineViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFPageInfo.h" />
+    <None Include="Headers\2.14.2\PSPDFPageLabelView.h" />
+    <None Include="Headers\2.14.2\PSPDFPageRenderer.h" />
+    <None Include="Headers\2.14.2\PSPDFPageScrollViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFPageView.h" />
+    <None Include="Headers\2.14.2\PSPDFPageViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFPasswordView.h" />
+    <None Include="Headers\2.14.2\PSPDFPolygonAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFPopoverBackgroundView.h" />
+    <None Include="Headers\2.14.2\PSPDFPopoverController.h" />
+    <None Include="Headers\2.14.2\PSPDFPrintBarButtonItem.h" />
+    <None Include="Headers\2.14.2\PSPDFProcessor.h" />
+    <None Include="Headers\2.14.2\PSPDFProgressHUD.h" />
+    <None Include="Headers\2.14.2\PSPDFRenderQueue.h" />
+    <None Include="Headers\2.14.2\PSPDFResizableView.h" />
+    <None Include="Headers\2.14.2\PSPDFRichMediaAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFRoundedLabel.h" />
+    <None Include="Headers\2.14.2\PSPDFScreenAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFScrobbleBar.h" />
+    <None Include="Headers\2.14.2\PSPDFScrollView.h" />
+    <None Include="Headers\2.14.2\PSPDFSearchBarButtonItem.h" />
+    <None Include="Headers\2.14.2\PSPDFSearchHighlightView.h" />
+    <None Include="Headers\2.14.2\PSPDFSearchOperation.h" />
+    <None Include="Headers\2.14.2\PSPDFSearchResult.h" />
+    <None Include="Headers\2.14.2\PSPDFSearchResultCell.h" />
+    <None Include="Headers\2.14.2\PSPDFSearchStatusCell.h" />
+    <None Include="Headers\2.14.2\PSPDFSearchViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFSegmentedControl.h" />
+    <None Include="Headers\2.14.2\PSPDFSelectionView.h" />
+    <None Include="Headers\2.14.2\PSPDFShapeAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFSignatureViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFSimplePageViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFSinglePageViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFSoundAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFStampAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFStampViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFStatefulTableViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFStaticTableViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFStatusBarStyleHint.h" />
+    <None Include="Headers\2.14.2\PSPDFStream.h" />
+    <None Include="Headers\2.14.2\PSPDFStyleable.h" />
+    <None Include="Headers\2.14.2\PSPDFStyleManager.h" />
+    <None Include="Headers\2.14.2\PSPDFTabBarButton.h" />
+    <None Include="Headers\2.14.2\PSPDFTabBarView.h" />
+    <None Include="Headers\2.14.2\PSPDFTabbedViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFTextBlock.h" />
+    <None Include="Headers\2.14.2\PSPDFTextLine.h" />
+    <None Include="Headers\2.14.2\PSPDFTextParser.h" />
+    <None Include="Headers\2.14.2\PSPDFTextSearch.h" />
+    <None Include="Headers\2.14.2\PSPDFTextSelectionView.h" />
+    <None Include="Headers\2.14.2\PSPDFTextStampViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFThumbnailBar.h" />
+    <None Include="Headers\2.14.2\PSPDFThumbnailGridViewCell.h" />
+    <None Include="Headers\2.14.2\PSPDFThumbnailViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFTransitionHelper.h" />
+    <None Include="Headers\2.14.2\PSPDFTransitionProtocol.h" />
+    <None Include="Headers\2.14.2\PSPDFTransparentToolbar.h" />
+    <None Include="Headers\2.14.2\PSPDFValueTransformer.h" />
+    <None Include="Headers\2.14.2\PSPDFVideoAnnotationView.h" />
+    <None Include="Headers\2.14.2\PSPDFViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFViewController+Delegates.h" />
+    <None Include="Headers\2.14.2\PSPDFViewControllerDelegate.h" />
+    <None Include="Headers\2.14.2\PSPDFViewModeBarButtonItem.h" />
+    <None Include="Headers\2.14.2\PSPDFViewState.h" />
+    <None Include="Headers\2.14.2\PSPDFWebAnnotationView.h" />
+    <None Include="Headers\2.14.2\PSPDFWebViewController.h" />
+    <None Include="Headers\2.14.2\PSPDFWidgetAnnotation.h" />
+    <None Include="Headers\2.14.2\PSPDFWord.h" />
+    <None Include="Headers\2.14.2\PSPDFYouTubeAnnotationView.h" />
+    <None Include="Headers\2.14.2\PSTCollectionView.h" />
+    <None Include="Headers\2.14.2\PSTCollectionViewCell.h" />
+    <None Include="Headers\2.14.2\PSTCollectionViewCommon.h" />
+    <None Include="Headers\2.14.2\PSTCollectionViewController.h" />
+    <None Include="Headers\2.14.2\PSTCollectionViewFlowLayout.h" />
+    <None Include="Headers\2.14.2\PSTCollectionViewLayout.h" />
+    <None Include="Headers\2.14.2\PSTCollectionViewUpdateItem.h" />
+    <None Include="Headers\2.14.2\UIColor+PSPDFKitAdditions.h" />
+    <None Include="Headers\2.14.2\UIImage+PSPDFKitAdditions.h" />
+    <None Include="Resources\PSPDFKit.bundle\CMaps\90ms-RKSJ-UCS2" />
+    <None Include="Resources\PSPDFKit.bundle\CMaps\90pv-RKSJ-UCS2" />
+    <None Include="Resources\PSPDFKit.bundle\CMaps\90pv-RKSJ-UCS2C" />
+    <None Include="Resources\PSPDFKit.bundle\CMaps\Adobe-CNS1-UCS2" />
+    <None Include="Resources\PSPDFKit.bundle\CMaps\Adobe-GB1-UCS2" />
+    <None Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Japan1-UCS2" />
+    <None Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Korea1-UCS2" />
+    <None Include="Resources\PSPDFKit.bundle\CMaps\B5pc-UCS2" />
+    <None Include="Resources\PSPDFKit.bundle\CMaps\ETen-B5-UCS2" />
+    <None Include="Resources\PSPDFKit.bundle\CMaps\GBK-EUC-UCS2" />
+    <None Include="Resources\PSPDFKit.bundle\CMaps\GBpc-EUC-UCS2" />
+    <None Include="Resources\PSPDFKit.bundle\CMaps\KSCms-UHC-UCS2" />
+    <None Include="Resources\PSPDFKit.bundle\CMaps\KSCpc-EUC-UCS2" />
+    <None Include="Resources\PSPDFKit.bundle\CMaps\KSCpc-EUC-UCS2C" />
+    <None Include="Resources\PSPDFKit.bundle\StandardError.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PSPDFKit.bundle\de.lproj\PSPDFKit.strings" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\en.lproj\PSPDFKit.strings" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\es.lproj\PSPDFKit.strings" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\fr.lproj\PSPDFKit.strings" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\it.lproj\PSPDFKit.strings" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-hi.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-hi%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-lo.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-lo%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-mask.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-mask%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-hi.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-hi%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-lo.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-lo%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-lo-stemless.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-lo-stemless%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-mask.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-mask%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\brightness.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\brightness%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Check.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Check%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Circle.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Circle%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ColorsBlackWhite.plist" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ColorsModern.plist" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ColorsRainbow.plist" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ColorsVintage.plist" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ColorViewCheckmark.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ColorViewCheckmark%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Comment.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Comment%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CommentOverlay.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CommentOverlay%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Cross.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Cross%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ellipse.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ellipse%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\EmbossedIcon%402x~ipad.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\EmbossedIcon%402x~iphone.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\EmbossedIcon~ipad.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\EmbossedIcon~iphone.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\error.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\error%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\freetext.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\freetext%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\glyphs.plist" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Help.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Help%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\highlight.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\highlight%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Insert.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Insert%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Key.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Key%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\knob.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\knob%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\knobGreen.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\knobGreen%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\LessBright.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\LessBright%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\line.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\line%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\lock%402x~ipad.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\lock%402x~iphone.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\lock~ipad.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\lock~iphone.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\MoreBright.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\MoreBright%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\newcomment.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\newcomment%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\newimage.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\newimage%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\NewParagraph.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\NewParagraph%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Note.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Note%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Paragraph.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Paragraph%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Play.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Play%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\rectangle.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\rectangle%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\redo.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\redo%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\RightArrow.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\RightArrow%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\RightPointer.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\RightPointer%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\SelectionHandle.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\SelectionHandle%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\signature.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\signature%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\sketch.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\sketch%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\stamp.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\stamp%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\StandardFonts.plist" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Star.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\Star%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\strikeout.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\strikeout%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\success.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\success%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\underline.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\underline%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\undo.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\undo%402x.png" />
+  </ItemGroup>
+</Project>
