@@ -457,13 +457,13 @@ namespace KS_PSPDFKitBindings
 		[Export ("visibleAnnotationToolbar")]
 		PSPDFAnnotationToolbar VisibleAnnotationToolbar ();
 		
-		[Export ("pageLabel")]
+		[Export ("pageLabel")][NullAllowed]
 		PSPDFPageLabelView PageLabel { get; set; }
 		
 		[Export ("scrobbleBar")]
 		PSPDFScrobbleBar ScrobbleBar { get; set; }
 		
-		[Export ("documentLabel")]
+		[Export ("documentLabel")][NullAllowed]
 		PSPDFDocumentLabelView DocumentLabel { get; set; }
 		
 		[Export ("annotationViewCache")]
