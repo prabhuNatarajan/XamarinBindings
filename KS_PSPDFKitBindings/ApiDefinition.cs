@@ -2126,7 +2126,7 @@ namespace KS_PSPDFKitBindings
 		NSString PSPDFAnnotationDrawFlattened { get; }
 		
 		[Export ("drawInContext:withOptions:")]
-		void DrawInContext (CGContext context, NSDictionary options);
+		void DrawInContext (CGContext context, [NullAllowed]NSDictionary options);
 		
 		[Field ("kPSPDFAnnotationDrawCentered", "__Internal")]
 		NSString PSPDFAnnotationDrawCentered { get; }
@@ -2232,9 +2232,10 @@ namespace KS_PSPDFKitBindings
 		
 		[Export("infoDescription")]
 		string InfoDescription {get;}
-		
-		[Export ("isEqualToAnnotation:")]
-		bool IsEqualToAnnotation (PSPDFAnnotation otherAnnotation);
+
+		//Not Required and Crashes
+		//[Export ("isEqualToAnnotation:")]
+		//bool IsEqualToAnnotation (PSPDFAnnotation otherAnnotation);
 		
 		
 		// Constants
