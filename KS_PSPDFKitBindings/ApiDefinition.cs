@@ -714,8 +714,8 @@ namespace KS_PSPDFKitBindings
 		UIImage Ps_Image { get; set; }
 		
 		//Didn't bind Action block as a property due to there is no real use to get the block back
-		[Export ("setBlock:", ArgumentSemantic.Copy)]
-		void SetBlock (PSPDFMenuItemInitWithTitleHandler handler);
+		//[Export ("setBlock:", ArgumentSemantic.Copy)]
+		//void SetBlock (PSPDFMenuItemInitWithTitleHandler handler);
 		
 		[Static][Export("installMenuHandlerForObject:")]
 		void InstallMenuHandlerForObject (NSObject obj);
