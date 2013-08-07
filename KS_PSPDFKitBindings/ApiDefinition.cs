@@ -2472,8 +2472,8 @@ namespace KS_PSPDFKitBindings
 		[Export ("lines", ArgumentSemantic.Copy)]
 		NSArray Lines { get; [NullAllowed]set; }
 		
-		[Export ("paths")]
-		UIBezierPath [] Paths { get; }
+		//[Export ("paths")]
+		//UIBezierPath [] Paths { get; }
 		
 		[Export ("setBoundingBox:transformLines:")]
 		void SetBoundingBox (RectangleF boundingBox, bool transformLines);
