@@ -1121,6 +1121,12 @@ namespace KS_PSPDFKitBindings
 
 		[Field ("kPSPDFMetadataKeyTrapped", "__Internal")]
 		NSString PSPDFMetadataKeyTrapped { get; }
+
+		[Export("renderImageForPage:withSize:clippedToRect:withAnnotations:options:")] 
+		UIImage RenderImageForPage (uint page, SizeF fullSize, RectangleF clipRect, [NullAllowed] PSPDFAnnotation [] annotations, NSDictionary options);
+
+		[Export("renderPage:inContext:withSize:clippedToRect:withAnnotations:options:")] [Internal]
+		void RenderPage_ (uint page, IntPtr /*CGContextRef*/ context, SizeF fullSize, RectangleF clipRect, [NullAllowed] PSPDFAnnotation [] annotations, NSDictionary options);
 	}
 
 	//////////////////////////////////////////////
@@ -3855,6 +3861,9 @@ namespace KS_PSPDFKitBindings
 
 		[Export ("fontSize", ArgumentSemantic.Assign)]
 		float FontSize { get; set; }
+
+		[Export("textAlignment", ArgumentSemantic.Assign)]
+		UITextAlignment TextAlignment { get; set; }
 
 		[Export ("defaultFontSize")]
 		float DefaultFontSize { get; }
