@@ -29,6 +29,7 @@
     <OptimizePNGs>false</OptimizePNGs>
     <MtouchProfiling>true</MtouchProfiling>
     <MtouchUseSGen>true</MtouchUseSGen>
+    <MtouchSdkVersion>6.1</MtouchSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -68,6 +69,8 @@
     <MtouchI18n />
     <MtouchArch>ARMv7</MtouchArch>
     <MtouchExtraArgs>--nosymbolstrip</MtouchExtraArgs>
+    <MtouchSdkVersion>6.1</MtouchSdkVersion>
+    <IpaPackageName />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -99,6 +102,7 @@
     <Reference Include="KS_PSPDFKitBindings">
       <HintPath>..\KS_PSPDFKitBindings\bin\KS_PSPDFKitBindings.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Security" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -132,6 +136,7 @@
     <Compile Include="Customizing\CombinedTabBarController\KSKSAnnotationsListController.cs" />
     <Compile Include="Customizing\CatchTappingLinks\KSCatchTappingLinkDelegate.cs" />
     <Compile Include="KSExtensions.cs" />
+    <Compile Include="Rfc2898DeriveBytesFlexible.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -3827,10 +3827,10 @@ namespace KS_PSPDFKitBindings
 	{
 		[Export ("initWithURL:passphrase:salt:")]
 		IntPtr Constructor (NSUrl url, string passphrase, string salt);
-		
-		[Export ("dataProviderRef")] [Internal]
-		IntPtr DataProviderRef_ ();
-		
+
+		[Export("dataProvider", ArgumentSemantic.Assign)][Internal]
+		IntPtr /*CGDataProviderRef*/ DataProvider_ { get; }
+
 		[Export ("isAESCryptoDataProvider:")] [Internal] [Static]
 		bool IsAESCryptoDataProvider_ (IntPtr dataProviderRef);
 		
