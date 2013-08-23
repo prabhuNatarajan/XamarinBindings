@@ -7,6 +7,8 @@ namespace PSPDFKitDemoXamarin.iOS
 	{
 		public KSKioskViewController (PSPDFDocument doc) : base(doc)
 		{
+			this.RightBarButtonItems = new PSPDFBarButtonItem[] { this.AnnotationButtonItem, this.BookmarkButtonItem, this.SearchButtonItem, this.OutlineButtonItem, this.ViewModeButtonItem };
+
 		}
 
 		// If this constructor is missing, we're crashing!

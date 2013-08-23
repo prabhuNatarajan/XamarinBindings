@@ -1,9 +1,10 @@
 bin/
-
 obj/
-
 .DS_Store
-
+FULL_PSPDFKit.a
+AlexTouch.PSPDFKit/obj/.DS_Store
+AlexTouch.PSPDFKit/obj/Debug/.DS_Store
+AlexTouch.PSPDFKit/.DS_Store
+AlexTouch.PSPDFKit.userprefs
 *.userprefs
-
 PSPDFKit-Demo-Xamarin.iOS.userprefs

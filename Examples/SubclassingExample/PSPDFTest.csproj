@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{75AC5FA9-7DDB-47B9-AF77-8C34B8EA7A80}</ProjectGuid>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>PSPDFTest</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>PSPDFTest</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <MtouchDebug>True</MtouchDebug>
+    <MtouchProfiling>True</MtouchProfiling>
+    <MtouchLink>None</MtouchLink>
+    <MtouchI18n />
+    <MtouchArch>ARMv7</MtouchArch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchDebug>True</MtouchDebug>
+    <MtouchProfiling>True</MtouchProfiling>
+    <IpaPackageName />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <BuildIpa>True</BuildIpa>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhone\AppStore</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="PSPDFTestViewController.cs" />
+    <Compile Include="PSPDFTestViewController.designer.cs">
+      <DependentUpon>PSPDFTestViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PdfViewer\PSPDFKitDocument.cs" />
+    <Compile Include="PdfViewer\PSPDFKitHelper.cs" />
+    <Compile Include="PdfViewer\PSPDFKitViewControllerDelegate.cs" />
+    <Compile Include="PdfViewer\CustomNoteAnnotationController.cs" />
+    <Compile Include="PdfViewer\CustomLinkAnnotationView.cs" />
+    <Compile Include="PdfViewer\CustomAnnotationProvider.cs" />
+    <Compile Include="PdfViewer\CustomNoteAnnotation.cs" />
+    <Compile Include="PdfViewer\CustomFileAnnnotationsProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="PSPDFTestViewController.xib" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Content Include="one.pdf" />
+    <Content Include="A.pdf" />
+    <Content Include="hackermonthly12.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PSPDFKit.bundle\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="PSPDFKit.bundle\Check.png" />
+    <BundleResource Include="PSPDFKit.bundle\Check%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\Circle.png" />
+    <BundleResource Include="PSPDFKit.bundle\Circle%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\ColorViewCheckmark.png" />
+    <BundleResource Include="PSPDFKit.bundle\ColorViewCheckmark%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\ColorsBlackWhite.plist" />
+    <BundleResource Include="PSPDFKit.bundle\ColorsModern.plist" />
+    <BundleResource Include="PSPDFKit.bundle\ColorsRainbow.plist" />
+    <BundleResource Include="PSPDFKit.bundle\ColorsVintage.plist" />
+    <BundleResource Include="PSPDFKit.bundle\Comment.png" />
+    <BundleResource Include="PSPDFKit.bundle\Comment%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\CommentOverlay.png" />
+    <BundleResource Include="PSPDFKit.bundle\CommentOverlay%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\Cross.png" />
+    <BundleResource Include="PSPDFKit.bundle\Cross%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\EmbossedIcon%402x~ipad.png" />
+    <BundleResource Include="PSPDFKit.bundle\EmbossedIcon%402x~iphone.png" />
+    <BundleResource Include="PSPDFKit.bundle\EmbossedIcon~ipad.png" />
+    <BundleResource Include="PSPDFKit.bundle\EmbossedIcon~iphone.png" />
+    <BundleResource Include="PSPDFKit.bundle\Help.png" />
+    <BundleResource Include="PSPDFKit.bundle\Help%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\Insert.png" />
+    <BundleResource Include="PSPDFKit.bundle\Insert%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\Key.png" />
+    <BundleResource Include="PSPDFKit.bundle\Key%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\LessBright.png" />
+    <BundleResource Include="PSPDFKit.bundle\LessBright%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\MoreBright.png" />
+    <BundleResource Include="PSPDFKit.bundle\MoreBright%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\NewParagraph.png" />
+    <BundleResource Include="PSPDFKit.bundle\NewParagraph%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\Note.png" />
+    <BundleResource Include="PSPDFKit.bundle\Note%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\Paragraph.png" />
+    <BundleResource Include="PSPDFKit.bundle\Paragraph%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\Play.png" />
+    <BundleResource Include="PSPDFKit.bundle\Play%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\RightArrow.png" />
+    <BundleResource Include="PSPDFKit.bundle\RightArrow%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\RightPointer.png" />
+    <BundleResource Include="PSPDFKit.bundle\RightPointer%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\SelectionHandle.png" />
+    <BundleResource Include="PSPDFKit.bundle\SelectionHandle%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\StandardError.html" />
+    <BundleResource Include="PSPDFKit.bundle\StandardFonts.plist" />
+    <BundleResource Include="PSPDFKit.bundle\Star.png" />
+    <BundleResource Include="PSPDFKit.bundle\Star%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\brightness.png" />
+    <BundleResource Include="PSPDFKit.bundle\brightness%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\error.png" />
+    <BundleResource Include="PSPDFKit.bundle\error%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\freetext.png" />
+    <BundleResource Include="PSPDFKit.bundle\freetext%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\glyphs.plist" />
+    <BundleResource Include="PSPDFKit.bundle\highlight.png" />
+    <BundleResource Include="PSPDFKit.bundle\highlight%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\lock.png" />
+    <BundleResource Include="PSPDFKit.bundle\lock%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\newcomment.png" />
+    <BundleResource Include="PSPDFKit.bundle\newcomment%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\newimage.png" />
+    <BundleResource Include="PSPDFKit.bundle\newimage%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\redo.png" />
+    <BundleResource Include="PSPDFKit.bundle\redo%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\signature.png" />
+    <BundleResource Include="PSPDFKit.bundle\signature%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\sketch.png" />
+    <BundleResource Include="PSPDFKit.bundle\sketch%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\stamp.png" />
+    <BundleResource Include="PSPDFKit.bundle\stamp%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\strikeout.png" />
+    <BundleResource Include="PSPDFKit.bundle\strikeout%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\success.png" />
+    <BundleResource Include="PSPDFKit.bundle\success%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\underline.png" />
+    <BundleResource Include="PSPDFKit.bundle\underline%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\undo.png" />
+    <BundleResource Include="PSPDFKit.bundle\undo%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\CMaps\90ms-RKSJ-UCS2" />
+    <BundleResource Include="PSPDFKit.bundle\CMaps\90pv-RKSJ-UCS2" />
+    <BundleResource Include="PSPDFKit.bundle\CMaps\90pv-RKSJ-UCS2C" />
+    <BundleResource Include="PSPDFKit.bundle\CMaps\Adobe-CNS1-UCS2" />
+    <BundleResource Include="PSPDFKit.bundle\CMaps\Adobe-GB1-UCS2" />
+    <BundleResource Include="PSPDFKit.bundle\CMaps\Adobe-Japan1-UCS2" />
+    <BundleResource Include="PSPDFKit.bundle\CMaps\Adobe-Korea1-UCS2" />
+    <BundleResource Include="PSPDFKit.bundle\CMaps\B5pc-UCS2" />
+    <BundleResource Include="PSPDFKit.bundle\CMaps\ETen-B5-UCS2" />
+    <BundleResource Include="PSPDFKit.bundle\CMaps\GBK-EUC-UCS2" />
+    <BundleResource Include="PSPDFKit.bundle\CMaps\GBpc-EUC-UCS2" />
+    <BundleResource Include="PSPDFKit.bundle\CMaps\KSCms-UHC-UCS2" />
+    <BundleResource Include="PSPDFKit.bundle\CMaps\KSCpc-EUC-UCS2" />
+    <BundleResource Include="PSPDFKit.bundle\CMaps\KSCpc-EUC-UCS2C" />
+    <BundleResource Include="PSPDFKit.bundle\loupe\loupe-hi.png" />
+    <BundleResource Include="PSPDFKit.bundle\loupe\loupe-hi%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\loupe\loupe-lo.png" />
+    <BundleResource Include="PSPDFKit.bundle\loupe\loupe-lo%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\loupe\loupe-mask.png" />
+    <BundleResource Include="PSPDFKit.bundle\loupe\loupe-mask%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\loupe\magnifier-ranged-hi.png" />
+    <BundleResource Include="PSPDFKit.bundle\loupe\magnifier-ranged-hi%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\loupe\magnifier-ranged-lo-stemless.png" />
+    <BundleResource Include="PSPDFKit.bundle\loupe\magnifier-ranged-lo-stemless%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\loupe\magnifier-ranged-lo.png" />
+    <BundleResource Include="PSPDFKit.bundle\loupe\magnifier-ranged-lo%402x.png" />
+    <BundleResource Include="PSPDFKit.bundle\loupe\magnifier-ranged-mask.png" />
+    <BundleResource Include="PSPDFKit.bundle\loupe\magnifier-ranged-mask%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AlexTouch.PSPDFKit\AlexTouch.PSPDFKit.csproj">
+      <Project>{93F9A353-ABA6-468E-85F0-2FF8D354873F}</Project>
+      <Name>AlexTouch.PSPDFKit</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

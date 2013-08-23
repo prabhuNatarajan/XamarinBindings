@@ -25,7 +25,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>PSPDF.Xamarin.iOS</string>
 	<key>CFBundleIdentifier</key>
-	<string>net.wildsau.pdpfxamarinios</string>
+	<string>com.pspdfkit.pdpfxamarinios</string>
 	<key>CFBundleVersion</key>
 	<string>1.0.0</string>
 	<key>CFBundleIconFiles</key>

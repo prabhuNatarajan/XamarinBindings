@@ -1,7 +1,7 @@
 using System;
+using System.Text;
 using System.Security.Cryptography;
 using Mono.Security.Cryptography;
-using System.Text;
 
 namespace PSPDFKitDemoXamarin.iOS
 {

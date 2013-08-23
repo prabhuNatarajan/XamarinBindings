@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSPDFKit-MonoTouchTest", "PSPDFKit-MonoTouchTest\PSPDFKit-MonoTouchTest.csproj", "{B80D5CDF-0E1F-4D7B-99B2-9825F227A31E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexTouch.PSPDFKit", "..\..\AlexTouch.PSPDFKit\AlexTouch.PSPDFKit.csproj", "{93F9A353-ABA6-468E-85F0-2FF8D354873F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+		Release|iPhone = Release|iPhone
+		Ad-Hoc|iPhone = Ad-Hoc|iPhone
+		AppStore|iPhone = AppStore|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{93F9A353-ABA6-468E-85F0-2FF8D354873F}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{93F9A353-ABA6-468E-85F0-2FF8D354873F}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{93F9A353-ABA6-468E-85F0-2FF8D354873F}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{93F9A353-ABA6-468E-85F0-2FF8D354873F}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{93F9A353-ABA6-468E-85F0-2FF8D354873F}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{93F9A353-ABA6-468E-85F0-2FF8D354873F}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{93F9A353-ABA6-468E-85F0-2FF8D354873F}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{93F9A353-ABA6-468E-85F0-2FF8D354873F}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{93F9A353-ABA6-468E-85F0-2FF8D354873F}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{93F9A353-ABA6-468E-85F0-2FF8D354873F}.Release|iPhone.Build.0 = Release|Any CPU
+		{93F9A353-ABA6-468E-85F0-2FF8D354873F}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{93F9A353-ABA6-468E-85F0-2FF8D354873F}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{B80D5CDF-0E1F-4D7B-99B2-9825F227A31E}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{B80D5CDF-0E1F-4D7B-99B2-9825F227A31E}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{B80D5CDF-0E1F-4D7B-99B2-9825F227A31E}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{B80D5CDF-0E1F-4D7B-99B2-9825F227A31E}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{B80D5CDF-0E1F-4D7B-99B2-9825F227A31E}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{B80D5CDF-0E1F-4D7B-99B2-9825F227A31E}.Debug|iPhone.Build.0 = Debug|iPhone
+		{B80D5CDF-0E1F-4D7B-99B2-9825F227A31E}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{B80D5CDF-0E1F-4D7B-99B2-9825F227A31E}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{B80D5CDF-0E1F-4D7B-99B2-9825F227A31E}.Release|iPhone.ActiveCfg = Release|iPhone
+		{B80D5CDF-0E1F-4D7B-99B2-9825F227A31E}.Release|iPhone.Build.0 = Release|iPhone
+		{B80D5CDF-0E1F-4D7B-99B2-9825F227A31E}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{B80D5CDF-0E1F-4D7B-99B2-9825F227A31E}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = PSPDFKit-MonoTouchTest\PSPDFKit-MonoTouchTest.csproj
+	EndGlobalSection
+EndGlobal

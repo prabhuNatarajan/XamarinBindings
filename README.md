@@ -1,6 +1,13 @@
+MonoTouch Bindings for PSPDFKit v2.14.8
+=======================================
+
+This project provides bindings for use in MonoTouch (iOS 5.0 and above) for the PSPDFKit PDF Library (www.pspdfkit.com).
+The bindings are provided for version 2.14.8 of PSPDFKit. (But future versions generally work as well)
+
+There are two examples, one for basic usage, one showing how to do subclassing.
 ## PSPDFKit - The definitive framework for displaying and annotating PDFs in your iOS apps.
 
-This is a sample project for the Xamarin.iOS bindings of PSPDFKit (v2.14.2).
+This is a sample project for the Xamarin.iOS bindings of PSPDFKit (v2.14.8).
 
 ### You can purchase a license and the full source code at http://pspdfkit.com.
 [![PSPDFKit](http://pspdfkit.com/images/header-small.jpg)](http://pspdfkit.com)
