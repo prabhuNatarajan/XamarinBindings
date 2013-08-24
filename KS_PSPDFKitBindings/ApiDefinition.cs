@@ -112,9 +112,14 @@ namespace KS_PSPDFKitBindings
 		[Export ("viewLockEnabled", ArgumentSemantic.Assign)]
 		bool ViewLockEnabled { [Bind ("isViewLockEnabled")] get; set; }
 
+
+		/*
+		 * This gets called from dealloc() in the unmanaged world and causes the managed PSPDFViewController instance to be resurrected.
+		 * See: http://forums.xamarin.com/discussion/4337/how-to-find-out-why-some-native-code-is-constantly-calling-the-intptr-constructor#latest
 		[Export ("rotationLockEnabled", ArgumentSemantic.Assign)]
 		bool RotationLockEnabled { [Bind ("isRotationLockEnabled")] get; set; }
-
+		*/
+		
 		[Export ("scrollOnTapPageEndEnabled", ArgumentSemantic.Assign)]
 		bool ScrollOnTapPageEndEnabled { [Bind ("isScrollOnTapPageEndEnabled")] get; set; }
 
@@ -709,9 +714,9 @@ namespace KS_PSPDFKitBindings
 		UIImage Ps_Image { get; set; }
 
 		//Didn't bind Action block as a property due to there is no real use to get the block back
-		[Export ("setBlock:", ArgumentSemantic.Copy)]
-		void SetBlock (PSPDFMenuItemInitWithTitleHandler handler);
-
+		//[Export ("setBlock:", ArgumentSemantic.Copy)]
+		//void SetBlock (PSPDFMenuItemInitWithTitleHandler handler);
+		
 		[Static][Export("installMenuHandlerForObject:")]
 		void InstallMenuHandlerForObject (NSObject obj);
 
@@ -2127,7 +2132,7 @@ namespace KS_PSPDFKitBindings
 		NSString PSPDFAnnotationDrawFlattened { get; }
 
 		[Export ("drawInContext:withOptions:")]
-		void DrawInContext (CGContext context, NSDictionary options);
+		void DrawInContext (CGContext context, [NullAllowed]NSDictionary options);
 
 		[Field ("kPSPDFAnnotationDrawCentered", "__Internal")]
 		NSString PSPDFAnnotationDrawCentered { get; }
@@ -2234,10 +2239,10 @@ namespace KS_PSPDFKitBindings
 		[Export("infoDescription")]
 		string InfoDescription {get;}
 
-		[Export ("isEqualToAnnotation:")]
-		bool IsEqualToAnnotation (PSPDFAnnotation otherAnnotation);
-
-
+		//Not Required and Crashes
+		//[Export ("isEqualToAnnotation:")]
+		//bool IsEqualToAnnotation (PSPDFAnnotation otherAnnotation);
+		
 		// Constants
 
 		[Field ("PSPDFAnnotationTypeStringLink", "__Internal")]
@@ -2472,8 +2477,8 @@ namespace KS_PSPDFKitBindings
 		[Export ("lines", ArgumentSemantic.Copy)]
 		NSArray Lines { get; [NullAllowed]set; }
 
-		[Export ("paths")]
-		UIBezierPath [] Paths { get; }
+		//[Export ("paths")]
+		//UIBezierPath [] Paths { get; }
 
 		[Export ("setBoundingBox:transformLines:")]
 		void SetBoundingBox (RectangleF boundingBox, bool transformLines);
@@ -3828,8 +3833,8 @@ namespace KS_PSPDFKitBindings
 		[Export ("initWithURL:passphrase:salt:")]
 		IntPtr Constructor (NSUrl url, string passphrase, string salt);
 
-		[Export ("dataProviderRef")] [Internal]
-		IntPtr DataProviderRef_ ();
+		[Export("dataProvider", ArgumentSemantic.Assign)][Internal]
+		IntPtr /*CGDataProviderRef*/ DataProvider_ { get; }
 
 		[Export ("isAESCryptoDataProvider:")] [Internal] [Static]
 		bool IsAESCryptoDataProvider_ (IntPtr dataProviderRef);

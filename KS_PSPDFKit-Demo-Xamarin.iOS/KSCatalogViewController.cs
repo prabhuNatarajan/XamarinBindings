@@ -9,6 +9,9 @@ using MonoTouch.Dialog;
 using KS_PSPDFKitBindings;
 using MonoTouch.ObjCRuntime;
 using System.Collections.Specialized;
+using System.Security.Cryptography;
+using System.IO;
+using System.Text;
 
 namespace PSPDFKitDemoXamarin.iOS
 {
@@ -18,6 +21,7 @@ namespace PSPDFKitDemoXamarin.iOS
 		const string PaperExampleFileName = "amazon-dynamo-sosp2007.pdf";
 		const string PSPDFCatalog = "PSPDFKit.pdf";
 		const string HackerMagazineExample = "hackermonthly12.pdf";
+		const string AesEncryptedDoc = "aes-encrypted.pdf.aes";
 		const string AnnotTestExample = "Annotation Test.pdf";
 
 		public bool clearCacheNeeded;
@@ -41,7 +45,7 @@ namespace PSPDFKitDemoXamarin.iOS
 
 			NSUrl samplesURL = NSBundle.MainBundle.ResourceUrl.Append ("Samples", true);
 			NSUrl hackerMagURL = samplesURL.Append(HackerMagazineExample, false);
-			NSUrl annotTestURL = samplesURL.Append(AnnotTestExample, false);
+			NSUrl aesEncryptedURL = samplesURL.Append(AesEncryptedDoc, false);
 
 
 			this.Root = new RootElement ("KSCatalogViewController")
@@ -236,6 +240,83 @@ namespace PSPDFKitDemoXamarin.iOS
 						set.Add(PSPDFAnnotation.PSPDFAnnotationTypeStringUnderline);
 
 						controller.AnnotationButtonItem.AnnotationToolbar.EditableAnnotationTypes = set.ToNSOrderedSet();
+						this.NavigationController.PushViewController(controller, true);
+					})
+				},
+
+				new Section("Security")
+				{
+					// This shows and tests decryption and viewing of a pre-encrypted document.
+					new StringElement("Read AES encrypted document", () => {
+						// Note: For shipping apps, you need to protect this string better, making it harder for hacker to simply disassemble and receive the key from the binary. Or add an internet service that fetches the key from an SSL-API. But then there's still the slight risk of memory dumping with an attached gdb. Or screenshots. Security is never 100% perfect; but using AES makes it way harder to get the PDF. You can even combine AES and a PDF password.
+						string passphrase = @"afghadöghdgdhfgöhapvuenröaoeruhföaeiruaerub";
+						string salt = @"ducrXn9WaRdpaBfMjDTJVjUf3FApA6gtim0e61LeSGWV9sTxB0r26mPs59Lbcexn";
+
+						var cryptoWrapper = new PSPDFAESCryptoDataProvider(aesEncryptedURL, passphrase, salt);
+
+						var provider = cryptoWrapper.DataProvider;
+						var document = PSPDFDocument.PDFDocumentWithDataProvider(provider);
+						document.Uid = AesEncryptedDoc; // manually set an UID for encrypted documents.
+
+						// When PSPDFAESCryptoDataProvider is used, the cacheStrategy of PSPDFDocument is *automatically* set to PSPDFCacheNothing.
+						// If you use your custom crypto solution, don't forget to set this to not leak out encrypted data as cached images.
+						// document.cacheStrategy = PSPDFCacheNothing;
+
+						var controller = new PSPDFViewController(document);
+						this.NavigationController.PushViewController(controller, true);
+					}),
+
+					// This encrypts a PDF, saves it and then opens it.
+					new StringElement("Encrypt a PDF and decrypt it again", () => {
+						var targetFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "encrypted.pdf.aes");
+
+						// The passphrase is a secret! Keep it secret!
+						string passphrase = "Hello World, I'm the secret!";
+
+						// The salt has to be at least 8 bytes. It should change for every encrypted document, just like the IV.
+						// You can store it in cleartext together with your encrypted record, it's not a secret but used to prevent that
+						// two identical passwords generate the same hash.
+						// The salt should NOT be "12345678"! This is just for testing! Use something random.
+						string salt = "132456789";
+
+						// PSPDFKit v2 does not allow passing the key directly. Instead it regegenerates the key using native PBKDF2.
+						// PSPDFKit v3 will have different API where you can use the key directly.
+						// Also note that PSPDFKit internally uses 50000 hashing iterations, so we have to use exactly the same algorithm.
+						// Rfc2898DeriveBytes only supports SHA1, so we have a flexible version of it here where you can specify the hashing alogorithm.
+						var deriveBytes = new Rfc2898DeriveBytesFlexible(passphrase, Encoding.UTF8.GetBytes(salt), 50000, new HMACSHA256());
+
+						// Encrypt the PDF.
+						using (var rijndael = new RijndaelManaged())
+						{
+							rijndael.KeySize = 256;
+
+							rijndael.Key = deriveBytes.GetBytes ( rijndael.KeySize / 8 );
+							rijndael.IV = deriveBytes.GetBytes ( rijndael.BlockSize / 8 ); 
+
+							using(var readStream = File.Open("./Samples/" + HackerMagazineExample, FileMode.Open))
+							using(var writeStream = File.Open(targetFilePath, FileMode.Create))
+							using(var cryptoTrans = rijndael.CreateEncryptor ())
+							using(var encryptedStream = new CryptoStream (writeStream, cryptoTrans, CryptoStreamMode.Write))
+							{
+								// Write the IV unencrypted first.
+								writeStream.Write(rijndael.IV, 0, rijndael.IV.Length);
+								// Then the encrypted PDF.
+								readStream.CopyTo(encryptedStream);
+							}
+						}
+
+						// Decrypt the just encrypted file and view it.
+						var cryptoWrapper = new PSPDFAESCryptoDataProvider(NSUrl.FromFilename(targetFilePath), passphrase, salt);
+
+						var provider = cryptoWrapper.DataProvider;
+						var document = PSPDFDocument.PDFDocumentWithDataProvider(provider);
+						document.Uid = AesEncryptedDoc; // manually set an UID for encrypted documents.
+
+						// When PSPDFAESCryptoDataProvider is used, the cacheStrategy of PSPDFDocument is *automatically* set to PSPDFCacheNothing.
+						// If you use your custom crypto solution, don't forget to set this to not leak out encrypted data as cached images.
+						// document.cacheStrategy = PSPDFCacheNothing;
+
+						var controller = new PSPDFViewController(document);
 						this.NavigationController.PushViewController(controller, true);
 					})
 				}

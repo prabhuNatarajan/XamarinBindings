@@ -988,10 +988,12 @@ namespace KS_PSPDFKitBindings
 	
 	public partial class PSPDFAESCryptoDataProvider : NSObject
 	{
-		public CGDataProvider DataProvider {
+		public CGDataProvider DataProvider
+		{
 			get 
 			{
-				return new CGDataProvider(DataProviderRef_());
+				IntPtr ptr = this.DataProvider_;
+				return new CGDataProvider(ptr);
 			}
 		}
 		
